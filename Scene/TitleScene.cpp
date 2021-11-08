@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "AudioManager.h"
 
+
 TitleScene::TitleScene(IoChangedListener *impl)
 	: AbstractScene(impl)
 {
@@ -15,24 +16,27 @@ TitleScene::TitleScene(IoChangedListener *impl)
 
 	obj1 = Object3d::Create();
 	obj1->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Player));
-	obj1->scale = { 2.0f,2.0f,2.0f };
+	obj1->SetScale({ 2.0f,2.0f,2.0f });
 	obj1->Update();
 	obj1->Initialize();
 
 
 	obj2 = Object3d::Create();
 	obj2->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Triangle));
-	obj2->scale = { 10.0f,10.0f,10.0f };
-	obj2->position = { 10.0f,0.0f,0.0f };
+	obj2->SetScale({10.0f,10.0f,10.0f });
+	obj2->SetPos({ 10.0f,0.0f,0.0f });
 	obj2->Update();
 	obj2->Initialize();
+
+
+	Initialize();
 
 	AudioManager::SoundPlayWave(AudioManager::GameBgm, true);
 }
 
 void TitleScene::Initialize()
 {
-
+	player.Initialize();
 }
 
 void TitleScene::Finalize()
@@ -41,15 +45,11 @@ void TitleScene::Finalize()
 
 void TitleScene::Update()
 {
-	if (KeyboardInput::GetKeyPress(DIK_SPACE)) {
-		//implSceneChanged->OnSceneChanged(Test);
-		//AudioManager::SoundStopWave(AudioManager::GameBgm);
-		obj1->rotation.z++;
-	}
 	Object2d::SpriteUpdate(title);
 	obj1->Update();
 	obj2->Update();
 
+	player.Update();
 }
 
 void TitleScene::Draw() const
@@ -62,5 +62,7 @@ void TitleScene::Draw() const
 	obj1->Draw();
 	obj2->Draw();
 	Object3d::PostDraw();
+
+	player.Draw();
 
 }

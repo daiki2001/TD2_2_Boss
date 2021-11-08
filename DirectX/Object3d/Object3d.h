@@ -103,14 +103,19 @@ public:		//メンバ関数
 	//描画
 	void Draw();
 
+	void SetPos(Vector3 nextPos) { position = nextPos; }
+	void SetScale(Vector3 nextScale) { scale = nextScale; }
+	void SetRotation(Vector3 nextRotation) { rotation = nextRotation; }
+	Vector3 GetPos() { return position; }
+	Vector3 GetScale() { return scale; }
+	Vector3 GetRotation() { return rotation; }
 
-public:		//書き換えの発生するメンバ変数
+private:	//メンバ変数
 	XMFLOAT4 color = { 1,1,1,1 };	//色
 	Vector3 scale = { 1,1,1 };		//スケール	
 	Vector3 rotation = { 1,0,0 };	//回転
 	Vector3 position = { 0,0,0 };	//座標
 
-private:	//メンバ変数
 	Model *objectModel = nullptr;					//モデルポインター
 	ComPtr<ID3D12Resource> constBuffB0;		//定数バッファ
 	ComPtr<ID3D12Resource> constBuffB1;		//定数バッファ
