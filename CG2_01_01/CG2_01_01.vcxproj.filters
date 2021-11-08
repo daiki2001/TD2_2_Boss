@@ -16,9 +16,6 @@
     <Filter Include="DirectX基盤\DirectX">
       <UniqueIdentifier>{a519204a-083b-4287-816e-532ae27fbc62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectX基盤\DirectX\Keyboard">
-      <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DirectX基盤\DirectX\Object2d">
       <UniqueIdentifier>{90666f83-3567-4c57-84d1-36b3963c7588}</UniqueIdentifier>
     </Filter>
@@ -42,9 +39,6 @@
     </Filter>
     <Filter Include="DirectX基盤\DirectX\整理済み\ImageManager">
       <UniqueIdentifier>{10d9ff90-552d-4144-b9fb-a3ed93a3c25f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\整理済み\AudioManager">
-      <UniqueIdentifier>{acd2ef99-6153-4472-9f25-885073618524}</UniqueIdentifier>
     </Filter>
     <Filter Include="DirectX基盤\DirectX\Model">
       <UniqueIdentifier>{03b79234-8687-4e02-afd8-0c60ea964501}</UniqueIdentifier>
@@ -91,6 +85,18 @@
     <Filter Include="GameEngin\ModelManager">
       <UniqueIdentifier>{cf08131b-97bf-47fa-a7bf-77beff0deb53}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectX基盤\DirectX\AudioManager">
+      <UniqueIdentifier>{acd2ef99-6153-4472-9f25-885073618524}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\Input">
+      <UniqueIdentifier>{9d734897-599f-42b4-b636-3fbc99d48b23}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\Input\Keyboard">
+      <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\TitleScene\Player">
+      <UniqueIdentifier>{cfa4d2d6-9841-4229-81eb-52de29e4572b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVS.hlsl" />
@@ -108,17 +114,8 @@
     <ClCompile Include="main.cpp">
       <Filter>DirectX基盤\DirectX</Filter>
     </ClCompile>
-    <ClCompile Include="KeyboardInput.cpp">
-      <Filter>DirectX基盤\DirectX\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="Object2d.cpp">
-      <Filter>DirectX基盤\DirectX\Object2d</Filter>
-    </ClCompile>
     <ClCompile Include="ImageManager.cpp">
       <Filter>DirectX基盤\DirectX\整理済み\ImageManager</Filter>
-    </ClCompile>
-    <ClCompile Include="AudioManager.cpp">
-      <Filter>DirectX基盤\DirectX\整理済み\AudioManager</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\Model\Model.cpp">
       <Filter>DirectX基盤\DirectX\Model</Filter>
@@ -153,19 +150,22 @@
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp">
       <Filter>GameEngin\ModelManager</Filter>
     </ClCompile>
+    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp">
+      <Filter>DirectX基盤\Input\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp">
+      <Filter>DirectX基盤\DirectX\AudioManager</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Sprite\Object2d.cpp">
+      <Filter>DirectX基盤\DirectX\Object2d</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Scene\TitleScene\Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="KeyboardInput.h">
-      <Filter>DirectX基盤\DirectX\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="Object2d.h">
-      <Filter>DirectX基盤\DirectX\Object2d</Filter>
-    </ClInclude>
     <ClInclude Include="ImageManager.h">
       <Filter>DirectX基盤\DirectX\整理済み\ImageManager</Filter>
-    </ClInclude>
-    <ClInclude Include="AudioManager.h">
-      <Filter>DirectX基盤\DirectX\整理済み\AudioManager</Filter>
     </ClInclude>
     <ClInclude Include="..\System\IoChangedListener\IoChangedListener.h">
       <Filter>System\IoChangedListener</Filter>
@@ -184,9 +184,6 @@
     </ClInclude>
     <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h">
       <Filter>DirectX基盤\DirectX\DirectXCommon</Filter>
-    </ClInclude>
-    <ClInclude Include="Vector3.h">
-      <Filter>Game\Common\Vector</Filter>
     </ClInclude>
     <ClInclude Include="..\System\AbstractScene\AbstractScene.h">
       <Filter>System\AbsScene</Filter>
@@ -208,6 +205,18 @@
     </ClInclude>
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h">
       <Filter>GameEngin\ModelManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Input\KeyboardInput.h">
+      <Filter>DirectX基盤\Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\AudioManager\AudioManager.h">
+      <Filter>DirectX基盤\DirectX\AudioManager</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Sprite\Object2d.h">
+      <Filter>DirectX基盤\DirectX\Object2d</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Game\Scene\TitleScene\Player</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
