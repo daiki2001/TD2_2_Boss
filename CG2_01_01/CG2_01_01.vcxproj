@@ -76,12 +76,16 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;$(IncludePath)</IncludePath>
+    <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -104,7 +108,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\K020G1199\2.second\engine\直し中\CG2_01_01;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Game\TitleScene;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\WinApp;$(SolutionDir)Scene\TitleScene;$(SolutionDir)DirectXTex</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <BasicRuntimeChecks>Default</BasicRuntimeChecks>
       <FunctionLevelLinking>true</FunctionLevelLinking>
@@ -140,7 +144,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>false</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\K020G1199\2.second\engine\直し中\CG2_01_01;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Game\TitleScene;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\WinApp;$(SolutionDir)Scene\TitleScene;$(SolutionDir)DirectXTex</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)DirectXTex</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
@@ -151,22 +155,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp" />
     <ClCompile Include="..\DirectX\DirectXCommon\DirectXCommon.cpp" />
+    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp" />
+    <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
     <ClCompile Include="..\DirectX\Model\Model.cpp" />
     <ClCompile Include="..\DirectX\Object3d\Object3d.cpp" />
+    <ClCompile Include="..\DirectX\Sprite\Object2d.cpp" />
     <ClCompile Include="..\DirectX\WinApp\WinApp.cpp" />
-    <ClCompile Include="AbstractScene.cpp" />
-    <ClCompile Include="Easing.cpp" />
-    <ClCompile Include="GameScene.cpp" />
-    <ClCompile Include="KeyboardInput.cpp" />
+    <ClCompile Include="..\Easing\Easing.cpp" />
+    <ClCompile Include="..\Scene\GameScene.cpp" />
+    <ClCompile Include="..\Scene\TitleScene.cpp" />
+    <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
+    <ClCompile Include="..\System\Looper\Looper.cpp" />
+    <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
     <ClCompile Include="ImageManager.cpp" />
-    <ClCompile Include="Looper.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="ModelManager.cpp" />
-    <ClCompile Include="Object2d.cpp" />
-    <ClCompile Include="AudioManager.cpp" />
-    <ClCompile Include="SystemMain.cpp" />
-    <ClCompile Include="TitleScene.cpp" />
+    <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicPS.hlsl">
@@ -207,24 +212,24 @@
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
     <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h" />
+    <ClInclude Include="..\DirectX\Input\KeyboardInput.h" />
+    <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
     <ClInclude Include="..\DirectX\Model\Model.h" />
     <ClInclude Include="..\DirectX\Object3d\Object3d.h" />
+    <ClInclude Include="..\DirectX\Sprite\Object2d.h" />
     <ClInclude Include="..\DirectX\WinApp\WinApp.h" />
+    <ClInclude Include="..\Easing\Easing.h" />
+    <ClInclude Include="..\Scene\GameScene.h" />
+    <ClInclude Include="..\Scene\TitleScene.h" />
+    <ClInclude Include="..\System\AbstractScene\AbstractScene.h" />
     <ClInclude Include="..\System\IoChangedListener\IoChangedListener.h" />
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
-    <ClInclude Include="AbstractScene.h" />
-    <ClInclude Include="Easing.h" />
-    <ClInclude Include="GameScene.h" />
-    <ClInclude Include="KeyboardInput.h" />
+    <ClInclude Include="..\System\Looper\Looper.h" />
+    <ClInclude Include="..\System\SystemMain\SystemMain.h" />
     <ClInclude Include="ImageManager.h" />
-    <ClInclude Include="Looper.h" />
-    <ClInclude Include="ModelManager.h" />
-    <ClInclude Include="Object2d.h" />
-    <ClInclude Include="AudioManager.h" />
-    <ClInclude Include="SystemMain.h" />
-    <ClInclude Include="TitleScene.h" />
-    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
