@@ -94,6 +94,9 @@
     <Filter Include="DirectX基盤\Input\Keyboard">
       <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectX基盤\Input\Controller">
+      <UniqueIdentifier>{6890fb22-534a-40e9-9624-ee52fc36c6f2}</UniqueIdentifier>
+    </Filter>
     <Filter Include="Game\Scene\TitleScene\Player">
       <UniqueIdentifier>{cfa4d2d6-9841-4229-81eb-52de29e4572b}</UniqueIdentifier>
     </Filter>
@@ -162,6 +165,9 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\Scene\TitleScene\Player</Filter>
     </ClCompile>
+    <ClCompile Include="ControllerInput.cpp">
+      <Filter>DirectX基盤\Input\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageManager.h">
@@ -217,6 +223,9 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>Game\Scene\TitleScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerInput.h">
+      <Filter>DirectX基盤\Input\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
