@@ -3,6 +3,7 @@
 #include "KeyboardInput.h"
 #include "AudioManager.h"	//音声管理
 #include "ModelManager.h"
+#include "ControllerInput.h"
 
 //シーン
 #include "TitleScene.h"
@@ -12,12 +13,14 @@ Looper::Looper() {
 	sceneStack.top()->Initialize();
 	
 	KeyboardInput::Initialize();		//入力初期化
+	ControllerInput::Init();
 
 }
 
 bool Looper::Loop()
 {
 	KeyboardInput::Update();
+	ControllerInput::Update();
 	sceneStack.top()->Update();			//スタック更新
 
 	sceneStack.top()->Draw();			//スタック描画
@@ -26,6 +29,12 @@ bool Looper::Loop()
 	if (KeyboardInput::GetKeyPressT(DIK_ESCAPE)) {
 		return false;
 	}
+
+	if (ControllerInput::IsPadButton(XBOX_INPUT_SELECT))
+	{
+		return false;
+	}
+
 	return true;
 }
 

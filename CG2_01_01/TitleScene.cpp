@@ -5,6 +5,7 @@
 #include "DirectXCommon.h"
 #include "Scene.h"
 #include "AudioManager.h"
+#include "ControllerInput.h"
 
 TitleScene::TitleScene(IoChangedListener *impl)
 	: AbstractScene(impl)
@@ -27,7 +28,7 @@ TitleScene::TitleScene(IoChangedListener *impl)
 	obj2->Update();
 	obj2->Initialize();
 
-	AudioManager::SoundPlayWave(AudioManager::GameBgm, true);
+	//AudioManager::SoundPlayWave(AudioManager::GameBgm, true);
 }
 
 void TitleScene::Initialize()
@@ -46,6 +47,28 @@ void TitleScene::Update()
 		//AudioManager::SoundStopWave(AudioManager::GameBgm);
 		obj1->rotation.z++;
 	}
+
+	// 左スティックX軸
+	if (ControllerInput::IsPadStick(INPUT_AXIS_X, 0.2f))
+	{
+		obj1->rotation.x++;
+	}
+	// 左スティックY軸
+	if (ControllerInput::IsPadStick(INPUT_AXIS_Y, 0.2f))
+	{
+		obj1->rotation.y++;
+	}
+	// 右スティックX軸
+	if (ControllerInput::IsPadStick(INPUT_AXIS_RX, 0.2f))
+	{
+		obj2->rotation.x++;
+	}
+	// 右スティックY軸
+	if (ControllerInput::IsPadStick(INPUT_AXIS_RY, 0.2f))
+	{
+		obj2->rotation.y++;
+	}
+
 	Object2d::SpriteUpdate(title);
 	obj1->Update();
 	obj2->Update();

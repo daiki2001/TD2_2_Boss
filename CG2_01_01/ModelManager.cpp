@@ -10,7 +10,7 @@ ModelManager *ModelManager::GetIns()
 
 void ModelManager::Initialize()
 {
-	LoadModel(Player, "Player");
+	LoadModel(Player, "player");
 	LoadModel(Triangle, "triangle_mat");
 
 }

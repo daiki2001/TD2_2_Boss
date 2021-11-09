@@ -16,9 +16,6 @@
     <Filter Include="DirectX基盤\DirectX">
       <UniqueIdentifier>{a519204a-083b-4287-816e-532ae27fbc62}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectX基盤\DirectX\Keyboard">
-      <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DirectX基盤\DirectX\Object2d">
       <UniqueIdentifier>{90666f83-3567-4c57-84d1-36b3963c7588}</UniqueIdentifier>
     </Filter>
@@ -88,6 +85,15 @@
     <Filter Include="Game\Scene\GameScene">
       <UniqueIdentifier>{a7420e63-b4c0-43f6-9dc2-2bc29f0f28fe}</UniqueIdentifier>
     </Filter>
+    <Filter Include="DirectX基盤\DirectX\Input">
+      <UniqueIdentifier>{7d0910d4-69c5-45e0-ba46-39f43005db74}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\DirectX\Input\Keyboard">
+      <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\DirectX\Input\Controller">
+      <UniqueIdentifier>{6890fb22-534a-40e9-9624-ee52fc36c6f2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVS.hlsl" />
@@ -106,7 +112,7 @@
       <Filter>DirectX基盤\DirectX</Filter>
     </ClCompile>
     <ClCompile Include="KeyboardInput.cpp">
-      <Filter>DirectX基盤\DirectX\Keyboard</Filter>
+      <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
     </ClCompile>
     <ClCompile Include="Object2d.cpp">
       <Filter>DirectX基盤\DirectX\Object2d</Filter>
@@ -150,10 +156,13 @@
     <ClCompile Include="GameScene.cpp">
       <Filter>DirectX基盤</Filter>
     </ClCompile>
+    <ClCompile Include="ControllerInput.cpp">
+      <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="KeyboardInput.h">
-      <Filter>DirectX基盤\DirectX\Keyboard</Filter>
+      <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
     </ClInclude>
     <ClInclude Include="Object2d.h">
       <Filter>DirectX基盤\DirectX\Object2d</Filter>
@@ -205,6 +214,9 @@
     </ClInclude>
     <ClInclude Include="GameScene.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="ControllerInput.h">
+      <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
