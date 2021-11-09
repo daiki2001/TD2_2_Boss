@@ -2,6 +2,9 @@
 #include "Object2d.h"
 #include "Object3d.h"
 #include "AbstractScene.h"
+
+#include "Player.h"
+
 class TitleScene
 	:public AbstractScene
 {
@@ -16,5 +19,6 @@ private:
 	Object2d::Sprite title;
 	Object3d *obj1;
 	Object3d *obj2;
+	Player player;
 };
 
