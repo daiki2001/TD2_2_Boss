@@ -301,11 +301,11 @@ int ControllerInput::IsPadStick(const size_t& stickAxis, const float& deadzone, 
 
 	if (stick >= deadMin && stick <= deadMax)
 	{
-		return 0;
+		return stick;
 	}
 	else
 	{
-		return stick;
+		return 0;
 	}
 }
 
