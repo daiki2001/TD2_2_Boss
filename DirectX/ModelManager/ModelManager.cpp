@@ -13,7 +13,7 @@ void ModelManager::Initialize()
 	LoadModel(Player, "player");
 	LoadModel(Triangle, "triangle_mat");
 	LoadModel(Stage, "Stage");
-	LoadModel(TestDunut, "donut");
+	//LoadModel(TestDunut, "donut");
 }
 
 void ModelManager::LoadModel(const ModelName modelName, std::string fileName)

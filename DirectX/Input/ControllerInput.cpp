@@ -267,6 +267,11 @@ bool ControllerInput::IsPadButtonReturn(const size_t& button, const size_t& game
 
 int ControllerInput::IsPadStick(const size_t& stickAxis, const float& deadzone, const size_t& gamepadNo)
 {
+	if (gamepadNo >= gamepad.size())
+	{
+		return 0;
+	}
+
 	static int deadMin = 0;
 	static int deadMax = 0;
 	static int stick = 0;
