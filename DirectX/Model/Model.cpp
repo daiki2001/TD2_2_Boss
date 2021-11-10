@@ -78,7 +78,6 @@ bool Model::CreateFromObj(string modelName)
 			line_stream >> position.z;
 			//座標データに追加
 			positions.emplace_back(position);
-			//頂点データに追加
 		}
 		//先頭文字列がvtならテクスチャ
 		if (key == "vt") {
@@ -104,8 +103,10 @@ bool Model::CreateFromObj(string modelName)
 		//先頭文字がfならポリゴン
 		if (key == "f") {
 			string index_string;
+			int indexCounter = 0;	//頂点数のカウント
 			while (getline(line_stream, index_string, ' ')) {
 				//頂点インデックス1個分の文字列をストリームに変換し解析しやすくする
+				indexCounter++;
 				std::istringstream index_stream(index_string);
 				unsigned short indexPosition, indexTexcoord, indexNormal;
 				index_stream >> indexPosition;
@@ -120,8 +121,15 @@ bool Model::CreateFromObj(string modelName)
 				vertex.normal = normals[indexNormal - 1];
 				vertex.uv = texcoords[indexTexcoord - 1];
 				vertices.emplace_back(vertex);
+				//ポリゴン数によって処理を変える
 				//頂点インデックスに追加
 				indices.emplace_back((unsigned short)indices.size());
+				if(indexCounter > 3){
+					vertices.emplace_back(vertices[vertices.size() - 4]);
+					vertices.emplace_back(vertices[vertices.size() - 3]);
+					indices.emplace_back((unsigned short)indices[indices.size() - 4]);
+					indices.emplace_back((unsigned short)indices[indices.size() - 3]);
+				}
 			}
 		}
 	}

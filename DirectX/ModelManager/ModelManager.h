@@ -13,7 +13,9 @@ private:
 public:
 	enum ModelName {
 		Player,
-		Triangle
+		Triangle,
+		Stage,
+		TestDunut,
 	};
 
 public:

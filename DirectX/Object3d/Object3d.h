@@ -82,13 +82,16 @@ public:	//静的メンバ関数
 	//ブレンドモード変更
 	static void BlendMode(BLENDMODE blendM);
 
+	static void SetCamPos(Vector3 pos) { objectCommon.eye = pos; }
+	static void SetCamTarget(Vector3 target) { objectCommon.target = target; }
+
 private:	//静的メンバ関数
 	//カメラ生成
 	static void InitializeCamera(int window_width, int window_height);
 	//3Dオブジェクト用パイプライン
 	static bool InitializeGraphicsPipeline();
 	//モデル生成
-	static void CreateModel();
+	//static void CreateModel();
 
 public:	//静的メンバ変数
 	static ObjectCommon objectCommon;				//よく使う物

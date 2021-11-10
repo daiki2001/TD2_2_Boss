@@ -1,29 +1,33 @@
 #include "Looper.h"
 #include "DirectXCommon.h"
-#include "KeyboardInput.h"
+#include "KeyboardInput.h"	//キーボード
+#include "ControllerInput.h"//コントローラー
 #include "AudioManager.h"	//音声管理
 #include "ModelManager.h"
 
 //シーン
 #include "TitleScene.h"
+#include "TestScene.h"
 
 Looper::Looper() {
-	sceneStack.push(make_shared<TitleScene>(this));
+	sceneStack.push(make_shared<TestScene>(this));
 	sceneStack.top()->Initialize();
 	
 	KeyboardInput::Initialize();		//入力初期化
-
+	ControllerInput::Init();
 }
 
 bool Looper::Loop()
 {
-	KeyboardInput::Update();
+	KeyboardInput::Update();			//キーボードアップデート
+	ControllerInput::Update();			//コントローラアップデート
 	sceneStack.top()->Update();			//スタック更新
 
 	sceneStack.top()->Draw();			//スタック描画
 	DirectXCommon::PlayCommandList();	//描画コマンド実行
 
-	if (KeyboardInput::GetKeyPressT(DIK_ESCAPE)) {
+	if (KeyboardInput::GetKeyPressT(DIK_ESCAPE) ||
+		ControllerInput::IsPadButton(XBOX_INPUT_SELECT)) {
 		return false;
 	}
 	return true;
@@ -41,6 +45,7 @@ void Looper::OnSceneChanged(const Scenes scene, const bool stackClear)
 		sceneStack.push(make_shared<TitleScene>(this));
 		break;
 	case Test:
+		sceneStack.push(make_shared<TestScene>(this));
 		break;
 	
 	default:
