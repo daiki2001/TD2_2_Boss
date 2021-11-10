@@ -1,32 +1,36 @@
 #include "Looper.h"
 #include "DirectXCommon.h"
-#include "KeyboardInput.h"
-#include "AudioManager.h"	//‰¹ºŠÇ—
+#include "KeyboardInput.h"	//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰
+#include "ControllerInput.h"//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ãƒ¼
+#include "AudioManager.h"	//éŸ³å£°ç®¡ç†
 #include "ModelManager.h"
 #include "ControllerInput.h"
 
-//ƒV[ƒ“
+//ã‚·ãƒ¼ãƒ³
 #include "TitleScene.h"
+#include "TestScene.h"
 
 Looper::Looper() {
-	sceneStack.push(make_shared<TitleScene>(this));
+	sceneStack.push(make_shared<TestScene>(this));
 	sceneStack.top()->Initialize();
 	
-	KeyboardInput::Initialize();		//“ü—Í‰Šú‰»
+	KeyboardInput::Initialize();		//å…¥åŠ›åˆæœŸåŒ–
 	ControllerInput::Init();
 
 }
 
 bool Looper::Loop()
 {
-	KeyboardInput::Update();
-	ControllerInput::Update();
-	sceneStack.top()->Update();			//ƒXƒ^ƒbƒNXV
+	KeyboardInput::Update();			//ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
+	ControllerInput::Update();			//ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©ã‚¢ãƒƒãƒ—ãƒ‡ãƒ¼ãƒˆ
 
-	sceneStack.top()->Draw();			//ƒXƒ^ƒbƒN•`‰æ
-	DirectXCommon::PlayCommandList();	//•`‰æƒRƒ}ƒ“ƒhÀs
+	sceneStack.top()->Update();			//ã‚¹ã‚¿ãƒƒã‚¯æ›´æ–°
 
-	if (KeyboardInput::GetKeyPressT(DIK_ESCAPE)) {
+	sceneStack.top()->Draw();			//ã‚¹ã‚¿ãƒƒã‚¯æç”»
+	DirectXCommon::PlayCommandList();	//æç”»ã‚³ãƒãƒ³ãƒ‰å®Ÿè¡Œ
+
+	if (KeyboardInput::GetKeyPressT(DIK_ESCAPE) ||
+		ControllerInput::IsPadButton(XBOX_INPUT_SELECT)) {
 		return false;
 	}
 
@@ -40,8 +44,8 @@ bool Looper::Loop()
 
 void Looper::OnSceneChanged(const Scenes scene, const bool stackClear)
 {
-	if (stackClear == true) {				//ƒXƒ^ƒbƒN‚ğƒNƒŠƒA‚·‚éİ’è‚È‚ç
-		while (!sceneStack.empty()) {	//ƒXƒ^ƒbƒN‚ª‚©‚ç‚É‚È‚é‚Ü‚Åƒ|ƒbƒv‚·‚é
+	if (stackClear == true) {				//ã‚¹ã‚¿ãƒƒã‚¯ã‚’ã‚¯ãƒªã‚¢ã™ã‚‹è¨­å®šãªã‚‰
+		while (!sceneStack.empty()) {	//ã‚¹ã‚¿ãƒƒã‚¯ãŒã‹ã‚‰ã«ãªã‚‹ã¾ã§ãƒãƒƒãƒ—ã™ã‚‹
 			sceneStack.pop();
 		}
 	}
@@ -50,10 +54,11 @@ void Looper::OnSceneChanged(const Scenes scene, const bool stackClear)
 		sceneStack.push(make_shared<TitleScene>(this));
 		break;
 	case Test:
+		sceneStack.push(make_shared<TestScene>(this));
 		break;
 	
 	default:
-		//‘¶İ‚µ‚È‚¢ƒV[ƒ“‚ªƒXƒ^ƒbƒNƒgƒbƒv‚É‚ ‚éÛ‚ÌƒGƒ‰[ˆ—
+		//å­˜åœ¨ã—ãªã„ã‚·ãƒ¼ãƒ³ãŒã‚¹ã‚¿ãƒƒã‚¯ãƒˆãƒƒãƒ—ã«ã‚ã‚‹éš›ã®ã‚¨ãƒ©ãƒ¼å‡¦ç†
 		break;
 	}
 	sceneStack.top()->Initialize();

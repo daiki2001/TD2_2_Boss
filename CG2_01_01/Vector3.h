@@ -31,6 +31,10 @@ struct Vector3 : public XMFLOAT3 {
 		*this = *this + r;
 		return *this;
 	}
+	Vector3 operator-=(const Vector3 &r) {
+		*this = *this + -r;
+		return *this;
+	}
 
 	// ƒxƒNƒgƒ‹‚Ì“àÏ
 	float VDot(Vector3 In) { return x * In.x + y * In.y + z * In.z; }

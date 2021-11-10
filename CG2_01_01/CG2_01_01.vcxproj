@@ -76,7 +76,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Easing;$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -84,7 +84,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)Easing;$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;$(IncludePath)</IncludePath>
     <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -157,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp" />
     <ClCompile Include="..\DirectX\DirectXCommon\DirectXCommon.cpp" />
+    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp" />
     <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp" />
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
     <ClCompile Include="..\DirectX\Model\Model.cpp" />
@@ -169,9 +170,13 @@
     <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
     <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="ControllerInput.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -231,6 +236,7 @@
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
     <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h" />
+    <ClInclude Include="..\DirectX\Input\ControllerInput.h" />
     <ClInclude Include="..\DirectX\Input\KeyboardInput.h" />
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
     <ClInclude Include="..\DirectX\Model\Model.h" />
@@ -245,8 +251,12 @@
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="Enemy.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="TestScene.h" />
     <ClInclude Include="ControllerInput.h" />
   </ItemGroup>
   <ItemGroup>

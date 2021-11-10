@@ -88,17 +88,34 @@
     <Filter Include="DirectX基盤\DirectX\AudioManager">
       <UniqueIdentifier>{acd2ef99-6153-4472-9f25-885073618524}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectX基盤\Input">
+    <Filter Include="Game\Scene\TestScene">
+      <UniqueIdentifier>{3db66a8e-5c69-4d84-ac94-e2bbff9638be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\TestScene\Player">
+      <UniqueIdentifier>{cfa4d2d6-9841-4229-81eb-52de29e4572b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\TestScene\Stage">
+      <UniqueIdentifier>{59229857-df14-48b2-a23f-55d2c47cb538}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Scene\TestScene\Enemy">
+      <UniqueIdentifier>{bb952252-6082-442b-9180-a5a80e32568d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Common\Collision">
+      <UniqueIdentifier>{9b09c414-b542-4db0-946e-fa5e5610c9fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\DirectX\Input">
       <UniqueIdentifier>{9d734897-599f-42b4-b636-3fbc99d48b23}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectX基盤\Input\Keyboard">
+    <Filter Include="DirectX基盤\DirectX\Input\Keyboard">
       <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
     </Filter>
+
     <Filter Include="DirectX基盤\Input\Controller">
       <UniqueIdentifier>{6890fb22-534a-40e9-9624-ee52fc36c6f2}</UniqueIdentifier>
     </Filter>
     <Filter Include="Game\Scene\TitleScene\Player">
       <UniqueIdentifier>{cfa4d2d6-9841-4229-81eb-52de29e4572b}</UniqueIdentifier>
+
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -147,14 +164,11 @@
     <ClCompile Include="..\Scene\GameScene.cpp">
       <Filter>Game\Scene\GameScene</Filter>
     </ClCompile>
-    <ClCompile Include="..\Easing\Easing.cpp">
-      <Filter>Game\Common\Easing</Filter>
-    </ClCompile>
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp">
       <Filter>GameEngin\ModelManager</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp">
-      <Filter>DirectX基盤\Input\Keyboard</Filter>
+      <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp">
       <Filter>DirectX基盤\DirectX\AudioManager</Filter>
@@ -163,7 +177,25 @@
       <Filter>DirectX基盤\DirectX\Object2d</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>Game\Scene\TitleScene\Player</Filter>
+      <Filter>Game\Scene\TestScene\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>Game\Scene\TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Game\Scene\TestScene\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Collision.cpp">
+      <Filter>Game\Common\Collision</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>DirectX基盤</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
+      <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Easing\Easing.cpp">
+      <Filter>Game\Common\Easing</Filter>
     </ClCompile>
     <ClCompile Include="ControllerInput.cpp">
       <Filter>DirectX基盤\Input\Controller</Filter>
@@ -206,14 +238,11 @@
     <ClInclude Include="..\Scene\GameScene.h">
       <Filter>Game\Scene\GameScene</Filter>
     </ClInclude>
-    <ClInclude Include="..\Easing\Easing.h">
-      <Filter>Game\Common\Easing</Filter>
-    </ClInclude>
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h">
       <Filter>GameEngin\ModelManager</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\Input\KeyboardInput.h">
-      <Filter>DirectX基盤\Input\Keyboard</Filter>
+      <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h">
       <Filter>DirectX基盤\DirectX\AudioManager</Filter>
@@ -222,7 +251,25 @@
       <Filter>DirectX基盤\DirectX\Object2d</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Game\Scene\TitleScene\Player</Filter>
+      <Filter>Game\Scene\TestScene\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>Game\Scene\TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Game\Scene\TestScene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Collision.h">
+      <Filter>Game\Common\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Input\ControllerInput.h">
+      <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Easing\Easing.h">
+      <Filter>Game\Common\Easing</Filter>
     </ClInclude>
     <ClInclude Include="ControllerInput.h">
       <Filter>DirectX基盤\Input\Controller</Filter>

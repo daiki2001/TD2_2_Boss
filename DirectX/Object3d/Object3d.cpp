@@ -11,7 +11,7 @@ bool Object3d::StaticInitialize(ID3D12Device *dev, int window_width, int window_
 	objectCommon.dev = dev;
 
 	//ƒJƒƒ‰‰Šú‰»
-	objectCommon.eye = { 0.0f,0.0f,-50.0f };
+	objectCommon.eye = { 0.0f,100.0f,-1.0f };
 	objectCommon.target = { 0.0f,0.0f,0.0f };
 	objectCommon.up = { 0.0f,1.0f,0.0f };
 	InitializeCamera(window_width, window_height);
