@@ -64,7 +64,7 @@ void ControllerInput::Update()
 	}
 }
 
-DIJOYSTATE& ControllerInput::GetGamePadState(const size_t& gamePadNo)
+DIJOYSTATE ControllerInput::GetGamePadState(const size_t& gamePadNo)
 {
 	if (gamePadNo >= gamepad.size())
 	{
@@ -125,6 +125,8 @@ bool ControllerInput::IsPadButton(const size_t& button, const size_t& gamepadNo)
 
 		return now;
 	}
+
+	return false;
 }
 
 bool ControllerInput::IsPadButtonTrigger(const size_t& button, const size_t& gamepadNo)
@@ -194,6 +196,8 @@ bool ControllerInput::IsPadButtonTrigger(const size_t& button, const size_t& gam
 
 		return now && !old;
 	}
+
+	return false;
 }
 
 bool ControllerInput::IsPadButtonReturn(const size_t& button, const size_t& gamepadNo)
@@ -263,6 +267,8 @@ bool ControllerInput::IsPadButtonReturn(const size_t& button, const size_t& game
 
 		return !now && old;
 	}
+
+	return false;
 }
 
 int ControllerInput::IsPadStick(const size_t& stickAxis, const float& deadzone, const size_t& gamepadNo)

@@ -60,7 +60,7 @@ public: // 静的メンバ関数
 	static void Update();
 
 	// ゲームパッドの生の状態の取得
-	static DIJOYSTATE& GetGamePadState(const size_t& gamePadNo = 0);
+	static DIJOYSTATE GetGamePadState(const size_t& gamePadNo = 0);
 	// ゲームパッドのボタンが押されているかどうか
 	static bool IsPadButton(const size_t& button, const size_t& gamepadNo = 0);
 	// ゲームパッドのボタンが押されたかどうか
