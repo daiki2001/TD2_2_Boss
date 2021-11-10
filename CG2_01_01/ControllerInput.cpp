@@ -89,9 +89,41 @@ bool ControllerInput::IsPadButton(const size_t& button, const size_t& gamepadNo)
 	{
 		return gamepad[gamepadNo].rgbButtons[button];
 	}
-	else
+	else if (button == XBOX_INPUT_LEFT)
 	{
-		return gamepad[gamepadNo].rgdwPOV[0] != 0xFFFFFFFF;
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 6 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7;
+
+		return now;
+	}
+	else if (button == XBOX_INPUT_RIGHT)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 2 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3;
+
+		return now;
+	}
+	else if (button == XBOX_INPUT_UP)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 0 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1;
+
+		return now;
+	}
+	else if (button == XBOX_INPUT_DOWN)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 4 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5;
+
+		return now;
 	}
 }
 
@@ -110,9 +142,57 @@ bool ControllerInput::IsPadButtonTrigger(const size_t& button, const size_t& gam
 	{
 		return gamepad[gamepadNo].rgbButtons[button] && !oldgamepad[gamepadNo].rgbButtons[button];
 	}
-	else
+	else if (button == XBOX_INPUT_LEFT)
 	{
-		return gamepad[gamepadNo].rgdwPOV[0] != 0xFFFFFFFF && !oldgamepad[gamepadNo].rgdwPOV[0] != 0xFFFFFFFF;
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 6 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 5 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 6 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 7;
+
+		return now && !old;
+	}
+	else if (button == XBOX_INPUT_RIGHT)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 2 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 1 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 2 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 3;
+
+		return now && !old;
+	}
+	else if (button == XBOX_INPUT_UP)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 0 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 7 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 0 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 1;
+
+		return now && !old;
+	}
+	else if (button == XBOX_INPUT_DOWN)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 4 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 3 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 4 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 5;
+
+		return now && !old;
 	}
 }
 
@@ -131,9 +211,57 @@ bool ControllerInput::IsPadButtonReturn(const size_t& button, const size_t& game
 	{
 		return !gamepad[gamepadNo].rgbButtons[button] && oldgamepad[gamepadNo].rgbButtons[button];
 	}
-	else
+	else if (button == XBOX_INPUT_LEFT)
 	{
-		return !gamepad[gamepadNo].rgdwPOV[0] != 0xFFFFFFFF && oldgamepad[gamepadNo].rgdwPOV[0] != 0xFFFFFFFF;
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 6 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 5 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 6 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 7;
+
+		return !now && old;
+	}
+	else if (button == XBOX_INPUT_RIGHT)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 2 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 1 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 2 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 3;
+
+		return !now && old;
+	}
+	else if (button == XBOX_INPUT_UP)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 0 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 7 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 0 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 1;
+
+		return !now && old;
+	}
+	else if (button == XBOX_INPUT_DOWN)
+	{
+		bool now =
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 4 ||
+			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5;
+		bool old =
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 3 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 4 ||
+			oldgamepad[gamepadNo].rgdwPOV[0] == 4500 * 5;
+
+		return !now && old;
 	}
 }
 

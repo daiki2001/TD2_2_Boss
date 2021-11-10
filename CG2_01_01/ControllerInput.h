@@ -9,28 +9,28 @@
 #include <vector>
 
 /*ゲームパッドのボタン入力*/
-#define XBOX_INPUT_A      (0)
-#define XBOX_INPUT_B      (1)
-#define XBOX_INPUT_X      (2)
-#define XBOX_INPUT_Y      (3)
-#define XBOX_INPUT_LB     (4)
-#define XBOX_INPUT_RB     (5)
-#define XBOX_INPUT_SELECT (6)
-#define XBOX_INPUT_START  (7)
-#define XBOX_INPUT_LSTICK (8)
-#define XBOX_INPUT_RSTICK (9)
-#define XBOX_INPUT_RIGHT  (32)
-#define XBOX_INPUT_DOWN   (33)
-#define XBOX_INPUT_LEFT   (34)
-#define XBOX_INPUT_UP     (35)
+#define XBOX_INPUT_A      (0)  //Aボタン
+#define XBOX_INPUT_B      (1)  //Bボタン
+#define XBOX_INPUT_X      (2)  //Xボタン
+#define XBOX_INPUT_Y      (3)  //Yボタン
+#define XBOX_INPUT_LB     (4)  //LBボタン
+#define XBOX_INPUT_RB     (5)  //RBボタン
+#define XBOX_INPUT_SELECT (6)  //SELECTボタン
+#define XBOX_INPUT_START  (7)  //STARTボタン
+#define XBOX_INPUT_LSTICK (8)  //左スティック押し込み
+#define XBOX_INPUT_RSTICK (9)  //右スティック押し込み
+#define XBOX_INPUT_LEFT   (34) //十字キー左
+#define XBOX_INPUT_RIGHT  (32) //十字キー右
+#define XBOX_INPUT_UP     (35) //十字キー上
+#define XBOX_INPUT_DOWN   (33) //十字キー下
 
 /*ゲームパッドのスティック入力*/
-#define INPUT_AXIS_X  (0x01)
-#define INPUT_AXIS_Y  (0x02)
-#define INPUT_AXIS_Z  (0x04)
-#define INPUT_AXIS_RX (0x08)
-#define INPUT_AXIS_RY (0x10)
-#define INPUT_AXIS_RZ (0x20)
+#define INPUT_AXIS_X  (0x01) //左スティックのX軸
+#define INPUT_AXIS_Y  (0x02) //左スティックのY軸
+#define INPUT_AXIS_Z  (0x04) //左スティックのZ軸（LT・RT）
+#define INPUT_AXIS_RX (0x08) //左スティックのX回転軸（右スティックのX軸）
+#define INPUT_AXIS_RY (0x10) //左スティックのY回転軸（右スティックのY軸）
+#define INPUT_AXIS_RZ (0x20) //左スティックのZ回転軸
 
 class ControllerInput final
 {

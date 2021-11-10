@@ -46,31 +46,33 @@ void TitleScene::Finalize()
 
 void TitleScene::Update()
 {
+	Vector3 rot = obj1->GetRotation();
+
 	if (KeyboardInput::GetKeyPress(DIK_SPACE)) {
 		//implSceneChanged->OnSceneChanged(Test);
 		//AudioManager::SoundStopWave(AudioManager::GameBgm);
-		obj1->rotation.z++;
+		obj1->SetRotation(rot + Vector3(0.0f, 0.0f, 1.0f));
 	}
 
 	// 左スティックX軸
 	if (ControllerInput::IsPadStick(INPUT_AXIS_X, 0.2f))
 	{
-		obj1->rotation.x++;
+		obj1->SetRotation(rot + Vector3(1.0f, 0.0f, 0.0f));
 	}
 	// 左スティックY軸
 	if (ControllerInput::IsPadStick(INPUT_AXIS_Y, 0.2f))
 	{
-		obj1->rotation.y++;
+		obj1->SetRotation(rot + Vector3(0.0f, 20.0f, 0.0f));
 	}
 	// 右スティックX軸
 	if (ControllerInput::IsPadStick(INPUT_AXIS_RX, 0.2f))
 	{
-		obj2->rotation.x++;
+		obj2->SetRotation(rot + Vector3(1.0f, 0.0f, 0.0f));
 	}
 	// 右スティックY軸
 	if (ControllerInput::IsPadStick(INPUT_AXIS_RY, 0.2f))
 	{
-		obj2->rotation.y++;
+		obj2->SetRotation(rot + Vector3(0.0f, 1.0f, 0.0f));
 	}
 
 	Object2d::SpriteUpdate(title);

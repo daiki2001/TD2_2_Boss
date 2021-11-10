@@ -30,7 +30,7 @@ bool Looper::Loop()
 		return false;
 	}
 
-	if (ControllerInput::IsPadButton(XBOX_INPUT_SELECT))
+	if (ControllerInput::IsPadButton(XBOX_INPUT_RIGHT))
 	{
 		return false;
 	}
