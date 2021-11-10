@@ -4,6 +4,7 @@
 #include "ModelManager.h"
 #include "DirectXCommon.h"
 #include "Easing.h"
+#include "Collision.h"
 
 Player::Player()
 {
@@ -35,7 +36,7 @@ void Player::Update()
 	Attack();
 	Move();
 	
-
+	Collision::IsBallToBallCollision(pos, scale.x, Vector3(), scale.y);
 
 	//ˆÚ“®“K‰ž
 	move.y = 0.0f;	//y‚ð–³Œø‰»
