@@ -204,4 +204,11 @@ bool IsBoxToBoxCollision(const Vector3& pos1, const Vector3& rotation1, const Ve
 
 	return true;
 }
+
+bool IsPredictCollisionBall(const Vector3& pos1, const Vector3& speed1, const float& r1, const Vector3& pos2, const Vector3& speed2, const float& r2)
+{
+	distance = pos1 - pos2;
+
+	return distance.Length() < ((r1 + speed1.Length()) + (r2 + speed2.Length()));
+}
 } // namespace Collision
