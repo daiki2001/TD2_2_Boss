@@ -3,10 +3,11 @@
 
 namespace Collision
 {
-static Vector3 distance{}; //二点間の距離
+static Vector3 distance{}; //二点間の距離(Collision namespace内共通)
 
 bool IsBallToBallCollision(const Vector3& pos1, const float& r1, const Vector3& pos2, const float& r2)
 {
+	// 中心点間の距離
 	distance = pos1 - pos2;
 
 	return distance.Length() < (r1 + r2);
@@ -24,6 +25,8 @@ bool IsBoxToBoxCollision(const Vector3& pos1, const Vector3& rotation1, const Ve
 	static Vector3 direction1_XN{}, direction1_YN{}, direction1_ZN{}, direction2_XN{}, direction2_YN{}, direction2_ZN{};
 	// 方向ベクトル
 	static Vector3 direction1_X{}, direction1_Y{}, direction1_Z{}, direction2_X{}, direction2_Y{}, direction2_Z{};
+
+	/*OBBの当たり判定の下準備*/
 
 	matRot1 = XMMatrixIdentity();
 	matRot1 *= XMMatrixRotationZ(XMConvertToRadians(rotation1.z));
@@ -50,6 +53,8 @@ bool IsBoxToBoxCollision(const Vector3& pos1, const Vector3& rotation1, const Ve
 	direction2_X = direction2_XN * length2.x;
 	direction2_Y = direction2_YN * length2.y;
 	direction2_Z = direction2_ZN * length2.z;
+
+	/*OBBの当たり判定*/
 
 	distance = pos1 - pos2;
 
@@ -203,5 +208,94 @@ bool IsBoxToBoxCollision(const Vector3& pos1, const Vector3& rotation1, const Ve
 	}
 
 	return true;
+}
+
+float sphereSwept(const Vector3& pos1, const Vector3& speed1, const float& r1, const Vector3& pos2, const Vector3& speed2, const float& r2)
+{
+	static const float noHit = -1.0f;
+
+	// t = 0.0f地点の中心点間の距離の計算
+	distance = pos1 - pos2;
+
+	// t = 0.0f地点の衝突判定
+	if (distance.Length() < (r1 + r2))
+	{
+		return 0.0f;
+	}
+
+	static Vector3 endPos1{}; //t = 1.0f地点のpos1の中心位置
+	static Vector3 endPos2{}; //t = 1.0f地点のpos2の中心位置
+	static Vector3 startDistance{}; //t = 0.0f地点の中心点間の距離
+	static Vector3 endDistance{}; //t = 1.0f地点の中心点間の距離
+
+	// t = 1.0f地点のpos1の中心位置の計算
+	endPos1 = pos1 + speed1;
+	// t = 1.0f地点のpos2の中心位置の計算
+	endPos2 = pos2 + speed2;
+	// t = 0.0f地点の中心点間の距離の代入
+	startDistance = distance;
+	// t = 1.0f地点の中心点間の距離の計算
+	endDistance = endPos1 - endPos2;
+	// t = 1.0f地点の中心点間の距離 - t = 0.0f地点の中心点間の距離
+	distance = endDistance - startDistance;
+
+	static float t = 0.0f; //衝突した時間
+	static float p = 0.0f; //distanceの長さの二乗
+	static float q = 0.0f; //startDistanceとdistanceの内積
+	static float r = 0.0f; //startDistanceの長さの二乗
+
+	// qに一時的にdistanceの長さを代入
+	q = distance.Length();
+	if (q == 0)
+	{
+		// distanceの長さが0なら衝突していない
+		return noHit;
+	}
+	else
+	{
+		// distanceの長さの二乗の計算
+		p = q * q;
+	}
+
+	// qに一時的にstartDistanceの長さを代入
+	q = startDistance.Length();
+	// startDistanceの長さの二乗の計算
+	r = q * q;
+	// startDistanceの長さの二乗の計算
+	q = startDistance.VDot(distance);
+
+	float keep = (q * q) - p * (r - ((r1 + r2) * (r1 + r2))); //ルート内の計算
+	if (keep < 0)
+	{
+		// ルート内がマイナスの場合は衝突しない
+		return noHit;
+	}
+	else
+	{
+		// 衝突時間の計算
+		t = (-q - sqrtf(keep)) / p;
+		// ルート内がプラスで求めたtが0~1の間に無い場合は式を変えて計算し直す
+		if (keep > 0 && (t < 0.0f || t > 1.0f))
+		{
+			t = (-q + sqrtf(keep)) / p;
+		}
+	}
+
+	if (t >= 0.0f && t <= 1.0f)
+	{
+		return t;
+	}
+	else
+	{
+		return noHit;
+	}
+}
+
+bool IsPredictCollisionBall(const Vector3& pos1, const Vector3& speed1, const float& r1, const Vector3& pos2, const Vector3& speed2, const float& r2)
+{
+	// 中心点間の距離
+	distance = pos1 - pos2;
+
+	return distance.Length() < ((r1 + speed1.Length()) + (r2 + speed2.Length()));
 }
 } // namespace Collision
