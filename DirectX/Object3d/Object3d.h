@@ -1,9 +1,9 @@
 #pragma once
 #include <d3dx12.h>
 #include <DirectXMath.h>
+#pragma comment(lib, "d3dcompiler.lib")
 #include <d3dcompiler.h>
 #include <DirectXTex.h>
-#pragma comment(lib, "d3dcompiler.lib")
 using namespace DirectX;
 
 #include "Vector3.h"

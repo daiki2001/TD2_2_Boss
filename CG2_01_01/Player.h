@@ -11,32 +11,40 @@ public:
 
 	void Initialize();
 	void Update();
+	void Reflection();
 	void Draw() const;
 
+public:
+	enum State {
+		STAY,
+		ATTACK,
+		DAMAGE,
+	};
+	State state;
+
+private:
+	void Heal();
+	void ChangeAngle();
+	bool Move();
+	void Attack();
 
 public:
-
 	Vector3 pos;
-private:
-	void Attack();
-	bool Move();
-	void ChangeAngle();
-
-private:
 	Vector3 move;
+	float r;				//半径
+private:
+
 	Vector3 rotate;			//プレイヤーの向きベクトル
+	float angle = 0.0f;		//プレイヤーのy軸角度
 	Vector3 scale;			//サイズ
 	Object3d *object;
 
-	const float radius = 5.0f;		//プレイヤーの半径
 	Vector3 attackArea[8];	//攻撃判定のある場所
 
 	
 	float moveSpeead;		//現在の移動速度
 	float atackSpeed;		//攻撃速度
 
-	//ステータス
-	bool isAttack;	//攻撃
-
-	float energy;
+	const float maxHp = 5.0f;	//体力最大
+	float hp;	//体力（サイズ）
 };
