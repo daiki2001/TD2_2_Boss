@@ -112,6 +112,9 @@
     <Filter Include="DirectX基盤\DirectX\Input\Controller">
       <UniqueIdentifier>{2c534aa9-faa7-4f73-a4d8-820ee1729611}</UniqueIdentifier>
     </Filter>
+    <Filter Include="パーティクル">
+      <UniqueIdentifier>{31a4bff4-6562-428d-a0a8-4047b91fb573}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicVS.hlsl" />
@@ -124,6 +127,15 @@
     </FxCompile>
     <FxCompile Include="OBJPixelShader.hlsl" />
     <FxCompile Include="OBJVertexShader.hlsl" />
+    <FxCompile Include="Particle\ParticleGS.hlsl">
+      <Filter>パーティクル</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle\ParticlePS.hlsl">
+      <Filter>パーティクル</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle\ParticleVS.hlsl">
+      <Filter>パーティクル</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -191,6 +203,9 @@
     </ClCompile>
     <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
       <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\Particle.cpp">
+      <Filter>パーティクル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +278,9 @@
     <ClInclude Include="..\DirectX\Input\ControllerInput.h">
       <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
     </ClInclude>
+    <ClInclude Include="Particle\Particle.h">
+      <Filter>パーティクル</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
@@ -270,5 +288,8 @@
       <Filter>DirectX基盤\DirectX\Object2d\shader</Filter>
     </None>
     <None Include="OBJShaderHeader.hlsli" />
+    <None Include="Particle\ParticleHeader.hlsli">
+      <Filter>パーティクル</Filter>
+    </None>
   </ItemGroup>
 </Project>

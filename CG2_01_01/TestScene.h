@@ -3,6 +3,7 @@
 
 #include "Player.h"
 #include "Stage.h"
+#include "Particle/Particle.h"
 
 class TestScene
 	:public AbstractScene
@@ -20,5 +21,6 @@ public:
 private:
 	Player player;
 	Stage stage;
+	ParticleManager* particle1;
 };
 
