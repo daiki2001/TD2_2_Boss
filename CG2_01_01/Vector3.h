@@ -65,4 +65,18 @@ struct Vector3 : public XMFLOAT3 {
 	void Normalize() {
 		*this = XMVector3Normalize(XMVECTOR(*this));
 	}
+
+	void RotationX(float angle) {
+	
+	}
+	void AddRotationY(float angle) {
+		*this = {
+			this->x * cosf(angle)	+0			+this->z * sinf(angle),
+			0						+this->y	+0,	
+			this->x * -sinf(angle)	+0			+this->z * cosf(angle)
+		};
+	}
+	void RotationZ(float angle) {
+
+	}
 };

@@ -82,9 +82,6 @@
     <Filter Include="System\SystemMain">
       <UniqueIdentifier>{cad13680-fb29-4965-a376-91fdc842dade}</UniqueIdentifier>
     </Filter>
-    <Filter Include="GameEngin\ModelManager">
-      <UniqueIdentifier>{cf08131b-97bf-47fa-a7bf-77beff0deb53}</UniqueIdentifier>
-    </Filter>
     <Filter Include="DirectX基盤\DirectX\AudioManager">
       <UniqueIdentifier>{acd2ef99-6153-4472-9f25-885073618524}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,12 @@
     </Filter>
     <Filter Include="DirectX基盤\DirectX\Input\Controller">
       <UniqueIdentifier>{2c534aa9-faa7-4f73-a4d8-820ee1729611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Common\yMath">
+      <UniqueIdentifier>{aa3e6fb9-d3b0-4abd-9bf2-7116605b011a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\DirectX\Model\ModelManager">
+      <UniqueIdentifier>{cf08131b-97bf-47fa-a7bf-77beff0deb53}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -160,7 +163,7 @@
       <Filter>Game\Scene\GameScene</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp">
-      <Filter>GameEngin\ModelManager</Filter>
+      <Filter>DirectX基盤\DirectX\Model\ModelManager</Filter>
     </ClCompile>
     <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp">
       <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
@@ -177,9 +180,6 @@
     <ClCompile Include="TestScene.cpp">
       <Filter>Game\Scene\TestScene</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Game\Scene\TestScene\Enemy</Filter>
-    </ClCompile>
     <ClCompile Include="Collision.cpp">
       <Filter>Game\Common\Collision</Filter>
     </ClCompile>
@@ -191,6 +191,12 @@
     </ClCompile>
     <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
       <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>DirectX基盤</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEnemy.cpp">
+      <Filter>Game\Scene\TestScene\Enemy</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -231,7 +237,7 @@
       <Filter>Game\Scene\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h">
-      <Filter>GameEngin\ModelManager</Filter>
+      <Filter>DirectX基盤\DirectX\Model\ModelManager</Filter>
     </ClInclude>
     <ClInclude Include="..\DirectX\Input\KeyboardInput.h">
       <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
@@ -248,9 +254,6 @@
     <ClInclude Include="TestScene.h">
       <Filter>Game\Scene\TestScene</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Game\Scene\TestScene\Enemy</Filter>
-    </ClInclude>
     <ClInclude Include="Collision.h">
       <Filter>Game\Common\Collision</Filter>
     </ClInclude>
@@ -262,6 +265,18 @@
     </ClInclude>
     <ClInclude Include="..\DirectX\Input\ControllerInput.h">
       <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="yMath.h">
+      <Filter>Game\Common\yMath</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector3.h">
+      <Filter>Game\Common\Vector</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>Game\Scene\TestScene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEnemy.h">
+      <Filter>Game\Scene\TestScene\Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
