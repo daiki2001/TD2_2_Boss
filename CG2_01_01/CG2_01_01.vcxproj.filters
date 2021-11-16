@@ -28,9 +28,6 @@
     <Filter Include="Game">
       <UniqueIdentifier>{a3a6c405-52ab-498b-93bd-ec447ae37bcc}</UniqueIdentifier>
     </Filter>
-    <Filter Include="DirectX基盤\DirectX\DebugText">
-      <UniqueIdentifier>{f7f053a6-1209-4f72-a5ef-f0694dc7c80a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Game\Common">
       <UniqueIdentifier>{411d0c39-0bfa-40e4-ad68-0a537b9c8870}</UniqueIdentifier>
     </Filter>
@@ -114,6 +111,9 @@
     </Filter>
     <Filter Include="DirectX基盤\DirectX\Model\ModelManager">
       <UniqueIdentifier>{cf08131b-97bf-47fa-a7bf-77beff0deb53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DirectX基盤\DirectX\AudioManager\DebugText">
+      <UniqueIdentifier>{f7f053a6-1209-4f72-a5ef-f0694dc7c80a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
