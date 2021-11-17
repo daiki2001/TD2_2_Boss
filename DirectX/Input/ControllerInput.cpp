@@ -6,6 +6,8 @@ IDirectInput8* ControllerInput::dinput = nullptr;
 ControllerInput::vector<IDirectInputDevice8*> ControllerInput::devGamepad = {};
 ControllerInput::vector<DIJOYSTATE> ControllerInput::gamepad = {};
 ControllerInput::vector<DIJOYSTATE> ControllerInput::oldgamepad = {};
+size_t ControllerInput::pressCount[64] = {};
+size_t ControllerInput::releasCount[64] = {};
 
 ControllerInput* ControllerInput::GetInstance()
 {
@@ -62,6 +64,89 @@ void ControllerInput::Update()
 		ZeroMemory(&gamepad[i], sizeof(DIJOYSTATE));
 		devGamepad[i]->GetDeviceState(sizeof(DIJOYSTATE), &gamepad[i]);
 	}
+
+	static const size_t buttonCount = sizeof(gamepad[0].rgbButtons) / sizeof(gamepad[0].rgbButtons[0]);
+	bool now = false;
+
+	for (size_t i = 0; i < 64; i++)
+	{
+		if (i < buttonCount)
+		{
+			if (gamepad[0].rgbButtons[i])
+			{
+				if (releasCount[i] != 0)
+				{
+					releasCount[i] = 0;
+				}
+
+				pressCount[i]++;
+			}
+			else
+			{
+				if (pressCount[i] != 0)
+				{
+					pressCount[i] = 0;
+				}
+
+				releasCount[i]++;
+			}
+		}
+		else if (i == buttonCount + 4)
+		{
+			if (i == XBOX_INPUT_LEFT)
+			{
+				now = gamepad[0].rgdwPOV[0] == 4500 * 5 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 6 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 7;
+			}
+			else if (i == XBOX_INPUT_RIGHT)
+			{
+				now = gamepad[0].rgdwPOV[0] == 4500 * 1 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 2 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 3;
+			}
+			else if (i == XBOX_INPUT_UP)
+			{
+				now = gamepad[0].rgdwPOV[0] == 4500 * 7 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 0 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 1;
+			}
+			else if (i == XBOX_INPUT_DOWN)
+			{
+				now = gamepad[0].rgdwPOV[0] == 4500 * 3 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 4 ||
+					gamepad[0].rgdwPOV[0] == 4500 * 5;
+			}
+
+			if (now)
+			{
+				if (releasCount[i] != 0)
+				{
+					releasCount[i] = 0;
+				}
+
+				pressCount[i]++;
+			}
+			else
+			{
+				if (pressCount[i] != 0)
+				{
+					pressCount[i] = 0;
+				}
+
+				releasCount[i]++;
+			}
+		}
+		else
+		{
+			if (pressCount[i] != 0)
+			{
+				pressCount[i] = 0;
+			}
+
+			releasCount[i]++;
+		}
+	}
 }
 
 DIJOYSTATE ControllerInput::GetGamePadState(const size_t& gamePadNo)
@@ -80,53 +165,40 @@ bool ControllerInput::IsPadButton(const size_t& button, const size_t& gamepadNo)
 	{
 		return false;
 	}
-	if (button >= sizeof(DIJOYSTATE::rgbButtons) / sizeof(DIJOYSTATE::rgbButtons[0]) + 4)
+	if (button >= sizeof(pressCount) / sizeof(pressCount[0]))
 	{
 		return false;
 	}
 
-	if (button < sizeof(DIJOYSTATE::rgbButtons) / sizeof(DIJOYSTATE::rgbButtons[0]))
-	{
-		return gamepad[gamepadNo].rgbButtons[button];
-	}
-	else if (button == XBOX_INPUT_LEFT)
-	{
-		bool now =
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 6 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7;
+	return pressCount[button] != 0;
+}
 
-		return now;
-	}
-	else if (button == XBOX_INPUT_RIGHT)
+size_t ControllerInput::GetPadButtonPress(const size_t& button, const size_t& gamepadNo)
+{
+	if (gamepadNo >= gamepad.size())
 	{
-		bool now =
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 2 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3;
-
-		return now;
+		return 0;
 	}
-	else if (button == XBOX_INPUT_UP)
+	if (button >= sizeof(pressCount) / sizeof(pressCount[0]))
 	{
-		bool now =
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 7 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 0 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 1;
-
-		return now;
-	}
-	else if (button == XBOX_INPUT_DOWN)
-	{
-		bool now =
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 3 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 4 ||
-			gamepad[gamepadNo].rgdwPOV[0] == 4500 * 5;
-
-		return now;
+		return 0;
 	}
 
-	return false;
+	return pressCount[button];
+}
+
+size_t ControllerInput::GetPadButtonReleas(const size_t& button, const size_t& gamepadNo)
+{
+	if (gamepadNo >= gamepad.size())
+	{
+		return 0;
+	}
+	if (button >= sizeof(pressCount) / sizeof(pressCount[0]))
+	{
+		return 0;
+	}
+
+	return releasCount[button];
 }
 
 bool ControllerInput::IsPadButtonTrigger(const size_t& button, const size_t& gamepadNo)

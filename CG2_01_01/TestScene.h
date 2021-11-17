@@ -3,6 +3,7 @@
 
 #include <vector>
 
+#include "GameObjCommon.h"
 #include "Player.h"
 #include "BaseEnemy.h"
 #include "TestEnemy.h"
@@ -22,14 +23,15 @@ public:
 	void Draw() const override;
 
 private:
-
+	//ƒƒbƒNƒIƒ“
 	//Õ“Ëˆ—
 	void HitCollision();
 	//Õ“ËŒãˆ—
-	void Repulsion(float hitTime,Player &player,BaseEnemy &enemy);
+	void Repulsion(float hitTime, GameObjCommon &a, GameObjCommon &b);
+
 
 	Player player;
 	Stage stage;
-	vector<BaseEnemy *>  enemys;
+	vector<GameObjCommon *>  enemys;
 };
 

@@ -1,6 +1,9 @@
 #include "TestScene.h"
 #include "Object3d.h"
 #include "Collision.h"
+#include "KeyboardInput.h"
+#include "ControllerInput.h"
+#include <DirectXMath.h>
 
 
 TestScene::TestScene(IoChangedListener *impl)
@@ -8,10 +11,9 @@ TestScene::TestScene(IoChangedListener *impl)
 {
 	stage.Initialize();
 	player.Initialize();
-	enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				20.0f));
-	enemys.push_back(new TestEnemy({ 100,0,100 }, 7,			20.0f));
-	enemys.push_back(new TestEnemy({ 200 + 40,0,20 + 40 }, 7,	20.0f));
-	
+	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
+	enemys.push_back(new TestEnemy({ -600,0,20 + 40 }, 20.0f, 100.0f, 0.5f, 60.0f));
+
 }
 
 void TestScene::Initialize()
@@ -30,13 +32,23 @@ void TestScene::Finalize()
 
 void TestScene::Update()
 {
+	static int gameCounter = 0;	//経過フレームのカウンター
+	gameCounter++;
+	
 	stage.Update();
-	player.Update();
 	//敵をすべて更新
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
-
+	//ロックオン
+	if (ControllerInput::GetInstance()->GetPadButtonPress(XBOX_INPUT_RB)) {
+		player.LockOn(enemys);
+	}
+	else {
+		player.isLockOn = false;
+	}
+	player.Update();
+	
 	//当たり判定
 	HitCollision();
 
@@ -47,7 +59,7 @@ void TestScene::Update()
 		enemys[i]->Reflection();
 	}
 	
-	Object3d::SetCamPos({ player.pos.x - 80.0f,200,player.pos.z-50.0f });
+	Object3d::SetCamPos({ player.pos.x - 80.0f,400,player.pos.z-50.0f });
 	Object3d::SetCamTarget({ player.pos.x - 80.0f,0.0f,player.pos.z});
 
 	Object3d::UpdateViewMatrix();
@@ -65,54 +77,81 @@ void TestScene::Draw() const
 
 void TestScene::HitCollision()
 {
+	//プレイヤーとエネミー
 	for (int i = 0; i < enemys.size(); i++) {
-		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r*2, enemys[i]->pos, enemys[i]->move, enemys[i]->r*2)) {
-			//Vector3 check = enemys[i]->pos -player.pos;
-			//float chackL = check.Length();
+		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r * 2, enemys[i]->pos, enemys[i]->move, enemys[i]->r * 2)) {
 			continue;
 		}
 		float hitTime = Collision::sphereSwept(player.pos, player.move, player.r, enemys[i]->pos, enemys[i]->move, enemys[i]->r);
 		if (hitTime < 0) {
-			return;
+			continue;
+		}
+		//どちらがダメージを負うか
+		if (player.move.Length() < enemys[i]->move.Length()) {
+			player.Damage(enemys[i]->damage);
+		}
+		else {
 		}
 		Repulsion(hitTime, player, *enemys[i]);
+		player.Hit();
+
 	}
 
+	//エネミー同士
+	for (int l = 0; l < enemys.size(); l++) {
+		for (int i = 0; i < enemys.size(); i++) {
+			if (l >= i) {
+				continue;
+			}
+			if (!Collision::IsPredictCollisionBall(enemys[l]->pos, enemys[l]->move, enemys[l]->r * 2, enemys[i]->pos, enemys[i]->move, enemys[i]->r * 2)) {
+				//Vector3 check = enemys[i]->pos -player.pos;
+				//float chackL = check.Length();
+				continue;
+			}
+			float hitTime = Collision::sphereSwept(enemys[l]->pos, enemys[l]->move, enemys[l]->r, enemys[i]->pos, enemys[i]->move, enemys[i]->r);
+			if (hitTime < 0) {
+				continue;
+			}
+			//衝突後処理
+			Repulsion(hitTime, *enemys[l], *enemys[i]);
+		}
+	}
 }
 
-void TestScene::Repulsion(float hitTime, Player &player, BaseEnemy &enemy)
+void TestScene::Repulsion(float hitTime, GameObjCommon &a, GameObjCommon &b)
 {
 	//衝突時点での位置
-	Vector3 actPlayer = player.pos + player.move * hitTime;
-	Vector3 actEnemy = enemy.pos + enemy.move * hitTime;
+	Vector3 actPlayer = a.pos + a.move * (hitTime - 0.01f);
+	Vector3 actEnemy = b.pos + b.move * (hitTime - 0.01f);
 	//衝突地点
-	Vector3 CollisionPos = actPlayer + (actEnemy - actPlayer) * player.r / (player.r + enemy.r);
+	Vector3 CollisionPos = actPlayer + (actEnemy - actPlayer) * a.r / (a.r + b.r);
 
 	//位置決定
 	//合計質量
-	float TotalN = player.N + enemy.N;
+	float TotalN = a.N + b.N;
 	//反発率
-	float RefRate = (1 + 0.5*0.5);
+	float RefRate = (1 + b.e*0.5);
 	//衝突軸
 	Vector3 Direction = actEnemy - actPlayer;
 	//ノーマライズ
 	Direction.Normalize();
 	//移動量の内積
-	Vector3 moveVec = (player.move - enemy.move);
+	Vector3 moveVec = (a.move - b.move);
 	float Dot = moveVec.VDot(Direction);
 	//定数ベクトル
 	Vector3 ConstVec = Direction * RefRate * Dot / TotalN;
 
 	//衝突後の移動量
-	player.move = ConstVec * -enemy.N + player.move;
-	enemy.move = ConstVec * player.N + enemy.move;
+	a.move = ConstVec * -b.N + a.move;
+	b.move = ConstVec * a.N + b.move;
 
 	//衝突後位置
-	player.pos = (player.move) * hitTime + actPlayer;
-	enemy.pos = (enemy.move) * hitTime + actEnemy;
+	a.pos = (a.move) * hitTime + actPlayer;
+	b.pos = (b.move) * hitTime + actEnemy;
 
-	if (player.move == Vector3{ 0,0,0 } &&
-		enemy.move == Vector3{ 0,0,0 }) {
-		
+	if (a.move == Vector3{ 0,0,0 } &&
+		b.move == Vector3{ 0,0,0 }) {
+		float Rand = rand() % 361 * XM_PI / 180.0f;
+		b.pos += Vector3((a.r + b.r) * cosf(Rand), 0, (a.r + b.r) * sinf(Rand));
 	}
 }

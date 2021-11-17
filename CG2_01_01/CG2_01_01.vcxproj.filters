@@ -198,6 +198,9 @@
     <ClCompile Include="TestEnemy.cpp">
       <Filter>Game\Scene\TestScene\Enemy</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjCommon.cpp">
+      <Filter>Game\Scene\TestScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageManager.h">
@@ -277,6 +280,9 @@
     </ClInclude>
     <ClInclude Include="TestEnemy.h">
       <Filter>Game\Scene\TestScene\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjCommon.h">
+      <Filter>Game\Scene\TestScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
