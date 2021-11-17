@@ -84,6 +84,9 @@
     <ClCompile Include="GameObjCommon.cpp">
       <Filter>Game\Scene\TestScene</Filter>
     </ClCompile>
+    <ClCompile Include="RushEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ImageManager.h">
@@ -166,10 +169,18 @@
     </ClInclude>
     <ClInclude Include="GameObjCommon.h">
       <Filter>Game\Scene\TestScene</Filter>
+    </ClCompile>
+    <ClInclude Include="RushEnemy.h">
+      <Filter>Enemy</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
     <None Include="OBJShaderHeader.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{8e85cf25-e412-489e-ab1e-9d962c8bd422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

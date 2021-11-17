@@ -185,6 +185,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\Particle.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="RushEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestEnemy.cpp" />
     <ClCompile Include="TestScene.cpp" />
@@ -297,6 +298,7 @@
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Particle\Particle.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RushEnemy.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TestEnemy.h" />
     <ClInclude Include="TestScene.h" />
