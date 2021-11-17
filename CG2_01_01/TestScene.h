@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "BaseEnemy.h"
 #include "TestEnemy.h"
+#include "RushEnemy.h"
 #include "Stage.h"
 #include "Particle/Particle.h"
 
