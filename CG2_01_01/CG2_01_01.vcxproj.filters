@@ -1,295 +1,75 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="ヘッダー ファイル">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="リソース ファイル">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="DirectX基盤">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX">
-      <UniqueIdentifier>{a519204a-083b-4287-816e-532ae27fbc62}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Object2d">
-      <UniqueIdentifier>{90666f83-3567-4c57-84d1-36b3963c7588}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Object2d\shader">
-      <UniqueIdentifier>{bfd4c7a4-417d-4168-ae18-e2b0e6779257}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Object3d">
-      <UniqueIdentifier>{552b8398-2ab7-43ec-8f23-c39f1b571f3c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game">
-      <UniqueIdentifier>{a3a6c405-52ab-498b-93bd-ec447ae37bcc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\DebugText">
-      <UniqueIdentifier>{f7f053a6-1209-4f72-a5ef-f0694dc7c80a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Common">
-      <UniqueIdentifier>{411d0c39-0bfa-40e4-ad68-0a537b9c8870}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\整理済み">
-      <UniqueIdentifier>{4fbebd02-87e5-41df-a10c-142fd52bf1a8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\整理済み\ImageManager">
-      <UniqueIdentifier>{10d9ff90-552d-4144-b9fb-a3ed93a3c25f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Model">
-      <UniqueIdentifier>{03b79234-8687-4e02-afd8-0c60ea964501}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Common\Easing">
-      <UniqueIdentifier>{832e1574-0268-4987-8ebf-211f2b7e38dc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\WindowsAPI">
-      <UniqueIdentifier>{89460f69-f7ac-49c1-81dc-736495437326}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\DirectXCommon">
-      <UniqueIdentifier>{3da86293-8739-4124-a252-0b8ff7614f37}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameEngin">
-      <UniqueIdentifier>{95015090-90ee-4a6e-9f5b-8ac250338f3a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System">
-      <UniqueIdentifier>{895cf64c-6cc7-4744-9ac3-c38bf75f7288}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene">
-      <UniqueIdentifier>{25a6749b-32c2-4414-9131-88a10fcfd8cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\TitleScene">
-      <UniqueIdentifier>{5f4b8935-100d-429c-a474-9bf7d477cff5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\Looper">
-      <UniqueIdentifier>{e2a698e5-a2fe-43ef-b1f5-0c1213badf88}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\AbsScene">
-      <UniqueIdentifier>{7282220b-f772-4670-92da-7a28b257fa4e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Common\Vector">
-      <UniqueIdentifier>{5173e171-be90-477b-9039-2838ee13e4ad}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\GameScene">
-      <UniqueIdentifier>{a7420e63-b4c0-43f6-9dc2-2bc29f0f28fe}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\IoChangedListener">
-      <UniqueIdentifier>{3f1f7983-46d5-4007-ab50-d02f78e8835f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="System\SystemMain">
-      <UniqueIdentifier>{cad13680-fb29-4965-a376-91fdc842dade}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameEngin\ModelManager">
-      <UniqueIdentifier>{cf08131b-97bf-47fa-a7bf-77beff0deb53}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\AudioManager">
-      <UniqueIdentifier>{acd2ef99-6153-4472-9f25-885073618524}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\TestScene">
-      <UniqueIdentifier>{3db66a8e-5c69-4d84-ac94-e2bbff9638be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\TestScene\Player">
-      <UniqueIdentifier>{cfa4d2d6-9841-4229-81eb-52de29e4572b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\TestScene\Stage">
-      <UniqueIdentifier>{59229857-df14-48b2-a23f-55d2c47cb538}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Scene\TestScene\Enemy">
-      <UniqueIdentifier>{bb952252-6082-442b-9180-a5a80e32568d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game\Common\Collision">
-      <UniqueIdentifier>{9b09c414-b542-4db0-946e-fa5e5610c9fc}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Input">
-      <UniqueIdentifier>{9d734897-599f-42b4-b636-3fbc99d48b23}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Input\Keyboard">
-      <UniqueIdentifier>{e32e44ab-ce50-43f6-87f5-4108bf4b6588}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="DirectX基盤\DirectX\Input\Controller">
-      <UniqueIdentifier>{2c534aa9-faa7-4f73-a4d8-820ee1729611}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="パーティクル">
-      <UniqueIdentifier>{31a4bff4-6562-428d-a0a8-4047b91fb573}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <FxCompile Include="BasicVS.hlsl" />
     <FxCompile Include="BasicPS.hlsl" />
-    <FxCompile Include="SpritePS.hlsl">
-      <Filter>DirectX基盤\DirectX\Object2d\shader</Filter>
-    </FxCompile>
-    <FxCompile Include="SpriteVS.hlsl">
-      <Filter>DirectX基盤\DirectX\Object2d\shader</Filter>
-    </FxCompile>
+    <FxCompile Include="BasicVS.hlsl" />
     <FxCompile Include="OBJPixelShader.hlsl" />
     <FxCompile Include="OBJVertexShader.hlsl" />
-    <FxCompile Include="Particle\ParticleGS.hlsl">
-      <Filter>パーティクル</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle\ParticlePS.hlsl">
-      <Filter>パーティクル</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle\ParticleVS.hlsl">
-      <Filter>パーティクル</Filter>
-    </FxCompile>
+    <FxCompile Include="Particle\ParticleGS.hlsl" />
+    <FxCompile Include="Particle\ParticlePS.hlsl" />
+    <FxCompile Include="Particle\ParticleVS.hlsl" />
+    <FxCompile Include="SpriteVS.hlsl" />
+    <FxCompile Include="SpritePS.hlsl" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>DirectX基盤\DirectX</Filter>
-    </ClCompile>
-    <ClCompile Include="ImageManager.cpp">
-      <Filter>DirectX基盤\DirectX\整理済み\ImageManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\Model\Model.cpp">
-      <Filter>DirectX基盤\DirectX\Model</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\Object3d\Object3d.cpp">
-      <Filter>DirectX基盤\DirectX\Object3d</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\WinApp\WinApp.cpp">
-      <Filter>DirectX基盤\DirectX\WindowsAPI</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\DirectXCommon\DirectXCommon.cpp">
-      <Filter>DirectX基盤\DirectX\DirectXCommon</Filter>
-    </ClCompile>
-    <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp">
-      <Filter>System\AbsScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\System\SystemMain\SystemMain.cpp">
-      <Filter>System\SystemMain</Filter>
-    </ClCompile>
-    <ClCompile Include="..\System\Looper\Looper.cpp">
-      <Filter>System\Looper</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Scene\TitleScene.cpp">
-      <Filter>Game\Scene\TitleScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Scene\GameScene.cpp">
-      <Filter>Game\Scene\GameScene</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp">
-      <Filter>GameEngin\ModelManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp">
-      <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp">
-      <Filter>DirectX基盤\DirectX\AudioManager</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\Sprite\Object2d.cpp">
-      <Filter>DirectX基盤\DirectX\Object2d</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Game\Scene\TestScene\Player</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>Game\Scene\TestScene</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Game\Scene\TestScene\Enemy</Filter>
-    </ClCompile>
-    <ClCompile Include="Collision.cpp">
-      <Filter>Game\Common\Collision</Filter>
-    </ClCompile>
-    <ClCompile Include="Stage.cpp">
-      <Filter>DirectX基盤</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Easing\Easing.cpp">
-      <Filter>Game\Common\Easing</Filter>
-    </ClCompile>
-    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
-      <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\Particle.cpp">
-      <Filter>パーティクル</Filter>
-    </ClCompile>
+    <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp" />
+    <ClCompile Include="..\DirectX\DirectXCommon\DirectXCommon.cpp" />
+    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp" />
+    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp" />
+    <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
+    <ClCompile Include="..\DirectX\Model\Model.cpp" />
+    <ClCompile Include="..\DirectX\Object3d\Object3d.cpp" />
+    <ClCompile Include="..\DirectX\Sprite\Object2d.cpp" />
+    <ClCompile Include="..\DirectX\WinApp\WinApp.cpp" />
+    <ClCompile Include="..\Easing\Easing.cpp" />
+    <ClCompile Include="..\Scene\GameScene.cpp" />
+    <ClCompile Include="..\Scene\TitleScene.cpp" />
+    <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
+    <ClCompile Include="..\System\Looper\Looper.cpp" />
+    <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
+    <ClCompile Include="BaseEnemy.cpp" />
+    <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Particle\Particle.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TestEnemy.cpp" />
+    <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ImageManager.h">
-      <Filter>DirectX基盤\DirectX\整理済み\ImageManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\IoChangedListener\IoChangedListener.h">
-      <Filter>System\IoChangedListener</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\IoChangedListener\Scene.h">
-      <Filter>System\IoChangedListener</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\Model\Model.h">
-      <Filter>DirectX基盤\DirectX\Model</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\Object3d\Object3d.h">
-      <Filter>DirectX基盤\DirectX\Object3d</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\WinApp\WinApp.h">
-      <Filter>DirectX基盤\DirectX\WindowsAPI</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h">
-      <Filter>DirectX基盤\DirectX\DirectXCommon</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\AbstractScene\AbstractScene.h">
-      <Filter>System\AbsScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\SystemMain\SystemMain.h">
-      <Filter>System\SystemMain</Filter>
-    </ClInclude>
-    <ClInclude Include="..\System\Looper\Looper.h">
-      <Filter>System\Looper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Scene\TitleScene.h">
-      <Filter>Game\Scene\TitleScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Scene\GameScene.h">
-      <Filter>Game\Scene\GameScene</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\ModelManager\ModelManager.h">
-      <Filter>GameEngin\ModelManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\Input\KeyboardInput.h">
-      <Filter>DirectX基盤\DirectX\Input\Keyboard</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\AudioManager\AudioManager.h">
-      <Filter>DirectX基盤\DirectX\AudioManager</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\Sprite\Object2d.h">
-      <Filter>DirectX基盤\DirectX\Object2d</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Game\Scene\TestScene\Player</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>Game\Scene\TestScene</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Game\Scene\TestScene\Enemy</Filter>
-    </ClInclude>
-    <ClInclude Include="Collision.h">
-      <Filter>Game\Common\Collision</Filter>
-    </ClInclude>
-    <ClInclude Include="Stage.h">
-      <Filter>ヘッダー ファイル</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Easing\Easing.h">
-      <Filter>Game\Common\Easing</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\Input\ControllerInput.h">
-      <Filter>DirectX基盤\DirectX\Input\Controller</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\Particle.h">
-      <Filter>パーティクル</Filter>
-    </ClInclude>
+    <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
+    <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h" />
+    <ClInclude Include="..\DirectX\Input\ControllerInput.h" />
+    <ClInclude Include="..\DirectX\Input\KeyboardInput.h" />
+    <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
+    <ClInclude Include="..\DirectX\Model\Model.h" />
+    <ClInclude Include="..\DirectX\Object3d\Object3d.h" />
+    <ClInclude Include="..\DirectX\Sprite\Object2d.h" />
+    <ClInclude Include="..\DirectX\WinApp\WinApp.h" />
+    <ClInclude Include="..\Easing\Easing.h" />
+    <ClInclude Include="..\Scene\GameScene.h" />
+    <ClInclude Include="..\Scene\TitleScene.h" />
+    <ClInclude Include="..\System\AbstractScene\AbstractScene.h" />
+    <ClInclude Include="..\System\IoChangedListener\IoChangedListener.h" />
+    <ClInclude Include="..\System\IoChangedListener\Scene.h" />
+    <ClInclude Include="..\System\Looper\Looper.h" />
+    <ClInclude Include="..\System\SystemMain\SystemMain.h" />
+    <ClInclude Include="Collision.h" />
+    <ClInclude Include="BaseEnemy.h" />
+    <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="Particle\Particle.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="TestEnemy.h" />
+    <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="yMath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
-    <None Include="Sprite.hlsli">
-      <Filter>DirectX基盤\DirectX\Object2d\shader</Filter>
-    </None>
     <None Include="OBJShaderHeader.hlsli" />
-    <None Include="Particle\ParticleHeader.hlsli">
-      <Filter>パーティクル</Filter>
-    </None>
+    <None Include="Particle\ParticleHeader.hlsli" />
+    <None Include="Sprite.hlsli" />
   </ItemGroup>
 </Project>

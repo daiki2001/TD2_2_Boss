@@ -8,7 +8,7 @@ Stage::Stage()
 	object = Object3d::Create();
 	object->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Stage));
 	object->Update();
-	object->SetScale({ 10.0f,10.0f,10.0f });
+	object->SetScale({ 5.0f,5.0f,5.0f });
 	object->SetPos({ 0.0f, -20.0f, 0.0f });
 	Initialize();
 }

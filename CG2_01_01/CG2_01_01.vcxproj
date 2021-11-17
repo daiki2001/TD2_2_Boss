@@ -79,7 +79,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <IncludePath>$(SolutionDir)Easing;$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\lib\vs2019\x64\debug;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\lib\vs2015\x64\debug;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\lib\vs2019\x64\debug;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
@@ -89,7 +89,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <IncludePath>$(SolutionDir)Easing;$(ProjectDir);$(SolutionDir)DirectX\AudioManager;$(SolutionDir)DirectX\DirectXCommon;$(SolutionDir)DirectX\Input;$(SolutionDir)DirectX\Model;$(SolutionDir)DirectX\ModelManager;$(SolutionDir)DirectX\Object3d;$(SolutionDir)DirectX\Sprite;$(SolutionDir)DirectX\WinApp;$(SolutionDir)System\AbstractScene;$(SolutionDir)System\IoChangedListener;$(SolutionDir)System\Looper;$(SolutionDir)System\SystemMain;$(SolutionDir)Scene;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\include;$(IncludePath)</IncludePath>
-    <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\lib\vs2019\x64\release;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)lib\DirectXTex\lib\Release;C:\Program Files\Autodesk\FBX\FBX SDK\2020.2.1\lib\vs2015\x64\release;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -178,13 +178,14 @@
     <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
     <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
+    <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="Collision.cpp" />
-    <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\Particle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="TestEnemy.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -290,12 +291,15 @@
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Particle\Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TestEnemy.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="Vector3.h" />
+    <ClInclude Include="yMath.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
