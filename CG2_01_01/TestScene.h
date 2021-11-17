@@ -25,6 +25,8 @@ private:
 
 	//Õ“Ëˆ—
 	void HitCollision();
+	//Õ“ËŒãˆ—
+	void Repulsion(float hitTime,Player &player,BaseEnemy &enemy);
 
 	Player player;
 	Stage stage;

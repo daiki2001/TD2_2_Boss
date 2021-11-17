@@ -31,12 +31,13 @@ private:
 public:
 	Vector3 pos;
 	Vector3 move;
-	float r;				//半径
+	Vector3 scale;	//サイズ
+	float N;		//質量
+	float r;		//半径
 private:
 
 	Vector3 rotate;			//プレイヤーの向きベクトル
 	float angle = 0.0f;		//プレイヤーのy軸角度
-	Vector3 scale;			//サイズ
 	Object3d *object;
 
 	Vector3 attackArea[8];	//攻撃判定のある場所
