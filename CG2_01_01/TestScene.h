@@ -7,6 +7,7 @@
 #include "BaseEnemy.h"
 #include "TestEnemy.h"
 #include "Stage.h"
+#include "Particle/Particle.h"
 
 class TestScene
 	:public AbstractScene
@@ -31,5 +32,6 @@ private:
 	Player player;
 	Stage stage;
 	vector<BaseEnemy *>  enemys;
+	ParticleManager* particle1;
 };
 

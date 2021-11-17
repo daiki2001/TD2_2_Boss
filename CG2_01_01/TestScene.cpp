@@ -1,6 +1,8 @@
 #include "TestScene.h"
 #include "Object3d.h"
 #include "Collision.h"
+#include "../DirectX/Input/KeyboardInput.h"
+#include "../DirectX/DirectXCommon/DirectXCommon.h"
 
 
 TestScene::TestScene(IoChangedListener *impl)
@@ -11,37 +13,40 @@ TestScene::TestScene(IoChangedListener *impl)
 	enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				20.0f));
 	enemys.push_back(new TestEnemy({ 100,0,100 }, 7,			20.0f));
 	enemys.push_back(new TestEnemy({ 200 + 40,0,20 + 40 }, 7,	20.0f));
-	
+	particle1 = nullptr;
 }
 
 void TestScene::Initialize()
 {
 	stage.Initialize();
 	player.Initialize();
-	//“G‚ğ‚·‚×‚Ä‰Šú‰»
+	//æ•µã‚’ã™ã¹ã¦åˆæœŸåŒ–
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Initialize();
 	}
+	particle1 = ParticleManager::Create(L"Resources/effect1.png");
 }
 
 void TestScene::Finalize()
 {
+	delete particle1;
+	particle1 = nullptr;
 }
 
 void TestScene::Update()
 {
 	stage.Update();
 	player.Update();
-	//“G‚ğ‚·‚×‚ÄXV
+	//æ•µã‚’ã™ã¹ã¦æ›´æ–°
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
 
-	//“–‚½‚è”»’è
+	//å½“ãŸã‚Šåˆ¤å®š
 	HitCollision();
 
 
-	//ˆÚ“®‚ğ“K—p
+	//ç§»å‹•ã‚’é©ç”¨
 	player.Reflection();
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Reflection();
@@ -50,6 +55,30 @@ void TestScene::Update()
 	Object3d::SetCamPos({ player.pos.x - 80.0f,200,player.pos.z-50.0f });
 	Object3d::SetCamTarget({ player.pos.x - 80.0f,0.0f,player.pos.z});
 
+	if (KeyboardInput::GetKeyPress(DIK_SPACE))
+	{
+		// X,Y,Zå…¨ã¦[-5.0f,+5.0f]ã§ãƒ©ãƒ³ãƒ€ãƒ ã«åˆ†å¸ƒ
+		const float rnd_pos = 10.0f;
+		XMFLOAT3 pos{};
+		pos.x = (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+		pos.y = (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+		pos.z = (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+
+		const float rnd_vel = 0.1f;
+		XMFLOAT3 vel{};
+		vel.x = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.0f;
+		vel.y = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.0f;
+		vel.z = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.0f;
+
+		XMFLOAT3 acc{};
+		const float rnd_acc = 0.001f;
+		acc.y = -(float)rand() / RAND_MAX * rnd_acc;
+
+		particle1->Add(60, pos, vel, acc, 1.0f, 0.0f, { 0.0f, 1.0f, 0.0f, 1.0f }, { 1.0f, 1.0f, 1.0f, 1.0f });
+	}
+
+	particle1->Update();
+
 	Object3d::UpdateViewMatrix();
 }
 
@@ -57,10 +86,11 @@ void TestScene::Draw() const
 {
 	stage.Draw();
 	player.Draw();
-	//“G‚ğ‚·‚×‚Ä•`‰æ
+	//æ•µã‚’ã™ã¹ã¦æç”»
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Draw();
 	}
+	particle1->Draw(DirectXCommon::cmdList.Get());
 }
 
 void TestScene::HitCollision()
@@ -77,37 +107,36 @@ void TestScene::HitCollision()
 		}
 		Repulsion(hitTime, player, *enemys[i]);
 	}
-
 }
 
 void TestScene::Repulsion(float hitTime, Player &player, BaseEnemy &enemy)
 {
-	//Õ“Ë“_‚Å‚ÌˆÊ’u
+	//è¡çªæ™‚ç‚¹ã§ã®ä½ç½®
 	Vector3 actPlayer = player.pos + player.move * hitTime;
 	Vector3 actEnemy = enemy.pos + enemy.move * hitTime;
-	//Õ“Ë’n“_
+	//è¡çªåœ°ç‚¹
 	Vector3 CollisionPos = actPlayer + (actEnemy - actPlayer) * player.r / (player.r + enemy.r);
 
-	//ˆÊ’uŒˆ’è
-	//‡Œv¿—Ê
+	//ä½ç½®æ±ºå®š
+	//åˆè¨ˆè³ªé‡
 	float TotalN = player.N + enemy.N;
-	//”½”­—¦
+	//åç™ºç‡
 	float RefRate = (1 + 0.5*0.5);
-	//Õ“Ë²
+	//è¡çªè»¸
 	Vector3 Direction = actEnemy - actPlayer;
-	//ƒm[ƒ}ƒ‰ƒCƒY
+	//ãƒãƒ¼ãƒãƒ©ã‚¤ã‚º
 	Direction.Normalize();
-	//ˆÚ“®—Ê‚Ì“àÏ
+	//ç§»å‹•é‡ã®å†…ç©
 	Vector3 moveVec = (player.move - enemy.move);
 	float Dot = moveVec.VDot(Direction);
-	//’è”ƒxƒNƒgƒ‹
+	//å®šæ•°ãƒ™ã‚¯ãƒˆãƒ«
 	Vector3 ConstVec = Direction * RefRate * Dot / TotalN;
 
-	//Õ“ËŒã‚ÌˆÚ“®—Ê
+	//è¡çªå¾Œã®ç§»å‹•é‡
 	player.move = ConstVec * -enemy.N + player.move;
 	enemy.move = ConstVec * player.N + enemy.move;
 
-	//Õ“ËŒãˆÊ’u
+	//è¡çªå¾Œä½ç½®
 	player.pos = (player.move) * hitTime + actPlayer;
 	enemy.pos = (enemy.move) * hitTime + actEnemy;
 
