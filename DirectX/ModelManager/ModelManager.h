@@ -13,6 +13,7 @@ private:
 public:
 	enum ModelName {
 		Player,
+		RushEnemy,
 		TestEnemy,
 		BossCore,
 		Triangle,

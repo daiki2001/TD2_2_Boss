@@ -6,7 +6,7 @@
 class BaseEnemy
 {
 public:
-	BaseEnemy(Vector3 startPos, float hp, ModelManager::ModelName modelName) :
+	BaseEnemy(Vector3 startPos, float hp, float r, ModelManager::ModelName modelName) :
 		pos(startPos),
 		hp(hp),
 		scale(Vector3{ hp,hp,hp }),
@@ -47,7 +47,7 @@ protected:
 	Vector3 scale;			//ƒTƒCƒY
 	Object3d *object;
 
-	Vector3 attackArea[8];	//UŒ‚”»’è‚Ì‚ ‚éêŠ
+	//Vector3 attackArea[8];	//UŒ‚”»’è‚Ì‚ ‚éêŠ
 
 	const float maxHp = 5.0f;	//‘Ì—ÍÅ‘å
 };

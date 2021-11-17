@@ -27,15 +27,22 @@
     <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
     <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
-    <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\Particle.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TestEnemy.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="RushEnemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
@@ -56,20 +63,32 @@
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Particle\Particle.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="TestEnemy.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="RushEnemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
     <None Include="OBJShaderHeader.hlsli" />
     <None Include="Particle\ParticleHeader.hlsli" />
     <None Include="Sprite.hlsli" />
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{8e85cf25-e412-489e-ab1e-9d962c8bd422}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -10,9 +10,9 @@ TestScene::TestScene(IoChangedListener *impl)
 {
 	stage.Initialize();
 	player.Initialize();
-	enemys.push_back(new TestEnemy({ 20,0,40 }, 7));
-	enemys.push_back(new TestEnemy({ 100,0,100 }, 7));
-	enemys.push_back(new TestEnemy({ 200 + 40,0,20 + 40 }, 7));
+	enemys.push_back(new TestEnemy({ 20,0,40 }, 7, 5.0f));
+	enemys.push_back(new TestEnemy({ 100,0,100 }, 7, 5.0f));
+	enemys.push_back(new TestEnemy({ 200 + 40,0,20 + 40 }, 7, 5.0f));
 	particle1 = nullptr;
 }
 
