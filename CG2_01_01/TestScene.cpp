@@ -20,7 +20,7 @@ void TestScene::Initialize()
 {
 	stage.Initialize();
 	player.Initialize();
-	//“G‚ğ‚·‚×‚Ä‰Šú‰»
+	//æ•µã‚’ã™ã¹ã¦åˆæœŸåŒ–
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Initialize();
 	}
@@ -32,15 +32,15 @@ void TestScene::Finalize()
 
 void TestScene::Update()
 {
-	static int gameCounter = 0;	//Œo‰ßƒtƒŒ[ƒ€‚ÌƒJƒEƒ“ƒ^[
+	static int gameCounter = 0;	//çµŒéãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚«ã‚¦ãƒ³ã‚¿ãƒ¼
 	gameCounter++;
 	
 	stage.Update();
-	//“G‚ğ‚·‚×‚ÄXV
+	//æ•µã‚’ã™ã¹ã¦æ›´æ–°
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
-	//ƒƒbƒNƒIƒ“
+	//ãƒ­ãƒƒã‚¯ã‚ªãƒ³
 	if (ControllerInput::GetInstance()->GetPadButtonPress(XBOX_INPUT_RB)) {
 		player.LockOn(enemys);
 	}
@@ -49,11 +49,11 @@ void TestScene::Update()
 	}
 	player.Update();
 	
-	//“–‚½‚è”»’è
+	//å½“ãŸã‚Šåˆ¤å®š
 	HitCollision();
 
 
-	//ˆÚ“®‚ğ“K—p
+	//ç§»å‹•ã‚’é©ç”¨
 	player.Reflection();
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Reflection();
@@ -69,7 +69,7 @@ void TestScene::Draw() const
 {
 	stage.Draw();
 	player.Draw();
-	//“G‚ğ‚·‚×‚Ä•`‰æ
+	//æ•µã‚’ã™ã¹ã¦æç”»
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Draw();
 	}
@@ -77,7 +77,7 @@ void TestScene::Draw() const
 
 void TestScene::HitCollision()
 {
-	//ƒvƒŒƒCƒ„[‚ÆƒGƒlƒ~[
+	//ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã¨ã‚¨ãƒãƒŸãƒ¼
 	for (int i = 0; i < enemys.size(); i++) {
 		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r * 2, enemys[i]->pos, enemys[i]->move, enemys[i]->r * 2)) {
 			continue;
@@ -86,7 +86,7 @@ void TestScene::HitCollision()
 		if (hitTime < 0) {
 			continue;
 		}
-		//‚Ç‚¿‚ç‚ªƒ_ƒ[ƒW‚ğ•‰‚¤‚©
+		//ã©ã¡ã‚‰ãŒãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’è² ã†ã‹
 		if (player.move.Length() < enemys[i]->move.Length()) {
 			player.Damage(enemys[i]->damage);
 		}
@@ -97,7 +97,7 @@ void TestScene::HitCollision()
 
 	}
 
-	//ƒGƒlƒ~[“¯m
+	//ã‚¨ãƒãƒŸãƒ¼åŒå£«
 	for (int l = 0; l < enemys.size(); l++) {
 		for (int i = 0; i < enemys.size(); i++) {
 			if (l >= i) {
@@ -112,7 +112,7 @@ void TestScene::HitCollision()
 			if (hitTime < 0) {
 				continue;
 			}
-			//Õ“ËŒãˆ—
+			//è¡çªå¾Œå‡¦ç†
 			Repulsion(hitTime, *enemys[l], *enemys[i]);
 		}
 	}
@@ -120,32 +120,32 @@ void TestScene::HitCollision()
 
 void TestScene::Repulsion(float hitTime, GameObjCommon &a, GameObjCommon &b)
 {
-	//Õ“Ë“_‚Å‚ÌˆÊ’u
+	//è¡çªæ™‚ç‚¹ã§ã®ä½ç½®
 	Vector3 actPlayer = a.pos + a.move * (hitTime - 0.01f);
 	Vector3 actEnemy = b.pos + b.move * (hitTime - 0.01f);
-	//Õ“Ë’n“_
+	//è¡çªåœ°ç‚¹
 	Vector3 CollisionPos = actPlayer + (actEnemy - actPlayer) * a.r / (a.r + b.r);
 
-	//ˆÊ’uŒˆ’è
-	//‡Œv¿—Ê
+	//ä½ç½®æ±ºå®š
+	//åˆè¨ˆè³ªé‡
 	float TotalN = a.N + b.N;
-	//”½”­—¦
+	//åç™ºç‡
 	float RefRate = (1 + b.e*0.5);
-	//Õ“Ë²
+	//è¡çªè»¸
 	Vector3 Direction = actEnemy - actPlayer;
-	//ƒm[ƒ}ƒ‰ƒCƒY
+	//ãƒãƒ¼ãƒãƒ©ã‚¤ã‚º
 	Direction.Normalize();
-	//ˆÚ“®—Ê‚Ì“àÏ
+	//ç§»å‹•é‡ã®å†…ç©
 	Vector3 moveVec = (a.move - b.move);
 	float Dot = moveVec.VDot(Direction);
-	//’è”ƒxƒNƒgƒ‹
+	//å®šæ•°ãƒ™ã‚¯ãƒˆãƒ«
 	Vector3 ConstVec = Direction * RefRate * Dot / TotalN;
 
-	//Õ“ËŒã‚ÌˆÚ“®—Ê
+	//è¡çªå¾Œã®ç§»å‹•é‡
 	a.move = ConstVec * -b.N + a.move;
 	b.move = ConstVec * a.N + b.move;
 
-	//Õ“ËŒãˆÊ’u
+	//è¡çªå¾Œä½ç½®
 	a.pos = (a.move) * hitTime + actPlayer;
 	b.pos = (b.move) * hitTime + actEnemy;
 
