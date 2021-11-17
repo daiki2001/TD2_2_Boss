@@ -21,10 +21,12 @@ Player::Player()
 
 void Player::Initialize()
 {
-	r = 5.0f;
+	r = 20.0f;
+	N = 10.0f;
 	hp = maxHp;
 	pos = { 0.0f, 0.0f, 0.0f };
 	scale = { hp,hp,hp };
+	move = { 0.0f, 0.0f, 10.0f };
 	rotate = { 0.0f,0.0f,1.0f };
 	moveSpeead = 0.0f;
 	atackSpeed = 0.0f;
@@ -35,7 +37,12 @@ void Player::Update()
 {
 	
 	//移動量初期化
-	move = { 0.0f, 0.0f, 0.0f };
+	if(move.Length() > 0.1f){
+		move = move * 0.9f;
+	}
+	else {
+		move = { 0,0,0 };
+	}
 
 	Heal();			//自動回復
 	ChangeAngle();	//角度変更
@@ -47,12 +54,11 @@ void Player::Update()
 	//移動適応
 	move.y = 0.0f;	//yを無効化
 	pos += move;
-
-	object->Update();
 }
 
 void Player::Reflection()
 {
+	//移動適応
 	object->SetPos(pos);
 	object->SetScale(scale);
 	object->SetRotation({ 0.0f,angle,0.0f });
@@ -77,7 +83,7 @@ void Player::Attack()
 	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) && state == STAY) {
 		startScale = hp;			//体当たり開始時のhpを取得
 		//attackAngle = rotate;
-		atackSpeed += 5.0f;			//体当たりの初速決定
+		atackSpeed = 2.0f;			//体当たりの初速決定
 		hp /= 2.0f;
 		attackCounter = 0.0f;		//カウンターを0に
 
@@ -170,6 +176,6 @@ bool Player::Move()
 		0.0f
 	};
 
-	move += rotate * stickRotate.Length() / 800 * 2;
+	move += rotate * stickRotate.Length() * 0.001f;
 	return false;
 }
