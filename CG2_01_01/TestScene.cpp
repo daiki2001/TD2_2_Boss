@@ -88,6 +88,7 @@ void TestScene::Draw() const
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Draw();
 	}
+	particle1->Draw(DirectXCommon::cmdList.Get());
 }
 
 void TestScene::HitCollision()
@@ -101,5 +102,4 @@ void TestScene::HitCollision()
 
 		}
 	}
-	particle1->Draw(DirectXCommon::cmdList.Get());
 }
