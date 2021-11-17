@@ -8,15 +8,10 @@
 #include "yMath.h"
 
 
-Player::Player()
+Player::Player():
+	GameObjCommon(Vector3{0,0,0},5.0f,10.0f,0.5f,25, ModelManager::Player)
 {
-	object = nullptr;
-	object = Object3d::Create();
-	object->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Player));
-	object->SetPos({ 0.0f,10.0f,0.0f });
-	object->Update();
 	Initialize();
-	
 }
 
 void Player::Initialize()
@@ -30,26 +25,40 @@ void Player::Initialize()
 	rotate = { 0.0f,0.0f,1.0f };
 	moveSpeead = 0.0f;
 	atackSpeed = 0.0f;
+	isLockOn = false;
+	isHit = false;
 	state = STAY;
 }
 
 void Player::Update()
 {
-	
+	//入力を最新に
+	stickRotate = {						//現在の入力向きベクトル
+		(float)ControllerInput::IsPadStick(INPUT_AXIS_X,0.2f),
+		-(float)ControllerInput::IsPadStick(INPUT_AXIS_Y,0.2f),
+		0.0f
+	};
+
 	//移動量初期化
 	if(move.Length() > 0.1f){
-		move = move * 0.9f;
+		move = move * 0.95f;
 	}
 	else {
 		move = { 0,0,0 };
 	}
+	//大きさとHPを同じに
 
 	Heal();			//自動回復
-	ChangeAngle();	//角度変更
-	Move();			//移動
-	Attack();
-	
-	
+	//ロックオンせずに移動している場合更新
+	if (stickRotate != Vector3{ 0.0f, 0.0f, 0.0f } && !isLockOn){
+		ChangeAngle(stickRotate, 0.1f, Vector3(0, 1, 0));	//角度変更
+	}
+	//接触後硬直がなければ移動と攻撃可能
+	if(!isHit){
+		Move();			//移動
+		Attack();
+	}
+
 
 	//移動適応
 	move.y = 0.0f;	//yを無効化
@@ -78,13 +87,14 @@ void Player::Attack()
 {
 	static float attackCounter = 0.0f;	//攻撃後のアニメーションに使うカウンタ
 	static float startScale = scale.x;		//スタート時のサイズ
+	startScale = hp;						//体当たり開始時のhpを取得
 
 	//体当たり
 	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) && state == STAY) {
-		startScale = hp;			//体当たり開始時のhpを取得
+		
 		//attackAngle = rotate;
 		atackSpeed = 2.0f;			//体当たりの初速決定
-		hp /= 2.0f;
+		hp *= 0.7f;
 		attackCounter = 0.0f;		//カウンターを0に
 
 		state = ATTACK;				//攻撃開始
@@ -104,6 +114,7 @@ void Player::Attack()
 
 			if (attackCounter > 1.0f) {
 				attackCounter = 1.0f;
+				atackSpeed = 0.0f;
 			}
 			else {
 				attackCounter += 0.02f;
@@ -118,10 +129,62 @@ void Player::Attack()
 	};
 }
 
+void Player::Damage(float damage)
+{
+	if (state == DAMAGE ||
+		state == ATTACK) {
+		return;
+	}
+	hp -= damage;
+	scale = { hp,hp,hp };
+	state = DAMAGE;
+	returnDamageCount = 0;
+}
+
+void Player::LockOn(const vector<GameObjCommon *> gameObj)
+{
+	float minlength = 2000.0f;
+	Vector3 target = { 0 ,0, 0 };
+	for (int i = 0; i < gameObj.size(); i++) {
+		if (!Collision::IsPredictCollisionBall(pos, move, r * 10, gameObj[i]->pos, gameObj[i]->move, gameObj[i]->r * 10)) {
+			continue;
+		}
+		float ABlength = Vector3(gameObj[i]->pos - pos).Length();
+		if (minlength > ABlength) {
+			minlength = ABlength;
+			target = gameObj[i]->pos;
+		}
+	}
+	//更新されていればロックオン
+	if (minlength < 2000.0f) {
+		isLockOn = true;
+		ChangeAngle(target - pos, 0.2f, Vector3(0, 0, 1));
+	}
+}
+
+void Player::Hit()
+{
+	isHit = true;
+	atackSpeed = 0.0f;
+}
+
 
 
 void Player::Heal()
 {
+	//ダメージ中なら復帰処理
+	if (state == DAMAGE) {
+		returnDamageCount++;
+		if (returnDamageCount >= 60) {
+			state = STAY;
+		}
+	}
+	if (isHit) {
+		if (move.Length() <= 0.2) {
+			isHit = false;
+		}
+	}
+	//待機中は回復
 	if (hp < maxHp &&state == STAY) {
 		hp += 0.01f;
 	}
@@ -131,51 +194,38 @@ void Player::Heal()
 }
 
 
-void Player::ChangeAngle()
+void Player::ChangeAngle(Vector3 targetPos, float ratio, Vector3 BaseAxis)
 {
 	float startAngle = object->GetRotation().y;	//開始時角度
 	float endAngle = 0.0f;						//終了角度
-	Vector3 stickRotate = {						//現在の入力向きベクトル
-		(float)ControllerInput::IsPadStick(INPUT_AXIS_X,0.2f),
-		-(float)ControllerInput::IsPadStick(INPUT_AXIS_Y,0.2f),
-		0.0f
-	};
-	//入力がある場合のみ
-	if (stickRotate != Vector3{ 0.0f, 0.0f, 0.0f }) {
-		stickRotate.Normalize();	//入力角度正規化
-		endAngle = stickRotate.VDot(Vector3{ 0.0f,1.0f,0.0f });	//角度算出
-		if (stickRotate.x > 0) {
-			endAngle = +acos(endAngle) * 180 / XM_PI;
-		}
-		else {
-			endAngle = -acos(endAngle) * 180 / XM_PI;
-		}
-		//360度に直す
-		startAngle = yMath::ChangeDegree360(startAngle);
-		endAngle = yMath::ChangeDegree360(endAngle);
-		//移動量が180を超える場合、初期位置を負数にする
-		if(fabsf(endAngle - startAngle) > 180){
-			if (startAngle > 180) {
-				startAngle -= 360;
-			}
-			else if (startAngle < 180) {
-				startAngle += 360;
-			}
-		}
-		//y軸の回転角計算
-		angle = startAngle + (endAngle - startAngle) / 20.0f;	
-		rotate.AddRotationY(yMath::DegToRad(angle - startAngle));
+	
+	targetPos.Normalize();	//入力角度正規化
+	endAngle = targetPos.VDot(BaseAxis);	//角度算出
+	if (targetPos.x > 0) {
+		endAngle = +acos(endAngle) * 180 / XM_PI;
 	}
+	else {
+		endAngle = -acos(endAngle) * 180 / XM_PI;
+	}
+	//360度に直す
+	startAngle = yMath::ChangeDegree360(startAngle);
+	endAngle = yMath::ChangeDegree360(endAngle);
+	//移動量が180を超える場合、初期位置を負数にする
+	if (fabsf(endAngle - startAngle) > 180) {
+		if (startAngle > 180) {
+			startAngle -= 360;
+		}
+		else if (startAngle < 180) {
+			startAngle += 360;
+		}
+	}
+	//y軸の回転角計算
+	angle = startAngle + (endAngle - startAngle) * ratio;
+	rotate.AddRotationY(yMath::DegToRad(angle - startAngle));
 }
 
 bool Player::Move()
 {
-	Vector3 stickRotate = {						//現在の入力向きベクトル
-		(float)ControllerInput::IsPadStick(INPUT_AXIS_X,0.2f),
-		-(float)ControllerInput::IsPadStick(INPUT_AXIS_Y,0.2f),
-		0.0f
-	};
-
 	move += rotate * stickRotate.Length() * 0.001f;
 	return false;
 }
