@@ -63,6 +63,10 @@ public: // 静的メンバ関数
 	static DIJOYSTATE GetGamePadState(const size_t& gamePadNo = 0);
 	// ゲームパッドのボタンが押されているかどうか
 	static bool IsPadButton(const size_t& button, const size_t& gamepadNo = 0);
+	// ゲームパッドのボタンが押されている時間の取得
+	static size_t GetPadButtonPress(const size_t& button, const size_t& gamepadNo = 0);
+	// ゲームパッドのボタンを離している時間の取得
+	static size_t GetPadButtonReleas(const size_t& button, const size_t& gamepadNo = 0);
 	// ゲームパッドのボタンが押されたかどうか
 	static bool IsPadButtonTrigger(const size_t& button, const size_t& gamepadNo = 0);
 	// ゲームパッドのボタンから離れたかどうか
@@ -82,5 +86,7 @@ private: //静的メンバ変数
 	static vector<IDirectInputDevice8*> devGamepad; //ゲームパッドデバイス
 	static vector<DIJOYSTATE> gamepad; //ゲームパッドの生の状態
 	static vector<DIJOYSTATE> oldgamepad; //ゲームパッドの生の状態
+	static size_t pressCount[64]; //押している時間
+	static size_t releasCount[64]; //離している時間
 
 };
