@@ -5,8 +5,8 @@
 class RushEnemy : public BaseEnemy
 {
 public:
-	RushEnemy(Vector3 pos, float hp, float r) :
-		BaseEnemy(pos, hp, r, ModelManager::ModelName::TestEnemy) {
+	RushEnemy(Vector3 pos, float hp, float N, float e, float r) :
+		BaseEnemy(pos, hp, N, e, r, ModelManager::ModelName::TestEnemy) {
 		flame = 0;
 		playerPos = this->pos;
 	}
