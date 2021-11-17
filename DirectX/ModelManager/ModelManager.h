@@ -13,8 +13,11 @@ private:
 public:
 	enum ModelName {
 		Player,
+		TestEnemy,
+		BossCore,
 		Triangle,
 		Stage,
+		Tree,
 		TestDunut,
 	};
 

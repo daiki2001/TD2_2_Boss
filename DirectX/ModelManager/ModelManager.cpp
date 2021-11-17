@@ -10,8 +10,9 @@ ModelManager *ModelManager::GetIns()
 
 void ModelManager::Initialize()
 {
-	LoadModel(Player, "player");
-	LoadModel(Triangle, "triangle_mat");
+	LoadModel(Player, "Player");
+	LoadModel(TestEnemy, "Enemy");
+	LoadModel(BossCore, "Boss");
 	LoadModel(Stage, "Stage");
 	//LoadModel(TestDunut, "donut");
 }

@@ -8,7 +8,7 @@
 #include "ImageManager.h"
 #include "AudioManager.h"
 #include "ModelManager.h"			//モデル
-
+#include "../CG2_01_01/Particle/Particle.h" //パーティクル
 
 
 bool SystemMain::Initialize() const
@@ -27,6 +27,8 @@ bool SystemMain::Initialize() const
 	ImageManager::GetIns()->LoadImagALL(DirectXCommon::dev.Get());				//画像読み込み
 	AudioManager::Initialize();
 	ModelManager::GetIns()->Initialize();			//モデル読み込み
+
+	ParticleManager::StaticInitialize(DirectXCommon::dev.Get(), WinApp::window_width, WinApp::window_height); //パーティクル共通データ生成
 
 	return true;
 }
