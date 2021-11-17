@@ -6,11 +6,14 @@
 class BaseEnemy
 {
 public:
-	BaseEnemy(Vector3 startPos, float hp, float r, ModelManager::ModelName modelName) :
+	BaseEnemy(Vector3 startPos, float hp,float r, ModelManager::ModelName modelName) :
 		pos(startPos),
 		hp(hp),
+		r(r),
 		scale(Vector3{ hp,hp,hp }),
-		isAlive(true)
+		move(Vector3{ 0,0,0 }),
+		isAlive(true),
+		N(8.0f)
 	{
 		object = nullptr;
 		object = Object3d::Create();
@@ -37,6 +40,8 @@ public:
 public:
 	Vector3 pos;	//座標
 	Vector3 move;	//移動量
+	Vector3 scale;	//サイズ
+	float N;		//質量
 	float r;		//半径
 	bool isAlive;	//生存フラグ
 	float hp;		//体力（サイズ）
@@ -44,7 +49,6 @@ protected:
 
 	Vector3 rotate;			//エネミーの向きベクトル
 	float angle = 0.0f;		//エネミーのy軸角度
-	Vector3 scale;			//サイズ
 	Object3d *object;
 
 	//Vector3 attackArea[8];	//攻撃判定のある場所
