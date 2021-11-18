@@ -179,6 +179,7 @@
     <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
@@ -292,6 +293,7 @@
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="GameObjCommon.h" />

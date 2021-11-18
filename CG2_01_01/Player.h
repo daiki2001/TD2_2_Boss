@@ -40,5 +40,6 @@ private:
 	float moveSpeead;		//現在の移動速度
 	float atackSpeed;		//攻撃速度
 	int returnDamageCount;		//被ダメージ状態から復帰するまでのカウンター
+	int returnHitCount;		//被ダメージ状態から復帰するまでのカウンター
 	Vector3 stickRotate;	//入力ベクトル
 };

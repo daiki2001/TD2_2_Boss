@@ -21,7 +21,7 @@ void Player::Initialize()
 	hp = maxHp;
 	pos = { 0.0f, 0.0f, 0.0f };
 	scale = { hp,hp,hp };
-	move = { 0.0f, 0.0f, 10.0f };
+	move = { 0.0f, 0.0f, 0.0f };
 	rotate = { 0.0f,0.0f,1.0f };
 	moveSpeead = 0.0f;
 	atackSpeed = 0.0f;
@@ -32,6 +32,8 @@ void Player::Initialize()
 
 void Player::Update()
 {
+	N = hp * 2;
+	r = hp * 2;
 	//入力を最新に
 	stickRotate = {						//現在の入力向きベクトル
 		(float)ControllerInput::IsPadStick(INPUT_AXIS_X,0.2f),
@@ -56,8 +58,8 @@ void Player::Update()
 	//接触後硬直がなければ移動と攻撃可能
 	if(!isHit){
 		Move();			//移動
-		Attack();
 	}
+	Attack();
 
 
 	//移動適応
@@ -89,8 +91,14 @@ void Player::Attack()
 	static float startScale = scale.x;		//スタート時のサイズ
 	startScale = hp;						//体当たり開始時のhpを取得
 
-	//体当たり
-	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) && state == STAY) {
+	//体当たり貯め
+	if (ControllerInput::GetPadButtonPress(XBOX_INPUT_A)) {
+		if(hp < 15){
+			hp += 0.1f;
+		}
+	}
+	//体当たり開始
+	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) ) {
 		
 		//attackAngle = rotate;
 		atackSpeed = 2.0f;			//体当たりの初速決定
@@ -166,6 +174,7 @@ void Player::Hit()
 {
 	isHit = true;
 	atackSpeed = 0.0f;
+	returnHitCount = 0;
 }
 
 
@@ -175,12 +184,13 @@ void Player::Heal()
 	//ダメージ中なら復帰処理
 	if (state == DAMAGE) {
 		returnDamageCount++;
-		if (returnDamageCount >= 60) {
+		if (returnDamageCount >= 30) {
 			state = STAY;
 		}
 	}
 	if (isHit) {
-		if (move.Length() <= 0.2) {
+		returnHitCount++;
+		if (returnHitCount > 10) {
 			isHit = false;
 		}
 	}
@@ -188,8 +198,8 @@ void Player::Heal()
 	if (hp < maxHp &&state == STAY) {
 		hp += 0.01f;
 	}
-	else if (hp > 5.0f) {
-		hp = maxHp;
+	if (hp > maxHp && state == STAY) {
+		hp -= 0.01f;
 	}
 }
 
@@ -226,6 +236,6 @@ void Player::ChangeAngle(Vector3 targetPos, float ratio, Vector3 BaseAxis)
 
 bool Player::Move()
 {
-	move += rotate * stickRotate.Length() * 0.001f;
+	move += rotate * stickRotate.Length() * 0.0005f;
 	return false;
 }

@@ -7,9 +7,9 @@ public:
 		BaseEnemy(player, pos, hp, N, e, r, ModelManager::ModelName::TestEnemy) {
 
 	}
-
 	void Initialize() override;
 	void Update() override;
+	void Reflection()override;
 
 };
 

@@ -11,8 +11,8 @@ TestScene::TestScene(IoChangedListener *impl)
 	stage.Initialize();
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
-	enemys.push_back(new TestEnemy(&player,{ -600,0,20 + 40 }, 20.0f, 100.0f, 0.5f, 60.0f));
-	rushEnemys.push_back(new RushEnemy(&player,{ 600,0,0 }, 20.0f, 100.0f, 0.5f, 60.0f));
+	enemys.push_back(new TestEnemy(&player,{ -600,0,20 + 40 }, 20.0f, 50.0f, 0.5f, 60.0f));
+	rushEnemys.push_back(new RushEnemy(&player,{ 600,0,0 }, 20.0f, 50.0f, 0.5f, 60.0f));
 
 }
 
@@ -66,8 +66,8 @@ void TestScene::Update()
 		enemys[i]->Reflection();
 	}
 	
-	Object3d::SetCamPos({ player.pos.x - 80.0f,400,player.pos.z-50.0f });
-	Object3d::SetCamTarget({ player.pos.x - 80.0f,0.0f,player.pos.z});
+	Object3d::SetCamPos({ player.pos.x - 80.0f,400,0.0f });
+	Object3d::SetCamTarget({ player.pos.x - 80.0f,0.0f,50.0f });
 
 	Object3d::UpdateViewMatrix();
 }

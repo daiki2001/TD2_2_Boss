@@ -5,6 +5,7 @@ void TestEnemy::Initialize()
 	move = { 0,0,0 };
 }
 
+
 void TestEnemy::Update()
 {
 	//ˆÚ“®—Ê‰Šú‰»
@@ -17,6 +18,12 @@ void TestEnemy::Update()
 
 	pos += move;
 
+}
+
+void TestEnemy::Reflection()
+{
 	object->SetScale(scale);
+	object->SetPos(pos);
 	object->Update();
+
 }
