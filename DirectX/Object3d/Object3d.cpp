@@ -240,12 +240,6 @@ void Object3d::UpdateViewMatrix()
 		XMLoadFloat3(&objectCommon.eye),
 		XMLoadFloat3(&objectCommon.target),
 		XMLoadFloat3(&objectCommon.up));
-	////視点座標
-	//XMVECTOR eyePosition = XMLoadFloat3(&objectCommon.eye);
-	////注視点座標
-	//XMVECTOR targetPosition = XMLoadFloat3(&objectCommon.target);
-	////仮の上方向
-	//XMVECTOR upVector = XMLoadFloat3(&objectCommon.up);
 }
 
 void Object3d::BlendMode(BLENDMODE blendM)
@@ -267,91 +261,6 @@ Object3d *Object3d::Create()
 
 	return object3d;
 }
-
-
-//bool Object3d::LoadTexture(const string &directoryPath, const string &filename)
-//{
-//	HRESULT result;
-//
-//	//ファイルパス結合
-//	string filepath = directoryPath + filename;
-//	//ユニコード文字に変換
-//	wchar_t wfilepath[128];
-//	int iBufferSize = MultiByteToWideChar(CP_ACP, 0, filepath.c_str(), -1, wfilepath, _countof(wfilepath));
-//
-//	//テクスチャのロード
-//	TexMetadata metadata{};
-//	ScratchImage scratchImg{};
-//
-//	result = LoadFromWICFile(
-//		wfilepath, WIC_FLAGS_NONE,
-//		&metadata, scratchImg);
-//	if (FAILED(result)) {
-//		return result;
-//	}
-//
-//	const Image *img = scratchImg.GetImage(0, 0, 0);
-//
-//	//リソース設定
-//	CD3DX12_RESOURCE_DESC texresDesc =
-//		CD3DX12_RESOURCE_DESC::Tex2D(
-//			metadata.format,
-//			metadata.width,
-//			(UINT)metadata.height,
-//			(UINT16)metadata.arraySize,
-//			(UINT16)metadata.mipLevels
-//		);
-//
-//	// テクスチャバッファ生成
-//	result = objectCommon.dev->CreateCommittedResource(	//GPUリソースの生成
-//		&CD3DX12_HEAP_PROPERTIES(D3D12_CPU_PAGE_PROPERTY_WRITE_BACK, D3D12_MEMORY_POOL_L0),
-//		D3D12_HEAP_FLAG_NONE,
-//		&texresDesc,
-//		D3D12_RESOURCE_STATE_GENERIC_READ,	//テクスチャ用指定
-//		nullptr,
-//		IID_PPV_ARGS(&Object3d::objectCommon.texBuff));
-//	if (FAILED(result)) {
-//		return result;
-//	}
-//
-//	// テクスチャバッファへのデータ転送
-//	result = Object3d::objectCommon.texBuff->WriteToSubresource(
-//		0,
-//		nullptr,	//全領域へコピー
-//		img->pixels,	//元データアドレス
-//		(UINT)img->rowPitch,	//1ラインサイズ
-//		(UINT)img->slicePitch	//全サイズ
-//	);
-//	if (FAILED(result)) {
-//		return result;
-//	}
-//
-//	//シェーダリソースビュー設定
-//	//CBVのCPUデスクリプタハンドルを計算
-//	objectCommon.cpuDescHandleSRV =
-//		CD3DX12_CPU_DESCRIPTOR_HANDLE(objectCommon.descHeap->GetCPUDescriptorHandleForHeapStart(),
-//			0,
-//			objectCommon.descHandleIncrementSize);
-//	//CBVのGPUデスクリプタハンドルを計算
-//	objectCommon.gpuDescHandleSRV =
-//		CD3DX12_GPU_DESCRIPTOR_HANDLE(objectCommon.descHeap->GetGPUDescriptorHandleForHeapStart(),
-//			0,
-//			objectCommon.descHandleIncrementSize);
-//
-//	D3D12_SHADER_RESOURCE_VIEW_DESC srvDesc{};	//設定構造体
-//	D3D12_RESOURCE_DESC resDesc = objectCommon.texBuff->GetDesc();
-//
-//	srvDesc.Format = resDesc.Format;	//RGBA
-//	srvDesc.Shader4ComponentMapping = D3D12_DEFAULT_SHADER_4_COMPONENT_MAPPING;
-//	srvDesc.ViewDimension = D3D12_SRV_DIMENSION_TEXTURE2D;	//2Dテクスチャ
-//	srvDesc.Texture1D.MipLevels = 1;
-//
-//	//シェーダーリソースビュー作成
-//	objectCommon.dev->CreateShaderResourceView(
-//		Object3d::objectCommon.texBuff.Get(),	//ビューと関連付けるバッファ
-//		&srvDesc,	//テクスチャ設定情報
-//		objectCommon.cpuDescHandleSRV);
-//}
 
 
 bool Object3d::Initialize()
