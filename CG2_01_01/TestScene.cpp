@@ -12,7 +12,7 @@ TestScene::TestScene(IoChangedListener *impl)
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	enemys.push_back(new TestEnemy(&player,{ -600,0,20 + 40 }, 20.0f, 100.0f, 0.5f, 60.0f));
-	rushEnemys.push_back(new RushEnemy(&player,{ 600,0,0 }, 20.0f, 100.0f, 0.5f, 60.0f));
+	enemys.push_back(new RushEnemy(&player,{ 600,0,0 }, 20.0f, 100.0f, 0.5f, 60.0f));
 
 }
 
@@ -23,9 +23,6 @@ void TestScene::Initialize()
 	//敵をすべて初期化
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Initialize();
-	}
-	for (int i = 0; i < rushEnemys.size(); i++) {
-		rushEnemys[i]->Initialize();
 	}
 }
 
@@ -43,10 +40,10 @@ void TestScene::Update()
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
-	for (int i = 0; i < rushEnemys.size(); i++) {
-		rushEnemys[i]->Update();
-		rushEnemys[i]->RashStart(player.pos);
-	}
+	//for (int i = 0; i < rushEnemys.size(); i++) {
+	//	rushEnemys[i]->Update();
+	//	rushEnemys[i]->RashStart(player.pos);
+	//}
 	//ロックオン
 	if (ControllerInput::GetInstance()->GetPadButtonPress(XBOX_INPUT_RB)) {
 		player.LockOn(enemys);
@@ -80,9 +77,6 @@ void TestScene::Draw() const
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Draw();
 	}
-	for (int i = 0; i < rushEnemys.size(); i++) {
-		rushEnemys[i]->Draw();
-	}
 }
 
 void TestScene::HitCollision()
@@ -106,24 +100,6 @@ void TestScene::HitCollision()
 		player.Hit();
 
 	}
-	for (int i = 0; i < rushEnemys.size(); i++) {
-		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r * 2, rushEnemys[i]->pos, rushEnemys[i]->move, rushEnemys[i]->r * 2)) {
-			continue;
-		}
-		float hitTime = Collision::sphereSwept(player.pos, player.move, player.r, rushEnemys[i]->pos, rushEnemys[i]->move, rushEnemys[i]->r);
-		if (hitTime < 0) {
-			continue;
-		}
-		//どちらがダメージを負うか
-		if (player.move.Length() < rushEnemys[i]->move.Length()) {
-			player.Damage(rushEnemys[i]->damage);
-		}
-		else {
-		}
-		Repulsion(hitTime, player, *rushEnemys[i]);
-		player.Hit();
-
-	}
 
 	//エネミー同士
 	for (int l = 0; l < enemys.size(); l++) {
@@ -142,24 +118,6 @@ void TestScene::HitCollision()
 			}
 			//衝突後処理
 			Repulsion(hitTime, *enemys[l], *enemys[i]);
-		}
-	}
-	for (int l = 0; l < rushEnemys.size(); l++) {
-		for (int i = 0; i < rushEnemys.size(); i++) {
-			if (l >= i) {
-				continue;
-			}
-			if (!Collision::IsPredictCollisionBall(rushEnemys[l]->pos, rushEnemys[l]->move, rushEnemys[l]->r * 2, rushEnemys[i]->pos, rushEnemys[i]->move, rushEnemys[i]->r * 2)) {
-				//Vector3 check = enemys[i]->pos -player.pos;
-				//float chackL = check.Length();
-				continue;
-			}
-			float hitTime = Collision::sphereSwept(rushEnemys[l]->pos, rushEnemys[l]->move, rushEnemys[l]->r, rushEnemys[i]->pos, rushEnemys[i]->move, rushEnemys[i]->r);
-			if (hitTime < 0) {
-				continue;
-			}
-			//衝突後処理
-			Repulsion(hitTime, *rushEnemys[l], *rushEnemys[i]);
 		}
 	}
 }
