@@ -3,17 +3,23 @@
 #include "Object3d.h"
 #include "Vector3.h"
 
+#include "GameObjCommon.h"
 
-class Player
+class Player : public GameObjCommon
 {
 public:
 	Player();
 
-	void Initialize();
-	void Update();
-	void Reflection();
-	void Draw() const;
+	void Initialize()override;
+	void Update()override;
+	void Reflection()override;
+	void Draw() const override;
 
+	void Damage(float damage);
+	//ロックオン
+	void LockOn(const vector<GameObjCommon *> gameObj);
+	//接触後硬直処理
+	void Hit();
 public:
 	enum State {
 		STAY,
@@ -22,30 +28,17 @@ public:
 	};
 	State state;
 
+	bool isLockOn;	//ロックオンフラグ
+	bool isHit;
 private:
 	void Heal();
-	void ChangeAngle();
+	void ChangeAngle(Vector3 targetPos,float ratio,Vector3 BaseAxis);
 	bool Move();
 	void Attack();
 
-public:
-	Vector3 pos;
-	Vector3 move;
-	Vector3 scale;	//サイズ
-	float N;		//質量
-	float r;		//半径
 private:
-
-	Vector3 rotate;			//プレイヤーの向きベクトル
-	float angle = 0.0f;		//プレイヤーのy軸角度
-	Object3d *object;
-
-	Vector3 attackArea[8];	//攻撃判定のある場所
-
-	
 	float moveSpeead;		//現在の移動速度
 	float atackSpeed;		//攻撃速度
-
-	const float maxHp = 5.0f;	//体力最大
-	float hp;	//体力（サイズ）
+	int returnDamageCount;		//被ダメージ状態から復帰するまでのカウンター
+	Vector3 stickRotate;	//入力ベクトル
 };

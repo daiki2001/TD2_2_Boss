@@ -180,6 +180,7 @@
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\Particle.cpp" />
@@ -293,6 +294,7 @@
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="BaseEnemy.h" />
+    <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Particle\Particle.h" />
     <ClInclude Include="Player.h" />
