@@ -11,8 +11,8 @@ TestScene::TestScene(IoChangedListener *impl)
 	stage.Initialize();
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
-	enemys.push_back(new TestEnemy({ -600,0,20 + 40 }, 20.0f, 100.0f, 0.5f, 60.0f));
-	rushEnemys.push_back(new RushEnemy({ 600,0,0 }, 20.0f, 100.0f, 0.5f, 60.0f));
+	enemys.push_back(new TestEnemy(&player,{ -600,0,20 + 40 }, 20.0f, 100.0f, 0.5f, 60.0f));
+	rushEnemys.push_back(new RushEnemy(&player,{ 600,0,0 }, 20.0f, 100.0f, 0.5f, 60.0f));
 
 }
 

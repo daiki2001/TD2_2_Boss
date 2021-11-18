@@ -3,13 +3,15 @@
 #include "Object3d.h"
 #include "ModelManager.h"
 #include "GameObjCommon.h"
+#include "Player.h"
 
 class BaseEnemy : public GameObjCommon
 {
 public:
-	BaseEnemy(Vector3 startPos, float hp, float N, float e, float r, ModelManager::ModelName modelName) :
+	BaseEnemy(Player *player, Vector3 startPos, float hp, float N, float e, float r, ModelManager::ModelName modelName) :
 		GameObjCommon(startPos,	hp,N,e,r,modelName)
 	{
+		playerData = player;
 	}
 
 	virtual void Initialize() override;
@@ -25,6 +27,6 @@ public:
 		DAMAGE,
 	};
 	State state;
-  
+	Player *playerData;
 };
 

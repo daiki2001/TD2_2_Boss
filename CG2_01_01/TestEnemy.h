@@ -3,8 +3,8 @@
 class TestEnemy : public BaseEnemy
 {
 public:
-	TestEnemy(Vector3 pos, float hp,float N , float e,float r) :
-		BaseEnemy(pos, hp, N, e, r, ModelManager::ModelName::TestEnemy) {
+	TestEnemy(Player *player,Vector3 pos, float hp,float N , float e,float r) :
+		BaseEnemy(player, pos, hp, N, e, r, ModelManager::ModelName::TestEnemy) {
 
 	}
 
