@@ -34,5 +34,4 @@ private:
 	Player player;
 	Stage stage;
 	vector<GameObjCommon *>  enemys;
-	vector<RushEnemy*>rushEnemys;
 };

@@ -1,4 +1,5 @@
 #include "RushEnemy.h"
+#include "Collision.h"
 
 void RushEnemy::Initialize()
 {
@@ -11,6 +12,7 @@ void RushEnemy::Update()
 	{
 	case BaseEnemy::STAY:
 		flame++;
+		RushStart();
 		break;
 	case BaseEnemy::ATTACK:
 		move = move * (9.0f / 10.0f);
@@ -31,16 +33,22 @@ void RushEnemy::Update()
 	Reflection();
 }
 
-void RushEnemy::RashStart(const Vector3& playerPos)
+void RushEnemy::RushStart()
 {
+	Vector3 distance = playerData->pos - pos;
+
+	if (distance.Length() > playerData->r + 1000.0f)
+	{
+		return;
+	}
+
 	if (flame >= rushInterval)
 	{
 		flame = 0;
 		state = ATTACK;
-		this->playerPos = playerPos;
-		rotate = this->playerPos - pos;
+		rotate = distance;
 		rotate.Normalize();
-		move = rotate * 30.0f;
+		move = rotate * 20.0f;
 
 		angle = rotate.VDot(Vector3(1.0f, 0.0f, 0.0f));
 		if (rotate.z > 0)
