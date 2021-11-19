@@ -10,6 +10,7 @@
 #include "TestEnemy.h"
 #include "RushEnemy.h"
 #include "Stage.h"
+#include "BaseParticle.h"
 
 class TestScene
 	:public AbstractScene
@@ -34,5 +35,6 @@ private:
 
 	Player player;
 	Stage stage;
-	vector<GameObjCommon *>  enemys;
+	vector<GameObjCommon *> enemys;
+	BaseParticle particle;
 };

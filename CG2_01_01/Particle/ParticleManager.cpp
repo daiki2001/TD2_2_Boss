@@ -1,6 +1,7 @@
-﻿#include "Particle.h"
+﻿#include "ParticleManager.h"
 #include <d3dcompiler.h>
 #include <DirectXTex.h>
+#include "../DirectX/Object3d/Object3d.h"
 
 #pragma comment(lib, "d3dcompiler.lib")
 
@@ -72,7 +73,7 @@ bool ParticleManager::StaticInitialize(ID3D12Device* device, int window_width, i
 	return true;
 }
 
-ParticleManager* ParticleManager::Create(WCHAR* filePath)
+ParticleManager* ParticleManager::Create()
 {
 	// パーティクルオブジェクトのインスタンスを生成
 	ParticleManager* particleMan = new ParticleManager();
@@ -80,12 +81,22 @@ ParticleManager* ParticleManager::Create(WCHAR* filePath)
 		return nullptr;
 	}
 
-	// 初期化
-	if (!particleMan->Initialize(filePath)) {
-		delete particleMan;
-		assert(0);
+	// 頂点データ生成
+	particleMan->vertexIndex = CreateVertex();
+	if (particleMan->vertexIndex == -1)
+	{
 		return nullptr;
 	}
+
+	HRESULT result;
+	// 定数バッファの生成
+	result = device->CreateCommittedResource(
+		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD), 	// アップロード可能
+		D3D12_HEAP_FLAG_NONE,
+		&CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferData) + 0xff)&~0xff),
+		D3D12_RESOURCE_STATE_GENERIC_READ,
+		nullptr,
+		IID_PPV_ARGS(&particleMan->constBuff));
 
 	return particleMan;
 }
@@ -467,9 +478,9 @@ int ParticleManager::CreateVertex()
 
 void ParticleManager::UpdateViewMatrix()
 {
-	XMVECTOR eyePos = XMLoadFloat3(&eye); //視点座標
-	XMVECTOR targetPos = XMLoadFloat3(&target); //注視点座標
-	XMVECTOR upVector = XMLoadFloat3(&up); //（仮の）上方向
+	XMVECTOR eyePos = XMLoadFloat3(&Object3d::objectCommon.eye); //視点座標
+	XMVECTOR targetPos = XMLoadFloat3(&Object3d::objectCommon.target); //注視点座標
+	XMVECTOR upVector = XMLoadFloat3(&Object3d::objectCommon.up); //（仮の）上方向
 
 	// カメラのZ軸（視線方向）
 	XMVECTOR cameraAxisZ = XMVectorSubtract(targetPos, eyePos);
@@ -546,36 +557,25 @@ void ParticleManager::UpdateViewMatrix()
 #pragma endregion
 }
 
-bool ParticleManager::Initialize(WCHAR* filePath)
+ParticleManager* ParticleManager::Initialize(WCHAR* filePath)
 {
+	// パーティクルオブジェクトのインスタンスを生成
+	ParticleManager* particleMan = Create();
+	if (particleMan == nullptr) {
+		return nullptr;
+	}
+
 	// nullptrチェック
 	assert(device);
 
-	// 頂点データ生成
-	vertexIndex = CreateVertex();
-	if (vertexIndex == -1)
-	{
-		return false;
-	}
-
-	HRESULT result;
-	// 定数バッファの生成
-	result = device->CreateCommittedResource(
-		&CD3DX12_HEAP_PROPERTIES(D3D12_HEAP_TYPE_UPLOAD), 	// アップロード可能
-		D3D12_HEAP_FLAG_NONE,
-		&CD3DX12_RESOURCE_DESC::Buffer((sizeof(ConstBufferData) + 0xff)&~0xff),
-		D3D12_RESOURCE_STATE_GENERIC_READ,
-		nullptr,
-		IID_PPV_ARGS(&constBuff));
-
 	// テクスチャ読み込み
-	textureIndex = LoadTexture(filePath);
-	if (textureIndex == -1)
+	particleMan->textureIndex = LoadTexture(filePath);
+	if (particleMan->textureIndex == -1)
 	{
-		return false;
+		return nullptr;
 	}
 
-	return true;
+	return particleMan;
 }
 
 void ParticleManager::Update()
