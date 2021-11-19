@@ -8,7 +8,7 @@
 #include "ImageManager.h"
 #include "AudioManager.h"
 #include "ModelManager.h"			//モデル
-#include "../CG2_01_01/Particle/Particle.h" //パーティクル
+#include "../CG2_01_01/Particle/ParticleManager.h" //パーティクル
 
 
 bool SystemMain::Initialize() const

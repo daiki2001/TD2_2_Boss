@@ -76,12 +76,6 @@ public: // 静的メンバ関数
 	static bool StaticInitialize(ID3D12Device* device, int window_width, int window_height);
 
 	/// <summary>
-	/// 
-	/// </summary>
-	/// <param name="filePath">画像のファイルパス</param>
-	static ParticleManager* Create(WCHAR* filePath);
-
-	/// <summary>
 	/// 視点座標の取得
 	/// </summary>
 	/// <returns>座標</returns>
@@ -199,11 +193,13 @@ public: // メンバ関数
 	/// </summary>
 	/// <param name="filePath">画像のファイルパス</param>
 	/// <returns>成否</returns>
-	bool Initialize(WCHAR* filePath);
+	ParticleManager* Initialize(WCHAR* filePath);
 	/// <summary>
 	/// 毎フレーム処理
 	/// </summary>
 	void Update();
+
+	ParticleManager* Create();
 
 	/// <summary>
 	/// 描画

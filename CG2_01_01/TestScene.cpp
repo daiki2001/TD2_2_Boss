@@ -13,7 +13,7 @@ TestScene::TestScene(IoChangedListener *impl)
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	enemys.push_back(new TestEnemy(&player,{ -600,0,20 + 40 }, 20.0f, 100.0f, 0.5f, 60.0f));
 	enemys.push_back(new RushEnemy(&player,{ 600,0,0 }, 20.0f, 100.0f, 0.5f, 60.0f));
-
+	particle.Initialize();
 }
 
 void TestScene::Initialize()
@@ -24,10 +24,18 @@ void TestScene::Initialize()
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Initialize();
 	}
+	particle.Initialize();
+	particle.lifeTime = 60;
+	particle.startScale = 0.0f;
+	particle.endScale = 25.0f;
+	particle.startColor = { 1.0f, 0.0f, 0.0f, 1.0f };
+	particle.endColor = { 0.0f, 1.0f, 1.0f, 1.0f };
+	particle.CreateManager("./Resources/effect1.png");
 }
 
 void TestScene::Finalize()
 {
+	particle.Finalize();
 }
 
 void TestScene::Update()
@@ -40,10 +48,6 @@ void TestScene::Update()
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
-	//for (int i = 0; i < rushEnemys.size(); i++) {
-	//	rushEnemys[i]->Update();
-	//	rushEnemys[i]->RashStart(player.pos);
-	//}
 	//ロックオン
 	if (ControllerInput::GetInstance()->GetPadButtonPress(XBOX_INPUT_RB)) {
 		player.LockOn(enemys);
@@ -52,6 +56,30 @@ void TestScene::Update()
 		player.isLockOn = false;
 	}
 	player.Update();
+	particle.Update();
+	particle.manager->Update();
+	if (KeyboardInput::GetKeyPress(DIK_SPACE))
+	{
+		static const float rnd_pos = 500.0f;
+		static const float rnd_vel = 5.0f;
+		static const float rnd_acc = 0.01f;
+
+		particle.pos.x = (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+		//particle.pos.y = (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+		particle.pos.z = (float)rand() / RAND_MAX * rnd_pos - rnd_pos / 2.0f;
+
+		particle.offset = player.move;
+
+		particle.pos += particle.offset;
+
+		particle.speed.x = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.0f;
+		//particle.speed.y = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.0f;
+		particle.speed.z = (float)rand() / RAND_MAX * rnd_vel - rnd_vel / 2.0f;
+
+		particle.accel.z = -(float)rand() / RAND_MAX * rnd_acc;
+
+		particle.manager->Add(particle.lifeTime, particle.pos, particle.speed, particle.accel, particle.startScale, particle.endScale, particle.startColor, particle.endColor);
+	}
 	
 	//当たり判定
 	HitCollision();
@@ -77,6 +105,7 @@ void TestScene::Draw() const
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Draw();
 	}
+	particle.Draw();
 }
 
 void TestScene::HitCollision()
