@@ -5,8 +5,8 @@
 class RushEnemy : public BaseEnemy
 {
 public:
-	RushEnemy(Player *player, Vector3 pos, float hp, float N, float e, float r) :
-		BaseEnemy(player, pos, hp, N, e, r, ModelManager::ModelName::TestEnemy) {
+	RushEnemy(Player *player, Vector3 pos, float hp, float N, float e) :
+		BaseEnemy(player, pos, hp, N, e, ModelManager::ModelName::TestEnemy) {
 		flame = 0;
 	}
 
@@ -15,7 +15,7 @@ public:
 	void RushStart();
 
 private:
-	const size_t rushInterval = 60; //突進する間隔
+	const size_t rushInterval = 120; //突進する間隔
 	size_t flame; //フレーム
 
 };

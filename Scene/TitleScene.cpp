@@ -16,7 +16,7 @@ TitleScene::TitleScene(IoChangedListener *impl)
 	title.position.y = WinApp::window_height/2;
 
 	obj1 = Object3d::Create();
-	obj1->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Player));
+	obj1->SetModel(ModelManager::GetIns()->GetModel(ModelManager::PlayerFrame));
 	obj1->SetScale({ 2.0f,2.0f,2.0f });
 	obj1->Update();
 	obj1->Initialize();

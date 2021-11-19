@@ -12,10 +12,12 @@ private:
 
 public:
 	enum ModelName {
-		Player,
+		PlayerFrame,
+		PlayerCore,
 		RushEnemy,
 		TestEnemy,
 		BossCore,
+		BossFrame,
 		Triangle,
 		Stage,
 		Tree,

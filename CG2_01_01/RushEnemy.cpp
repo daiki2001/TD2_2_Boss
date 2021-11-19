@@ -48,10 +48,10 @@ void RushEnemy::RushStart()
 		state = ATTACK;
 		rotate = distance;
 		rotate.Normalize();
-		move = rotate * 20.0f;
+		move = rotate * 10.0f;
 
-		angle = rotate.VDot(Vector3(1.0f, 0.0f, 0.0f));
-		if (rotate.z > 0)
+		angle = rotate.VDot(Vector3(0.0f, 0.0f, 1.0f));
+		if (rotate.x < 0)
 		{
 			angle = -acosf(angle) * 180 / XM_PI;
 		}

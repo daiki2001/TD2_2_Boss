@@ -8,13 +8,14 @@ void TestEnemy::Initialize()
 
 void TestEnemy::Update()
 {
+	r = hp * 1.5f;
 	//ˆÚ“®—Ê‰Šú‰»
-	/*if (move.Length() > 0.1f) {
-		move = move * 0.9f;
+	if (move.Length() > 0.1f) {
+		move = move * 0.95f;
 	}
 	else {
 		move = { 0,0,0 };
-	}*/
+	}
 
 	pos += move;
 

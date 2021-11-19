@@ -33,10 +33,12 @@ public:
 private:
 	void Heal();
 	void ChangeAngle(Vector3 targetPos,float ratio,Vector3 BaseAxis);
-	bool Move();
+	bool VectorMove();
+	bool XYMove();
 	void Attack();
 
 private:
+	Object3d *frame;
 	float moveSpeead;		//現在の移動速度
 	float atackSpeed;		//攻撃速度
 	int returnDamageCount;		//被ダメージ状態から復帰するまでのカウンター

@@ -210,85 +210,93 @@ bool IsBoxToBoxCollision(const Vector3& pos1, const Vector3& rotation1, const Ve
 	return true;
 }
 
-float sphereSwept(const Vector3& pos1, const Vector3& speed1, const float& r1, const Vector3& pos2, const Vector3& speed2, const float& r2)
+bool sphereSwept(const Vector3& pos1, const Vector3& speed1, const float& r1, const Vector3& pos2, const Vector3& speed2, const float& r2,
+	float &outSecond,	//進行度格納用ポインター
+	Vector3 &CollisionPos,	//衝突位置(接点)
+	Vector3 *CollisionPosA,	//一つ目が衝突した時の位置
+	Vector3 *CollisionPosB	//二つ目が衝突した時の位置
+)
 {
-	static const float noHit = -1.0f;
+	Vector3 Cstart = pos2 - pos1;				//移動前のabの距離
+	Vector3 Aend = pos1 + speed1;		//移動後のaの位置
+	Vector3 Bend = pos2 + speed2;		//移動後のbの位置
+	Vector3 Cend = Bend - Aend;					//終了時のabの距離
+	Vector3 D = Cend - Cstart;					//終了時のabの距離
+	float RadiusAB = r1 + r2;					//半径の合計
+	float RadiusABpow = RadiusAB * RadiusAB;				//半径の合計の二乗
+	float P = D.LengthSq();	//Dの長さ
 
-	// t = 0.0f地点の中心点間の距離の計算
-	distance = pos1 - pos2;
-
-	// t = 0.0f地点の衝突判定
-	if (distance.Length() < (r1 + r2))
-	{
-		return 0.0f;
-	}
-
-	static Vector3 endPos1{}; //t = 1.0f地点のpos1の中心位置
-	static Vector3 endPos2{}; //t = 1.0f地点のpos2の中心位置
-	static Vector3 startDistance{}; //t = 0.0f地点の中心点間の距離
-	static Vector3 endDistance{}; //t = 1.0f地点の中心点間の距離
-
-	// t = 1.0f地点のpos1の中心位置の計算
-	endPos1 = pos1 + speed1;
-	// t = 1.0f地点のpos2の中心位置の計算
-	endPos2 = pos2 + speed2;
-	// t = 0.0f地点の中心点間の距離の代入
-	startDistance = distance;
-	// t = 1.0f地点の中心点間の距離の計算
-	endDistance = endPos1 - endPos2;
-	// t = 1.0f地点の中心点間の距離 - t = 0.0f地点の中心点間の距離
-	distance = endDistance - startDistance;
-
-	static float t = 0.0f; //衝突した時間
-	static float p = 0.0f; //distanceの長さの二乗
-	static float q = 0.0f; //startDistanceとdistanceの内積
-	static float r = 0.0f; //startDistanceの長さの二乗
-
-	// qに一時的にdistanceの長さを代入
-	q = distance.Length();
-	if (q == 0)
-	{
-		// distanceの長さが0なら衝突していない
-		return noHit;
-	}
-	else
-	{
-		// distanceの長さの二乗の計算
-		p = q * q;
-	}
-
-	// qに一時的にstartDistanceの長さを代入
-	q = startDistance.Length();
-	// startDistanceの長さの二乗の計算
-	r = q * q;
-	// startDistanceの長さの二乗の計算
-	q = startDistance.VDot(distance);
-
-	float keep = (q * q) - p * (r - ((r1 + r2) * (r1 + r2))); //ルート内の計算
-	if (keep < 0)
-	{
-		// ルート内がマイナスの場合は衝突しない
-		return noHit;
-	}
-	else
-	{
-		// 衝突時間の計算
-		t = (-q - sqrtf(keep)) / p;
-		// ルート内がプラスで求めたtが0~1の間に無い場合は式を変えて計算し直す
-		if (keep > 0 && (t < 0.0f || t > 1.0f))
-		{
-			t = (-q + sqrtf(keep)) / p;
+	//平行移動
+	if (P == 0) {
+		if (Vector3(pos2 - pos1).LengthSq() > RadiusABpow) {
+			return false;
 		}
+		outSecond = 0.0f;	//進行度0からスタート
+		if (CollisionPosA != 0) {
+			*CollisionPosA = pos1;
+		}
+		if (CollisionPosB != 0) {
+			*CollisionPosB = pos2;
+		}
+		//中心位置が同じなので中心で衝突したことにする
+		if (pos2 == pos1) {
+			CollisionPos = pos1;
+			return true;
+		}
+		//Bの方向に向かってAの半径を衝突地点とする
+		CollisionPos = pos1 + Cstart * r1 / RadiusAB/* Vector2<float>{(a.r /RadiusAB)*Cstart.x, (a.r / RadiusAB) *Cstart.y}*/;
+		return true;
+	}
+	//衝突検知
+	//最初の時点で衝突しているかいないか
+	if (Vector3(pos2 - pos1).LengthSq() <= RadiusABpow) {
+		outSecond = 0.0f;
+		CollisionPos = pos1 + Cstart * r1 / RadiusAB;
+		if (CollisionPosA != 0) {
+			*CollisionPosA = pos1;
+		}
+		if (CollisionPosB != 0) {
+			*CollisionPosB = pos2;
+		}
+		return true;
+	}
+	float Q = Cstart.VDot(D);
+	float R = Cstart.LengthSq();
+
+	float judge = Q * Q - P * (R - RadiusAB * RadiusAB);
+	if (judge < 0) {
+		return false;
 	}
 
-	if (t >= 0.0f && t <= 1.0f)
-	{
-		return t;
+	//衝突時間計算
+	float judge_rt = sqrtf(judge);
+	float t_plus = (-Q + judge_rt) / P;
+	float t_minus = (-Q - judge_rt) / P;
+	if (t_minus > t_plus) {	//plusの方が小さければ入れ替え
+		float tmp = t_minus;
+		t_minus = t_plus;
+		t_plus = tmp;
 	}
-	else
-	{
-		return noHit;
+
+	//時間外の衝突だった場合を無効にする
+	if (t_minus < 0.0f || t_minus > 1.0f) {
+		return false;
 	}
+
+	//衝突位置計算
+	outSecond = t_minus;
+	Vector3 actA = pos1 + speed1 *  t_minus;
+	Vector3 actB = pos2 + speed2 *  t_minus;
+	CollisionPos = actA + (actB - actA) * r1 / RadiusAB;
+
+	if (CollisionPosA != 0) {
+		*CollisionPosA = actA;
+	}
+	if (CollisionPosB != 0) {
+		*CollisionPosB = actB;
+	}
+
+	return true;
 }
 
 bool IsPredictCollisionBall(const Vector3& pos1, const Vector3& speed1, const float& r1, const Vector3& pos2, const Vector3& speed2, const float& r2)

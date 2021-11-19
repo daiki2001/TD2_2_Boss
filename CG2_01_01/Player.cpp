@@ -9,16 +9,26 @@
 
 
 Player::Player():
-	GameObjCommon(Vector3{0,0,0},5.0f,10.0f,0.5f,25, ModelManager::Player)
+	GameObjCommon(Vector3{0,0,0},5.0f,100000000.0f,0.5f,25, ModelManager::PlayerCore)
 {
+	//フレーム
+	frame = nullptr;
+	frame = Object3d::Create();
+	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::PlayerFrame));
+	frame->SetPos(object->GetPos());
+	frame->SetRotation(object->GetRotation());
+	frame->SetScale(object->GetScale());
+	frame->Initialize();
+	frame->Update();
+
 	Initialize();
 }
 
 void Player::Initialize()
 {
-	r = 20.0f;
-	N = 10.0f;
 	hp = maxHp;
+	r = hp;
+	N = 10.0f;
 	pos = { 0.0f, 0.0f, 0.0f };
 	scale = { hp,hp,hp };
 	move = { 0.0f, 0.0f, 0.0f };
@@ -32,8 +42,6 @@ void Player::Initialize()
 
 void Player::Update()
 {
-	N = hp * 2;
-	r = hp * 2;
 	//入力を最新に
 	stickRotate = {						//現在の入力向きベクトル
 		(float)ControllerInput::IsPadStick(INPUT_AXIS_X,0.2f),
@@ -57,7 +65,12 @@ void Player::Update()
 	}
 	//接触後硬直がなければ移動と攻撃可能
 	if(!isHit){
-		Move();			//移動
+		if(isLockOn){
+			XYMove();
+		}
+		else {
+			VectorMove();			//移動
+		}
 	}
 	Attack();
 
@@ -65,6 +78,9 @@ void Player::Update()
 	//移動適応
 	move.y = 0.0f;	//yを無効化
 	pos += move;
+	//HPを質量に適応
+	N = hp * 5;
+	r = hp * 1.5f;
 }
 
 void Player::Reflection()
@@ -74,6 +90,11 @@ void Player::Reflection()
 	object->SetScale(scale);
 	object->SetRotation({ 0.0f,angle,0.0f });
 	object->Update();
+
+	frame->SetPos(object->GetPos());
+	//frame->SetRotation(object->GetRotation());
+	frame->SetScale(object->GetScale());
+	frame->Update();
 }
 
 //描画
@@ -81,6 +102,7 @@ void Player::Draw() const
 {
 	Object3d::PreDraw(DirectXCommon::cmdList.Get());
 	object->Draw();
+	frame->Draw();
 	Object3d::PostDraw();
 }
 
@@ -93,7 +115,7 @@ void Player::Attack()
 
 	//体当たり貯め
 	if (ControllerInput::GetPadButtonPress(XBOX_INPUT_A)) {
-		if(hp < 15){
+		if(hp < 20){
 			hp += 0.1f;
 		}
 	}
@@ -234,8 +256,15 @@ void Player::ChangeAngle(Vector3 targetPos, float ratio, Vector3 BaseAxis)
 	rotate.AddRotationY(yMath::DegToRad(angle - startAngle));
 }
 
-bool Player::Move()
+bool Player::VectorMove()
 {
 	move += rotate * stickRotate.Length() * 0.0005f;
+	return false;
+}
+
+bool Player::XYMove()
+{
+	move.x += stickRotate.x* 0.0005f;
+	move.z += stickRotate.y* 0.0005f;
 	return false;
 }

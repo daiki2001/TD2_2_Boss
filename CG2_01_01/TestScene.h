@@ -5,6 +5,7 @@
 
 #include "GameObjCommon.h"
 #include "Player.h"
+#include "Boss.h"
 #include "BaseEnemy.h"
 #include "TestEnemy.h"
 #include "RushEnemy.h"
@@ -28,7 +29,7 @@ private:
 	//Õ“Ëˆ—
 	void HitCollision();
 	//Õ“ËŒãˆ—
-	void Repulsion(float hitTime, GameObjCommon &a, GameObjCommon &b);
+	void Bound(float hitTime, GameObjCommon &a, GameObjCommon &b,Vector3 *collisionA, Vector3 *collisionB);
 
 
 	Player player;

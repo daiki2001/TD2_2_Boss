@@ -10,10 +10,12 @@ ModelManager *ModelManager::GetIns()
 
 void ModelManager::Initialize()
 {
-	LoadModel(Player, "Player");
+	LoadModel(PlayerFrame, "playerFrame");
+	LoadModel(PlayerCore, "playerCore");
 	LoadModel(TestEnemy, "Enemy");
 	LoadModel(RushEnemy, "Enemy");
-	LoadModel(BossCore, "Boss");
+	LoadModel(BossCore, "bossCore");
+	LoadModel(BossFrame, "bossFrame");
 	LoadModel(Stage, "Stage");
 	//LoadModel(TestDunut, "donut");
 }

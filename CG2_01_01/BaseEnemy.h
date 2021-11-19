@@ -8,8 +8,8 @@
 class BaseEnemy : public GameObjCommon
 {
 public:
-	BaseEnemy(Player *player, Vector3 startPos, float hp, float N, float e, float r, ModelManager::ModelName modelName) :
-		GameObjCommon(startPos,	hp,N,e,r,modelName)
+	BaseEnemy(Player *player, Vector3 startPos, float hp, float N, float e,  ModelManager::ModelName modelName) :
+		GameObjCommon(startPos, hp, N, e, hp * 1.5f, modelName)
 	{
 		playerData = player;
 	}
