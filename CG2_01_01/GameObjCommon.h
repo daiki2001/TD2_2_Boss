@@ -29,6 +29,12 @@ public:
 		Initialize();
 	}
 
+	~GameObjCommon()
+	{
+		delete object;
+		object = nullptr;
+	}
+
 	virtual void Initialize();
 	virtual void Update();
 	virtual void Reflection();
