@@ -12,6 +12,20 @@ public:
 	void Draw() const override;
 
 private:
+	int counter;
+	void AttackSelect();
+	bool ChackRange( float max, float min = 0.0f);
+	
 	Object3d *frame;
+
+	//攻撃中かどうか
+	bool isAttack;
+	//テスト用アタックステート
+	enum ATTACKSTATE {
+		Short,
+		Middle,
+		Long,
+	};
+	ATTACKSTATE atackState;
 };
 
