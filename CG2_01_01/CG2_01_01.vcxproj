@@ -184,6 +184,7 @@
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="LoadStage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\ParticleManager.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -294,10 +295,12 @@
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
+    <ClInclude Include="BaseParticle.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="BaseEnemy.h" />
     <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="LoadStage.h" />
     <ClInclude Include="Particle\ParticleManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="RushEnemy.h" />

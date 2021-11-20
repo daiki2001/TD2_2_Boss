@@ -7,9 +7,10 @@ Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e) :
 	frame = nullptr;
 	frame = Object3d::Create();
 	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::BossFrame));
-	frame->SetPos(object->GetPos());
-	frame->SetRotation(object->GetRotation());
-	frame->SetScale(object->GetScale());
+	//frame->SetPos(object->GetPos());
+	//frame->SetRotation(object->GetRotation());
+	//frame->SetScale(object->GetScale());
+	frame->SetParent(object);
 	frame->Initialize();
 	frame->Update();
 }
@@ -25,6 +26,7 @@ void Boss::Update()
 
 void Boss::Reflection()
 {
+	object->SetPos(pos);
 	object->Update();
 	frame->Update();
 }

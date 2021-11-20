@@ -4,6 +4,7 @@
 #include "KeyboardInput.h"
 #include "ControllerInput.h"
 #include <DirectXMath.h>
+#include "LoadStage.h"
 
 TestScene::TestScene(IoChangedListener *impl)
 	: AbstractScene(impl)
@@ -11,15 +12,16 @@ TestScene::TestScene(IoChangedListener *impl)
 	stage.Initialize();
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
-	enemys.push_back(new TestEnemy	(&player, { -550,0,60 }, 10.0f, 10.0f, 2.0f));
-	enemys.push_back(new TestEnemy	(&player, { -650,0,60 }, 10.0f, 10.0f, 2.0f));
-	enemys.push_back(new TestEnemy	(&player, { -700,0,40 }, 10.0f, 10.0f, 2.0f));
-	enemys.push_back(new TestEnemy	(&player, { -700,0,80 }, 10.0f, 10.0f, 2.0f));
-	enemys.push_back(new TestEnemy	(&player, { -750,0,60 }, 10.0f, 10.0f, 2.0f));
-	enemys.push_back(new TestEnemy	(&player, { -750,0,100 },10.0f, 10.0f, 2.0f));
-	enemys.push_back(new TestEnemy	(&player, { -750,0,20 }, 10.0f, 10.0f, 2.0f));
-	enemys.push_back(new RushEnemy	(&player, { 600,0,0 }, 10.0f, 100.0f, 0.5f));
-	enemys.push_back(new Boss		(&player, { 1000,0,0 }, 10.0f, 100.0f, 0.5f));
+	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", enemys, &player);
+	//enemys.push_back(new TestEnemy	(&player, { -550,0,60 }, 10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new TestEnemy	(&player, { -650,0,60 }, 10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new TestEnemy	(&player, { -700,0,40 }, 10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new TestEnemy	(&player, { -700,0,80 }, 10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new TestEnemy	(&player, { -750,0,60 }, 10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new TestEnemy	(&player, { -750,0,100 },10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new TestEnemy	(&player, { -750,0,20 }, 10.0f, 10.0f, 2.0f));
+	//enemys.push_back(new RushEnemy	(&player, { 600,0,0 }, 10.0f, 100.0f, 0.5f));
+	//enemys.push_back(new Boss		(&player, { 1000,0,0 }, 10.0f, 100.0f, 0.5f));
 	particle.Initialize();
 }
 

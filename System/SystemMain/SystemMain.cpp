@@ -9,7 +9,7 @@
 #include "AudioManager.h"
 #include "ModelManager.h"			//モデル
 #include "../CG2_01_01/Particle/ParticleManager.h" //パーティクル
-
+#include "../CG2_01_01/LoadStage.h"
 
 bool SystemMain::Initialize() const
 {
@@ -29,6 +29,7 @@ bool SystemMain::Initialize() const
 	ModelManager::GetIns()->Initialize();			//モデル読み込み
 
 	ParticleManager::StaticInitialize(DirectXCommon::dev.Get(), WinApp::window_width, WinApp::window_height); //パーティクル共通データ生成
+	LoadStage::Init();
 
 	return true;
 }
