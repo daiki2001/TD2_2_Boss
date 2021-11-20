@@ -109,9 +109,11 @@ public:		//ƒƒ“ƒoŠÖ”
 	void SetPos(Vector3 nextPos) { position = nextPos; }
 	void SetScale(Vector3 nextScale) { scale = nextScale; }
 	void SetRotation(Vector3 nextRotation) { rotation = nextRotation; }
+	void SetParent(Object3d* nextParent) { parent = nextParent; }
 	Vector3 GetPos() { return position; }
 	Vector3 GetScale() { return scale; }
 	Vector3 GetRotation() { return rotation; }
+	Object3d* GetParent() { return parent; }
 
 private:	//ƒƒ“ƒo•Ï”
 	XMFLOAT4 color = { 1,1,1,1 };	//F
