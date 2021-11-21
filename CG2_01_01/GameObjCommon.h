@@ -15,6 +15,7 @@ public:
 		r(r),
 		scale(Vector3{ hp,hp,hp }),
 		isAlive(true),
+		isDelete(false),
 		N(N),
 		e(e),
 		damage(1.0f) 
@@ -40,6 +41,9 @@ public:
 	virtual void Reflection();
 	virtual void Draw() const;
 
+	void Damage(float damage);
+	virtual void Dead();
+
 public:
 	Vector3 pos;	//座標
 	Vector3 move;	//移動量
@@ -48,6 +52,7 @@ public:
 	float e;		//反発係数
 	float r;		//半径
 	bool isAlive;	//生存フラグ
+	bool isDelete;	//生存フラグ
 	float hp;		//体力（サイズ）
 	float damage;	//接触時に与えるダメージ
 protected:

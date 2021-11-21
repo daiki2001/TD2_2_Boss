@@ -18,20 +18,35 @@ Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e) :
 
 void Boss::Initialize()
 {
-
+	move = { 0,0,0 };
 }
 
 void Boss::Update()
 {
+
 	//テスト用
 	counter++;
 	AttackSelect();
+
+	//移動適応
+	pos += move;
+	N = hp * 5;
+	r = hp * 1.5f;
+	//ダメージを質量と移動速度から計算
+	damage = N * move.Length() * 0.005f;
+
+	//フレームの回転
+	if (isAlive) {
+		scale = { hp,hp,hp };
+	}
+
 }
 
 void Boss::Reflection()
 {
 	object->SetPos(pos);
 	object->Update();
+	frame->SetRotation(spinFrame());
 	frame->Update();
 }
 
@@ -66,4 +81,24 @@ bool Boss::ChackRange(float max, float min)
 		return true;
 	}
 	return false;
+}
+
+Vector3 Boss::spinFrame()
+{
+	if (frameRotate.x < 90) {
+		frameRotate.x++;
+		if (frameRotate.x >= 90) {
+			frameRotate.x = 90;
+		}
+		return frameRotate;
+	}
+	if (frameRotate.y < 90) {
+		frameRotate.y++;
+		if (frameRotate.y >= 90) {
+			frameRotate.y = 90;
+		}
+		return frameRotate;
+	}
+	frameRotate = { 0,0,0 };
+	return frameRotate;
 }

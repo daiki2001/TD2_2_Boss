@@ -4,6 +4,7 @@
 #include "ModelManager.h"
 #include "GameObjCommon.h"
 #include "Player.h"
+#include "BaseParticle.h"
 
 class BaseEnemy : public GameObjCommon
 {
@@ -12,12 +13,15 @@ public:
 		GameObjCommon(startPos, hp, N, e, hp * 1.5f, modelName)
 	{
 		playerData = player;
+		deadCounter = 0.0f;
 	}
 
 	virtual void Initialize() override;
 	virtual void Update()override;
 	virtual void Reflection()override;
 	virtual void Draw() const override;
+
+	void Dead() override;
 
 
 public:
@@ -27,6 +31,18 @@ public:
 		DAMAGE,
 	};
 	State state;
+
+	enum TYPE {
+		AttackArea,
+		Test,
+		Boss,
+	};
+	TYPE type;
+	
 	Player *playerData;
+
+	//死亡時の演出用カウンター
+	float deadCounter;
+
 };
 

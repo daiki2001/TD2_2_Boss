@@ -8,6 +8,11 @@ void RushEnemy::Initialize()
 
 void RushEnemy::Update()
 {
+	//€–Sˆ—
+	if (!isAlive) {
+		Dead();
+	}
+
 	switch (state)
 	{
 	case BaseEnemy::STAY:
@@ -30,7 +35,10 @@ void RushEnemy::Update()
 
 	pos += move;
 
-	Reflection();
+	if (isAlive) {
+		scale = { hp,hp,hp };
+	}
+
 }
 
 void RushEnemy::RushStart()

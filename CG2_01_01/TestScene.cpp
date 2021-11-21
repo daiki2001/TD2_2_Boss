@@ -21,7 +21,6 @@ TestScene::TestScene(IoChangedListener *impl)
 	//enemys.push_back(new TestEnemy	(&player, { -750,0,100 },10.0f, 10.0f, 2.0f));
 	//enemys.push_back(new TestEnemy	(&player, { -750,0,20 }, 10.0f, 10.0f, 2.0f));
 	//enemys.push_back(new RushEnemy	(&player, { 600,0,0 }, 10.0f, 100.0f, 0.5f));
-	enemys.push_back(new Boss		(&player, { -1000,0,0 }, 10.0f, 100.0f, 0.5f));
 	particle.Initialize();
 }
 
@@ -52,11 +51,20 @@ void TestScene::Update()
 	static int gameCounter = 0;	//経過フレームのカウンター
 	gameCounter++;
 	
+
 	stage.Update();
 	//敵をすべて更新
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
+	//敵の削除
+	for (int i = enemys.size() - 1; i >= 0; i--) {
+		if (enemys[i]->isDelete) {
+			delete enemys[i];//newはdeleteしてから消す
+			enemys.erase(enemys.begin() + i);
+		}
+	}
+
 	//ロックオン
 	if (ControllerInput::GetInstance()->GetPadButtonPress(XBOX_INPUT_RB)) {
 		player.LockOn(enemys);
@@ -136,6 +144,7 @@ void TestScene::HitCollision()
 				player.Damage(enemys[i]->damage);
 			}
 			else {
+				enemys[i]->Damage(player.damage);
 			}
 			Bound(hitTime, player, *enemys[i],&collisionPosA,&collisionPosB);
 			player.Hit();
@@ -161,6 +170,9 @@ void TestScene::HitCollision()
 			Vector3 collisionPosB;
 			if (Collision::sphereSwept(enemys[l]->pos, enemys[l]->move, enemys[l]->r, enemys[i]->pos, enemys[i]->move, enemys[i]->r,
 				hitTime, collisionPos, &collisionPosA, &collisionPosB)) {
+
+				enemys[i]->Damage(enemys[l]->damage);
+				enemys[l]->Damage(enemys[i]->damage);
 				//衝突後処理
 				Bound(hitTime, *enemys[l], *enemys[i], &collisionPosA, &collisionPosB);
 			}

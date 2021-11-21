@@ -17,7 +17,8 @@ private:
 	bool ChackRange( float max, float min = 0.0f);
 	
 	Object3d *frame;
-
+	Vector3 frameRotate;
+	Vector3 spinFrame();
 	//攻撃中かどうか
 	bool isAttack;
 	//テスト用アタックステート

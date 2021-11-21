@@ -9,7 +9,7 @@
 
 
 Player::Player():
-	GameObjCommon(Vector3{0,0,0},5.0f,100000000.0f,0.5f,25, ModelManager::PlayerCore)
+	GameObjCommon(Vector3{0,0,0},5.0f,100.0f,0.1f,25, ModelManager::PlayerCore)
 {
 	//フレーム
 	frame = nullptr;
@@ -48,7 +48,6 @@ void Player::Update()
 		-(float)ControllerInput::IsPadStick(INPUT_AXIS_Y,0.2f),
 		0.0f
 	};
-
 	//移動量初期化
 	if(move.Length() > 0.1f){
 		move = move * 0.95f;
@@ -56,8 +55,7 @@ void Player::Update()
 	else {
 		move = { 0,0,0 };
 	}
-	//大きさとHPを同じに
-
+	
 	Heal();			//自動回復
 	//ロックオンせずに移動している場合更新
 	if (stickRotate != Vector3{ 0.0f, 0.0f, 0.0f } && !isLockOn){
@@ -75,12 +73,16 @@ void Player::Update()
 	Attack();
 
 
+
 	//移動適応
 	move.y = 0.0f;	//yを無効化
 	pos += move;
 	//HPを質量に適応
 	N = hp * 5;
 	r = hp * 1.5f;
+
+	//ダメージを質量と移動速度から計算
+	damage = N * move.Length() * 0.005f;
 }
 
 void Player::Reflection()
