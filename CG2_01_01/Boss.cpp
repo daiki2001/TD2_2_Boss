@@ -1,6 +1,8 @@
 #include "Boss.h"
 #include "DirectXCommon.h"
 
+int Boss::stayTimer = 120;
+
 Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e) :
 	BaseEnemy(player, startPos, hp, N, e, ModelManager::ModelName::BossCore) {
 
@@ -26,7 +28,55 @@ void Boss::Update()
 
 	//テスト用
 	counter++;
-	AttackSelect();
+
+
+	//死亡処理
+	if (!isAlive) {
+		Dead();
+	}
+
+	//移動量初期化
+	if (move.Length() > 0.1f) {
+		move = move * 0.95f;
+	}
+	else {
+		move = { 0,0,0 };
+	}
+
+	//待機状態でタイマーが残っていれば減少させる
+	if (state == Stay && stayTimer > 0) {
+		stayTimer--;
+	}
+	//待機状態かつタイマーが0なら行動する
+	if (state == Stay && stayTimer == 0) {
+		AttackSelect();
+	}
+	if (state == ATTACK) {
+
+		Vector3 playerVec = playerData->pos - pos;
+		playerVec.Normalize();			//プレイヤーの向きベクトル
+		switch (atackState)
+		{
+		case Boss::Stay:
+			break;
+		case Boss::Short:
+			move += playerVec * 10;
+			oldAtackState = Short;
+			break;
+		case Boss::Middle:
+			move += playerVec * 15;
+			oldAtackState = Middle;
+			break;
+		case Boss::Long:
+			move += playerVec * 20;
+			oldAtackState = Long;
+			break;
+		default:
+			break;
+		}
+		atackState = Stay;
+		state = STAY;
+	}
 
 	//移動適応
 	pos += move;
@@ -59,18 +109,24 @@ void Boss::Draw() const
 }
 
 void Boss::AttackSelect()
-{
-	if (state == STAY && counter % 120 == 0) {
-		//距離に応じて攻撃方法を選択
-		if (ChackRange(300, 0)) {
-			atackState = Short;
-		}
-		if (ChackRange(600, 300)) {
-			atackState = Middle;
-		}
-		if (ChackRange(1000, 600)) {
-			atackState = Long;
-		}
+{		//距離に応じて攻撃方法を選択
+	state = ATTACK;
+	if (ChackRange(500, 0)) {
+		atackState = Short;			//次の攻撃パターンを決定
+		stayTimer = 120;			//攻撃終了後のタイマーセット
+	}
+	else if (ChackRange(700, 500)) {
+		atackState = Middle;		//次の攻撃パターンを決定
+		stayTimer = 180;			//攻撃終了後のタイマーセット
+	}
+	else if (ChackRange(1000, 700)) {
+		atackState = Long;			//次の攻撃パターンを決定
+		stayTimer = 240;			//攻撃終了後のタイマーセット
+	}
+	else {
+		//該当距離の外側にいるときは行動しない
+		atackState = Stay;
+		state = STAY;
 	}
 }
 

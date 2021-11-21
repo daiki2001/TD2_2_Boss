@@ -16,6 +16,9 @@ private:
 	void AttackSelect();
 	bool ChackRange( float max, float min = 0.0f);
 	
+	//攻撃した後の待機時間、攻撃終了ごとに設定する。
+	static int stayTimer;
+
 	Object3d *frame;
 	Vector3 frameRotate;
 	Vector3 spinFrame();
@@ -23,10 +26,12 @@ private:
 	bool isAttack;
 	//テスト用アタックステート
 	enum ATTACKSTATE {
+		Stay,
 		Short,
 		Middle,
 		Long,
 	};
-	ATTACKSTATE atackState;
+	ATTACKSTATE atackState;		//次にとる攻撃
+	ATTACKSTATE oldAtackState;	//直前の攻撃
 };
 
