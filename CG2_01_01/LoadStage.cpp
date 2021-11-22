@@ -219,7 +219,7 @@ void LoadStage::CreateEnemy(std::vector<GameObjCommon*>& enemy, const size_t& en
 			break;
 		case BOSS:
 			enemy[enemyIndex] =
-				new Boss(player, Vector3(), boss.hp, boss.N, boss.e);
+				new Boss(player, Vector3(), boss.hp, boss.N, boss.e, enemy);
 			break;
 		default:
 			break;
@@ -236,7 +236,7 @@ void LoadStage::CreateEnemy(std::vector<GameObjCommon*>& enemy, const size_t& en
 			enemy.push_back(new RushEnemy(player, Vector3(), rushEnemy.hp, rushEnemy.N, rushEnemy.e));
 			break;
 		case BOSS:
-			enemy.push_back(new Boss(player, Vector3(), boss.hp, boss.N, boss.e));
+			enemy.push_back(new Boss(player, Vector3(), boss.hp, boss.N, boss.e, enemy));
 			break;
 		default:
 			break;

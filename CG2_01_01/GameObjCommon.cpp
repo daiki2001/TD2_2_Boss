@@ -1,5 +1,5 @@
 #include "GameObjCommon.h"
-
+#include "DirectXCommon.h"
 
 void GameObjCommon::Initialize()
 {
@@ -11,10 +11,18 @@ void GameObjCommon::Update()
 
 void GameObjCommon::Reflection()
 {
+	object->SetScale(scale);
+	object->SetPos(pos);
+
+	object->Update();
 }
 
 void GameObjCommon::Draw() const
 {
+
+	Object3d::PreDraw(DirectXCommon::cmdList.Get());
+	object->Draw();
+	Object3d::PostDraw();
 }
 
 void GameObjCommon::Damage(float damage)

@@ -14,14 +14,6 @@ TestScene::TestScene(IoChangedListener *impl)
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", enemys, &player);
-	//enemys.push_back(new TestEnemy	(&player, { -550,0,60 }, 10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new TestEnemy	(&player, { -650,0,60 }, 10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new TestEnemy	(&player, { -700,0,40 }, 10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new TestEnemy	(&player, { -700,0,80 }, 10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new TestEnemy	(&player, { -750,0,60 }, 10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new TestEnemy	(&player, { -750,0,100 },10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new TestEnemy	(&player, { -750,0,20 }, 10.0f, 10.0f, 2.0f));
-	//enemys.push_back(new RushEnemy	(&player, { 600,0,0 }, 10.0f, 100.0f, 0.5f));
 	particle.Initialize();
 }
 
@@ -172,7 +164,8 @@ void TestScene::HitCollision()
 			Vector3 collisionPosB;
 			if (Collision::sphereSwept(enemys[l]->pos, enemys[l]->move, enemys[l]->r, enemys[i]->pos, enemys[i]->move, enemys[i]->r,
 				hitTime, collisionPos, &collisionPosA, &collisionPosB)) {
-
+				isShake = true;
+				shakeRange = (enemys[l]->damage + enemys[i]->damage) / 2;
 				enemys[i]->Damage(enemys[l]->damage);
 				enemys[l]->Damage(enemys[i]->damage);
 				//衝突後処理
@@ -218,9 +211,9 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 void TestScene::UpdateCamera()
 {
 	Vector3 CamPos = {
-		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().x,player.pos.x),
-		400,
-		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().z,player.pos.z),
+		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().x,player.pos.x),
+		800,
+		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().z,player.pos.z),
 	};
 	Vector3 CamTarget = CamPos;
 	CamTarget.y = 0.0f;
@@ -242,11 +235,11 @@ void TestScene::Shake(float damage)
 
 	static float shakeCounter = 1.0f;
 	shakeCounter-= 0.05f;
-	float shakeRange = damage * 10 + 1;
+	float shakeRange = damage * 10;
 	shakePos = {
-		(rand() % (int)shakeRange - (int)(shakeRange/2)) * shakeCounter,
-		(rand() % (int)shakeRange - (int)(shakeRange/2)) * shakeCounter,
-		(rand() % (int)shakeRange - (int)(shakeRange/2)) * shakeCounter,
+		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,
+		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,
+		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,
 	};
 	if (shakeCounter <= 0.0f) {
 		shakeCounter = 1.0f;

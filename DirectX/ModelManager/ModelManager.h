@@ -14,11 +14,14 @@ public:
 	enum ModelName {
 		PlayerFrame,
 		PlayerCore,
+
 		RushEnemy,
 		TestEnemy,
+		
 		BossCore,
 		BossFrame,
-		BossAttackS,
+		
+		BossBomb,
 		BossAttackM,
 		BossAttackL,
 		Triangle,

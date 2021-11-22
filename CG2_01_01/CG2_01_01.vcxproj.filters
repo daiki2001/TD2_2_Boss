@@ -53,6 +53,7 @@
     <ClCompile Include="Particle\ParticleManager.cpp">
       <Filter>Particle\ParticleManager</Filter>
     </ClCompile>
+    <ClCompile Include="EnemyBomb.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
@@ -92,6 +93,7 @@
     <ClInclude Include="Particle\ParticleManager.h">
       <Filter>Particle\ParticleManager</Filter>
     </ClInclude>
+    <ClInclude Include="EnemyBomb.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />

@@ -1,17 +1,16 @@
 #include "Boss.h"
 #include "DirectXCommon.h"
 #include "Easing.h"
+#include "EnemyBomb.h"
 
 
-Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e) :
-	BaseEnemy(player, startPos, hp, N, e, ModelManager::ModelName::BossCore) {
+Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<GameObjCommon *> &enemys) :
+	BaseEnemy(player, startPos, hp, N, e, ModelManager::ModelName::BossCore){
+	this->enemys = &enemys;
 
 	frame = nullptr;
 	frame = Object3d::Create();
 	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::BossFrame));
-	//frame->SetPos(object->GetPos());
-	//frame->SetRotation(object->GetRotation());
-	//frame->SetScale(object->GetScale());
 	frame->SetParent(object);
 	frame->Initialize();
 	frame->Update();
@@ -65,55 +64,14 @@ void Boss::Update()
 			state = ATTACK;
 		}
 	}
+	//攻撃
 	if (state == ATTACK) {
+		Attack();
+	}
 
-		//攻撃前モーションが終わったら攻撃開始
-		if (StandbyMotion()) {
-			switch (attackType)
-			{
-			case Boss::Stay:
-				state = STAY;
-				break;
-				//通常のタックル
-			case Boss::Tackle:
-				stayTimer = 120;			//攻撃終了後のタイマーセット
-				move += playerVec * 40;
-				oldAtackType = Tackle;
-				if(hp < 20){
-					nextAttackType = Tackle3;
-				}
-				break;
-			
-				//三連タックル（HP20以下）
-			case Boss::Tackle3:
-				stayTimer = 30;			//攻撃終了後のタイマーセット
-				TackleCounter++;
-				move += playerVec * 10* (TackleCounter * 1.2f);
-				oldAtackType = Tackle3;
-				if (TackleCounter >= 3) {
-					nextAttackType = Stay;
-					TackleCounter = 0;
-				}
-				break;
-			case Boss::Middle:
-				state = STAY;
-
-				break;
-			case Boss::Long:
-				state = STAY;
-				break;
-			default:
-				break;
-			}
-
-			if (nextAttackType == Stay) {
-				attackType = Stay;
-			}
-			else {
-				attackType = nextAttackType;
-			}
-			state = STAY;
-		}
+	//
+	if (state == STAY) {
+		SpinFrame();
 	}
 
 	//移動適応
@@ -156,9 +114,8 @@ void Boss::AttackSelect()
 	else if (ChackRange(700, 450)) {
 		attackType = Tackle;			//次の攻撃パターンを決定
 	}
-	else if (ChackRange(1000, 1000)) {
-		//attackType = Long;			//次の攻撃パターンを決定
-		//stayTimer = 240;			//攻撃終了後のタイマーセット
+	else if (ChackRange(1000, 700)) {
+		attackType = Bomb;			//次の攻撃パターンを決定
 	}
 	else {
 		//該当距離の外側にいるときは行動しない
@@ -229,7 +186,7 @@ bool Boss::StandbyMotion()
 			return true;
 		}
 		break;
-	case Boss::Middle:
+	case Boss::Bomb:
 		if (standMotionTimer > 120) {
 			standMotionTimer = 0;
 			standEaseTimer = 0;
@@ -247,4 +204,59 @@ bool Boss::StandbyMotion()
 		break;
 	}
 	return false;
+}
+
+void Boss::Attack()
+{
+	//攻撃前モーションが終わったら攻撃開始
+	if (StandbyMotion()) {
+		switch (attackType)
+		{
+		case Boss::Stay:
+			state = STAY;
+			break;
+			//通常のタックル
+		case Boss::Tackle:
+			stayTimer = 120;			//攻撃終了後のタイマーセット
+			move += playerVec * 40;
+			oldAtackType = Tackle;
+			if (hp < 20) {
+				nextAttackType = Tackle3;
+				stayTimer = 100;
+			}
+			break;
+
+			//三連タックル（HP20以下）
+		case Boss::Tackle3:
+			stayTimer = 30;			//攻撃終了後のタイマーセット
+			TackleCounter++;
+			move += playerVec * 10 * (TackleCounter * 1.2f);
+			oldAtackType = Tackle3;
+			if (TackleCounter >= 3) {
+				nextAttackType = Stay;
+				TackleCounter = 0;
+			}
+			break;
+
+			//爆弾
+		case Boss::Bomb:
+			enemys->push_back(new EnemyBomb(Vector3{ pos.x,pos.y+100,pos.z }, playerVec, 10, 4,4));
+			state = STAY;
+
+			break;
+		case Boss::Long:
+			state = STAY;
+			break;
+		default:
+			break;
+		}
+
+		if (nextAttackType == Stay) {
+			attackType = Stay;
+		}
+		else {
+			attackType = nextAttackType;
+		}
+		state = STAY;
+	}
 }

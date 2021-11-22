@@ -12,10 +12,15 @@ void ModelManager::Initialize()
 {
 	LoadModel(PlayerFrame, "playerFrame");
 	LoadModel(PlayerCore, "playerCore");
+
 	LoadModel(TestEnemy, "Enemy");
 	LoadModel(RushEnemy, "Enemy");
+	
 	LoadModel(BossCore, "bossCore");
 	LoadModel(BossFrame, "bossFrame");
+	LoadModel(BossBomb, "bomb");
+	
+	
 	LoadModel(Stage, "Stage");
 	//LoadModel(TestDunut, "donut");
 }

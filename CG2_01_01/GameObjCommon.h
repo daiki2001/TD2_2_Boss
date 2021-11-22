@@ -41,7 +41,7 @@ public:
 	virtual void Reflection();
 	virtual void Draw() const;
 
-	void Damage(float damage);
+	virtual void Damage(float damage);
 	virtual void Dead();
 
 public:

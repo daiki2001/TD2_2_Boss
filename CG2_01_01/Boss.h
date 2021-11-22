@@ -4,8 +4,7 @@ class Boss :
 	public BaseEnemy
 {
 public:
-	Boss(Player *player, Vector3 startPos, float hp, float N, float e);
-
+	Boss(Player *player, Vector3 startPos, float hp, float N, float e , vector<GameObjCommon *> &enemys);
 	void Initialize()override;
 	void Update()override;
 	void Reflection()override;
@@ -23,7 +22,7 @@ private:
 	int standEaseTimer;		//攻撃前モーションイージング用
 	int standMotionTimer;	//攻撃前モーションタイマー
 	bool StandbyMotion();			//攻撃前待機モーション
-	void AttackMotion();			//攻撃時待機モーション
+	void Attack();			//攻撃時待機モーション
 
 	//攻撃した後の待機時間、攻撃終了ごとに設定する。
 
@@ -36,7 +35,7 @@ private:
 		Stay,
 		Tackle,
 		Tackle3,
-		Middle,
+		Bomb,
 		Long,
 	};
 	ATTACKTYPE attackType;		//今の攻撃
@@ -45,5 +44,7 @@ private:
 
 	int TackleCounter;			//三連タックル用カウンタ
 
+
+	vector<GameObjCommon *> *enemys;
 };
 
