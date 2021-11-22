@@ -74,6 +74,7 @@ void Boss::Update()
 			case Boss::Stay:
 				state = STAY;
 				break;
+				//通常のタックル
 			case Boss::Tackle:
 				stayTimer = 120;			//攻撃終了後のタイマーセット
 				move += playerVec * 40;
@@ -83,7 +84,7 @@ void Boss::Update()
 				}
 				break;
 			
-				//三連タックル
+				//三連タックル（HP20以下）
 			case Boss::Tackle3:
 				stayTimer = 30;			//攻撃終了後のタイマーセット
 				TackleCounter++;
@@ -95,12 +96,11 @@ void Boss::Update()
 				}
 				break;
 			case Boss::Middle:
-				move += playerVec * 15;
-				oldAtackType = Middle;
+				state = STAY;
+
 				break;
 			case Boss::Long:
-				move += playerVec * 20;
-				oldAtackType = Long;
+				state = STAY;
 				break;
 			default:
 				break;
@@ -118,7 +118,7 @@ void Boss::Update()
 
 	//移動適応
 	pos += move;
-	N = hp * 5;
+	N = hp * 3;
 	r = hp * 1.5f;
 	//ダメージを質量と移動速度から計算
 	damage = N * move.Length() * 0.005f;
@@ -150,16 +150,15 @@ void Boss::Draw() const
 void Boss::AttackSelect()
 {		//距離に応じて攻撃方法を選択
 	state = ATTACK;
-	if (ChackRange(700, 0)) {
+	if (ChackRange(100, 0)) {
+		//attackType = Tackle;			//次の攻撃パターンを決定
+	}
+	else if (ChackRange(700, 450)) {
 		attackType = Tackle;			//次の攻撃パターンを決定
 	}
-	else if (ChackRange(1000, 700)) {
-		attackType = Middle;		//次の攻撃パターンを決定
-		stayTimer = 180;			//攻撃終了後のタイマーセット
-	}
 	else if (ChackRange(1000, 1000)) {
-		attackType = Long;			//次の攻撃パターンを決定
-		stayTimer = 240;			//攻撃終了後のタイマーセット
+		//attackType = Long;			//次の攻撃パターンを決定
+		//stayTimer = 240;			//攻撃終了後のタイマーセット
 	}
 	else {
 		//該当距離の外側にいるときは行動しない
@@ -204,6 +203,9 @@ bool Boss::StandbyMotion()
 	switch (attackType)
 	{
 	case Boss::Stay:
+		standEaseTimer = 0;
+		standMotionTimer = 0;
+		return true;
 		break;
 	case Boss::Tackle3:
 		return true;
@@ -221,6 +223,7 @@ bool Boss::StandbyMotion()
 		}
 		//攻撃開始
 		if (standMotionTimer > 70) {
+			frameRotate.y = 0.0f;
 			standMotionTimer = 0;
 			standEaseTimer = 0;
 			return true;

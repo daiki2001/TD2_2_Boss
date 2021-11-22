@@ -82,6 +82,7 @@ public:	//静的メンバ関数
 	//ブレンドモード変更
 	static void BlendMode(BLENDMODE blendM);
 
+	static Vector3 GetCamPos() { return objectCommon.eye; }
 	static void SetCamPos(Vector3 pos) { objectCommon.eye = pos; }
 	static void SetCamTarget(Vector3 target) { objectCommon.target = target; }
 

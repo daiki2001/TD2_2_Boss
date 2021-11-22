@@ -116,16 +116,17 @@ void Player::Attack()
 
 	//体当たり貯め
 	if (ControllerInput::GetPadButtonPress(XBOX_INPUT_A)) {
-		if (hp < maxHp * 1.5) {
+		if (hp <= maxHp * 1.5) {
 			hp += 0.1f;
 		}
 	}
 	//体当たり開始
-	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) ) {
+	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) ||
+		hp >= maxHp * 1.5) {
 		startScale = hp;						//体当たり開始時のhpを取得
 		//attackAngle = rotate;
 		atackSpeed = 2.0f;			//体当たりの初速決定
-		hp *= 0.7f;
+		hp *= 0.5f;
 		attackCounter = 0.0f;		//カウンターを0に
 
 		state = ATTACK;				//攻撃開始

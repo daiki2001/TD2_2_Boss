@@ -5,6 +5,7 @@
 #include "ControllerInput.h"
 #include <DirectXMath.h>
 #include "LoadStage.h"
+#include "Easing.h"
 
 TestScene::TestScene(IoChangedListener *impl)
 	: AbstractScene(impl)
@@ -39,6 +40,8 @@ void TestScene::Initialize()
 	particle.startColor = { 1.0f, 0.0f, 0.0f, 1.0f };
 	particle.endColor = { 0.0f, 1.0f, 1.0f, 1.0f };
 	particle.CreateManager("./Resources/effect1.png");
+	shakePos = { 0,0,0 };
+	isShake = false;
 }
 
 void TestScene::Finalize()
@@ -108,12 +111,7 @@ void TestScene::Update()
 		enemys[i]->Reflection();
 	}
 	
-	Object3d::SetCamPos({ player.pos.x ,400,player.pos.z});
-	Object3d::SetCamTarget({ player.pos.x,0.0f,player.pos.z + 50 });
-	ParticleManager::SetEye({ player.pos.x,400,player.pos.z });
-	ParticleManager::SetTarget({ player.pos.x,0.0f,player.pos.z + 50 });
-
-	Object3d::UpdateViewMatrix();
+	UpdateCamera();
 }
 
 void TestScene::Draw() const
@@ -140,13 +138,15 @@ void TestScene::HitCollision()
 		Vector3 collisionPosB;
 		if (Collision::sphereSwept(player.pos, player.move, player.r, enemys[i]->pos, enemys[i]->move, enemys[i]->r,
 			hitTime,collisionPos,&collisionPosA,&collisionPosB)) {
-
+			isShake = true;
 			//どちらがダメージを負うか
 			if (player.move.Length() < enemys[i]->move.Length()) {
 				player.Damage(enemys[i]->damage);
+				shakeRange = enemys[i]->damage;
 			}
 			else {
 				enemys[i]->Damage(player.damage);
+				shakeRange = player.damage;
 			}
 			Bound(hitTime, player, *enemys[i],&collisionPosA,&collisionPosB);
 			player.Hit();
@@ -212,5 +212,44 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 		b.move == Vector3{ 0,0,0 }) {
 		float Rand = rand() % 361 * XM_PI / 180.0f;
 		b.pos += Vector3((a.r + b.r) * cosf(Rand), 0, (a.r + b.r) * sinf(Rand));
+	}
+}
+
+void TestScene::UpdateCamera()
+{
+	Vector3 CamPos = {
+		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().x,player.pos.x),
+		400,
+		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().z,player.pos.z),
+	};
+	Vector3 CamTarget = CamPos;
+	CamTarget.y = 0.0f;
+	CamTarget.z +=50;
+	//カメラの揺れ
+	Shake(shakeRange);
+
+	Object3d::SetCamPos(CamPos+shakePos);
+	Object3d::SetCamTarget(CamTarget +shakePos);
+	ParticleManager::SetEye(CamPos +shakePos);
+	ParticleManager::SetTarget(CamTarget +shakePos);
+
+	Object3d::UpdateViewMatrix();
+}
+
+void TestScene::Shake(float damage)
+{
+	if (!isShake)	return;
+
+	static float shakeCounter = 1.0f;
+	shakeCounter-= 0.05f;
+	float shakeRange = damage * 10 + 1;
+	shakePos = {
+		(rand() % (int)shakeRange - (int)(shakeRange/2)) * shakeCounter,
+		(rand() % (int)shakeRange - (int)(shakeRange/2)) * shakeCounter,
+		(rand() % (int)shakeRange - (int)(shakeRange/2)) * shakeCounter,
+	};
+	if (shakeCounter <= 0.0f) {
+		shakeCounter = 1.0f;
+		isShake = false;
 	}
 }
