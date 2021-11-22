@@ -219,7 +219,7 @@ public: // メンバ関数
 	/// <param name="end_color">終了時の色</param>
 	void Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 accel, float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color);
 
-private: // メンバ変数
+public: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	std::forward_list<Particle> particles; // パーティクル配列
 	size_t vertexIndex; //頂点関連のインデックス

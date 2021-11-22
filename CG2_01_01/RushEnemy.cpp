@@ -4,6 +4,7 @@
 void RushEnemy::Initialize()
 {
 	flame = 0;
+	particle.Initialize();
 }
 
 void RushEnemy::Update()
@@ -39,6 +40,7 @@ void RushEnemy::Update()
 		scale = { hp,hp,hp };
 	}
 
+	particle.Update(isAlive == false, pos);
 }
 
 void RushEnemy::RushStart()

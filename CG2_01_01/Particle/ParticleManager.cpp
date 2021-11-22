@@ -582,6 +582,9 @@ void ParticleManager::Update()
 {
 	HRESULT result;
 
+	// ビュー行列の計算
+	UpdateViewMatrix();
+
 	// 寿命が尽きたパーティクルを全削除
 	particles.remove_if([](Particle& x) { return x.frame >= x.num_frame; });
 

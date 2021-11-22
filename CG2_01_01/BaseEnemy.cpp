@@ -3,10 +3,12 @@
 #include "Easing.h"
 void BaseEnemy::Initialize()
 {
+	particle.Initialize();
 }
 
 void BaseEnemy::Update()
 {
+	particle.Update(isAlive, pos);
 }
 
 void BaseEnemy::Reflection()
@@ -22,6 +24,8 @@ void BaseEnemy::Draw() const
 	Object3d::PreDraw(DirectXCommon::cmdList.Get());
 	object->Draw();
 	Object3d::PostDraw();
+
+	particle.Draw();
 }
 
 
