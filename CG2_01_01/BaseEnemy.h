@@ -36,6 +36,7 @@ public:
 	enum TYPE {
 		AttackArea,
 		Test,
+		Rush,
 		Boss,
 	};
 	TYPE type;

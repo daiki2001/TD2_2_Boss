@@ -31,10 +31,17 @@ private:
 	void HitCollision();
 	//衝突後処理
 	void Bound(float hitTime, GameObjCommon &a, GameObjCommon &b,Vector3 *collisionA, Vector3 *collisionB);
-
+	//カメラアップデート
+	void UpdateCamera();
+	//カメラ揺れ
+	void Shake(float damage);
 
 	Player player;
 	Stage stage;
 	vector<GameObjCommon *> enemys;
 	TestParticle testParticle;
+
+	float shakeRange;		//ダメージに応じて揺らすための変数
+	bool isShake;			//シェイクFlag
+	Vector3 shakePos;		//揺れ幅
 };
