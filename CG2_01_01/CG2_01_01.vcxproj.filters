@@ -8,13 +8,13 @@
     <FxCompile Include="SpriteVS.hlsl" />
     <FxCompile Include="SpritePS.hlsl" />
     <FxCompile Include="Particle\ParticleVS.hlsl">
-      <Filter>Particle</Filter>
+      <Filter>Particle\ParticleManager</Filter>
     </FxCompile>
     <FxCompile Include="Particle\ParticleGS.hlsl">
-      <Filter>Particle</Filter>
+      <Filter>Particle\ParticleManager</Filter>
     </FxCompile>
     <FxCompile Include="Particle\ParticlePS.hlsl">
-      <Filter>Particle</Filter>
+      <Filter>Particle\ParticleManager</Filter>
     </FxCompile>
   </ItemGroup>
   <ItemGroup>
@@ -34,24 +34,38 @@
     <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
-    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="RushEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TestEnemy.cpp" />
-    <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="LoadStage.cpp">
       <Filter>LoadStage</Filter>
     </ClCompile>
-    <ClCompile Include="BaseParticle.cpp">
-      <Filter>Particle\ParticleManager</Filter>
-    </ClCompile>
     <ClCompile Include="Particle\ParticleManager.cpp">
       <Filter>Particle\ParticleManager</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathParticle.cpp">
+      <Filter>Particle\DeathParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="TestParticle.cpp">
+      <Filter>Particle\TestParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseParticle.cpp">
+      <Filter>Particle\BaseParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="TestEnemy.cpp">
+      <Filter>Enemy\TestEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="RushEnemy.cpp">
+      <Filter>Enemy\RushEnemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Boss.cpp">
+      <Filter>Enemy\Boss</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,20 +91,35 @@
     <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="RushEnemy.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="TestEnemy.h" />
-    <ClInclude Include="TestScene.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
     <ClInclude Include="LoadStage.h">
       <Filter>LoadStage</Filter>
     </ClInclude>
-    <ClInclude Include="BaseParticle.h">
-      <Filter>Particle\ParticleManager</Filter>
-    </ClInclude>
     <ClInclude Include="Particle\ParticleManager.h">
       <Filter>Particle\ParticleManager</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathParticle.h">
+      <Filter>Particle\DeathParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="TestParticle.h">
+      <Filter>Particle\TestParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseParticle.h">
+      <Filter>Particle\BaseParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="TestScene.h">
+      <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="TestEnemy.h">
+      <Filter>Enemy\TestEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="RushEnemy.h">
+      <Filter>Enemy\RushEnemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Boss.h">
+      <Filter>Enemy\Boss</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -98,7 +127,7 @@
     <None Include="OBJShaderHeader.hlsli" />
     <None Include="Sprite.hlsli" />
     <None Include="Particle\ParticleHeader.hlsli">
-      <Filter>Particle</Filter>
+      <Filter>Particle\ParticleManager</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -110,6 +139,30 @@
     </Filter>
     <Filter Include="Particle\ParticleManager">
       <UniqueIdentifier>{487dcff2-72a6-43bb-b917-b1ba15e2d275}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\DeathParticle">
+      <UniqueIdentifier>{d9cbb98b-b220-47fa-91f3-93fbf484e6c4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\TestParticle">
+      <UniqueIdentifier>{6e57c9d0-4d12-4f0f-884e-3596f873270f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestScene">
+      <UniqueIdentifier>{06a3e162-ebdc-4861-be1e-623520031615}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\BaseParticle">
+      <UniqueIdentifier>{0cb35f7c-591f-4e03-a31d-aad8ce1b5adc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{ef8fab2f-bd56-4b34-8361-336112305de9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\TestEnemy">
+      <UniqueIdentifier>{c3f1fab2-d96f-4dcc-b953-1f7bb76fdf00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\RushEnemy">
+      <UniqueIdentifier>{59233e3a-44b9-4da8-aa70-7545e43d85f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy\Boss">
+      <UniqueIdentifier>{9f150d02-5a88-4c61-89b6-b1c3e7e79046}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
