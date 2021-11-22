@@ -8,6 +8,7 @@ public:
 	RushEnemy(Player *player, Vector3 pos, float hp, float N, float e) :
 		BaseEnemy(player, pos, hp, N, e, ModelManager::ModelName::TestEnemy) {
 		flame = 0;
+		type = Rush;
 	}
 
 	void Initialize() override;

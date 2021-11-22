@@ -12,7 +12,7 @@ void LoadStage::Init()
 {
 	testEnemy = { 10.0f,  10.0f, 2.0f };
 	rushEnemy = { 10.0f, 10.0f, 0.5f };
-	boss = { 50.0f, 100.0f, 0.2f };
+	boss = { 50.0f, 10.0f, 0.5f };
 }
 
 bool LoadStage::LoadCSV(int* buffer, const size_t& maxCount, const char* FilePath, int LoadStopNumber)

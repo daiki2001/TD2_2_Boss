@@ -108,8 +108,10 @@ void TestScene::Update()
 		enemys[i]->Reflection();
 	}
 	
-	Object3d::SetCamPos({ player.pos.x - 80.0f,400,0.0f });
-	Object3d::SetCamTarget({ player.pos.x - 80.0f,0.0f,50.0f });
+	Object3d::SetCamPos({ player.pos.x ,400,player.pos.z});
+	Object3d::SetCamTarget({ player.pos.x,0.0f,player.pos.z + 50 });
+	ParticleManager::SetEye({ player.pos.x,400,player.pos.z });
+	ParticleManager::SetTarget({ player.pos.x,0.0f,player.pos.z + 50 });
 
 	Object3d::UpdateViewMatrix();
 }

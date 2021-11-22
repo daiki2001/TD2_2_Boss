@@ -12,26 +12,38 @@ public:
 	void Draw() const override;
 
 private:
-	int counter;
-	void AttackSelect();
-	bool ChackRange( float max, float min = 0.0f);
+	Vector3 playerVec;	//プレイヤーへの向きベクトル
+
+	void Missile();
+	void AttackSelect();				//攻撃方法選択
+	bool ChackRange( float max, float min = 0.0f);	//範囲内チェック
 	
+	int stayTimer;
+	Vector3 SpinFrame();				//待機モーション
+	int standEaseTimer;		//攻撃前モーションイージング用
+	int standMotionTimer;	//攻撃前モーションタイマー
+	bool StandbyMotion();			//攻撃前待機モーション
+	void AttackMotion();			//攻撃時待機モーション
+
 	//攻撃した後の待機時間、攻撃終了ごとに設定する。
-	static int stayTimer;
 
 	Object3d *frame;
 	Vector3 frameRotate;
-	Vector3 spinFrame();
 	//攻撃中かどうか
 	bool isAttack;
 	//テスト用アタックステート
-	enum ATTACKSTATE {
+	enum ATTACKTYPE {
 		Stay,
-		Short,
+		Tackle,
+		Tackle3,
 		Middle,
 		Long,
 	};
-	ATTACKSTATE atackState;		//次にとる攻撃
-	ATTACKSTATE oldAtackState;	//直前の攻撃
+	ATTACKTYPE attackType;		//今の攻撃
+	ATTACKTYPE nextAttackType;	//次の攻撃
+	ATTACKTYPE oldAtackType;	//直前の攻撃
+
+	int TackleCounter;			//三連タックル用カウンタ
+
 };
 

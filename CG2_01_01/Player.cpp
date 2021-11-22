@@ -9,7 +9,7 @@
 
 
 Player::Player():
-	GameObjCommon(Vector3{0,0,0},5.0f,100.0f,0.1f,25, ModelManager::PlayerCore)
+	GameObjCommon(Vector3{0,0,0},20.0f,100.0f,0.1f,25, ModelManager::PlayerCore)
 {
 	//フレーム
 	frame = nullptr;
@@ -113,17 +113,16 @@ void Player::Attack()
 {
 	static float attackCounter = 0.0f;	//攻撃後のアニメーションに使うカウンタ
 	static float startScale = scale.x;		//スタート時のサイズ
-	startScale = hp;						//体当たり開始時のhpを取得
 
 	//体当たり貯め
 	if (ControllerInput::GetPadButtonPress(XBOX_INPUT_A)) {
-		if(hp < 20){
+		if (hp < maxHp * 1.5) {
 			hp += 0.1f;
 		}
 	}
 	//体当たり開始
 	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) ) {
-		
+		startScale = hp;						//体当たり開始時のhpを取得
 		//attackAngle = rotate;
 		atackSpeed = 2.0f;			//体当たりの初速決定
 		hp *= 0.7f;

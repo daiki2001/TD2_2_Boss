@@ -60,7 +60,7 @@ protected:
 	Vector3 rotate;			//エネミーの向きベクトル
 	float angle = 0.0f;		//エネミーのy軸角度
 	Object3d *object;
-	const float maxHp = 10.0f;	//体力最大
+	const float maxHp = 20.0f;	//体力最大
 
 };
 
