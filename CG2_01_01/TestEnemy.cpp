@@ -4,6 +4,7 @@
 void TestEnemy::Initialize()
 {
 	move = { 0,0,0 };
+	particle.Initialize();
 }
 
 
@@ -33,6 +34,8 @@ void TestEnemy::Update()
 	if (isAlive) {
 		scale = { hp,hp,hp };
 	}
+
+	particle.Update(isAlive == false, pos);
 }
 
 void TestEnemy::Reflection()

@@ -10,7 +10,6 @@ BaseParticle::BaseParticle() :
 	pos = Vector3();
 	speed = Vector3();
 	accel = Vector3();
-	offset = Vector3();
 	startScale = 0.0f;
 	endScale = 0.0f;
 	startColor = DirectX::XMFLOAT4();
@@ -22,16 +21,26 @@ BaseParticle::~BaseParticle()
 	Finalize();
 }
 
-void BaseParticle::Initialize()
+size_t BaseParticle::GetParticleNum()
 {
-}
+	size_t num = 0;
+	auto& particles = manager->particles;
 
-void BaseParticle::Update()
-{
+	for (auto i = particles.begin(); i != particles.end(); i++)
+	{
+		num++;
+	}
+
+	return num;
 }
 
 void BaseParticle::CreateManager(std::string texFilepath)
 {
+	if (manager != nullptr)
+	{
+		return;
+	}
+
 	static bool isInit = false;
 	isInit = false;
 
@@ -41,6 +50,7 @@ void BaseParticle::CreateManager(std::string texFilepath)
 		{
 			isInit = true;
 			manager = manager->Create();
+			manager->textureIndex = i;
 			break;
 		}
 	}
@@ -64,11 +74,9 @@ void BaseParticle::Draw() const
 
 void BaseParticle::Finalize()
 {
-	if (manager == nullptr)
+	if (manager != nullptr)
 	{
-		return;
+		delete manager;
+		manager = nullptr;
 	}
-
-	delete manager;
-	manager = nullptr;
 }

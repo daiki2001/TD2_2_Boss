@@ -182,6 +182,7 @@
     <ClCompile Include="BaseParticle.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="DeathParticle.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="LoadStage.cpp" />
@@ -191,6 +192,7 @@
     <ClCompile Include="RushEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestEnemy.cpp" />
+    <ClCompile Include="TestParticle.cpp" />
     <ClCompile Include="TestScene.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -296,8 +298,10 @@
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
     <ClInclude Include="BaseParticle.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="BaseEnemy.h" />
+    <ClInclude Include="DeathParticle.h" />
     <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="LoadStage.h" />
@@ -306,6 +310,7 @@
     <ClInclude Include="RushEnemy.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TestEnemy.h" />
+    <ClInclude Include="TestParticle.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
