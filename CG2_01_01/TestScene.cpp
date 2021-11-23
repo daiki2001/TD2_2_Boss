@@ -14,7 +14,7 @@ TestScene::TestScene(IoChangedListener *impl)
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", enemys, &player);
-	particle.Initialize();
+	testParticle.Initialize();
 }
 
 void TestScene::Initialize()

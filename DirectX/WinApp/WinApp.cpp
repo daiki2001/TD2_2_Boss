@@ -1,7 +1,7 @@
 ﻿#include "WinApp.h"
 
 
-const wchar_t WinApp::windowClassName[] = L"Re:Strike";
+const wchar_t WinApp::windowClassName[] = L"ボスマッシュ";
 WNDCLASSEX WinApp::wndClass;
 HWND WinApp::hwnd = nullptr;
 
