@@ -12,6 +12,7 @@ TestScene::TestScene(IoChangedListener *impl)
 {
 	stage.Initialize();
 	player.Initialize();
+	reticle.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", enemys, &player);
 	testParticle.Initialize();
@@ -21,6 +22,7 @@ void TestScene::Initialize()
 {
 	stage.Initialize();
 	player.Initialize();
+	reticle.Initialize();
 	//敵をすべて初期化
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Initialize();
@@ -74,6 +76,9 @@ void TestScene::Update()
 		enemys[i]->Reflection();
 	}
 	
+	reticle.pos = player.LockOnPos;
+	reticle.scale = player.LockOnScale;
+	reticle.Update();
 	UpdateCamera();
 }
 
@@ -86,6 +91,9 @@ void TestScene::Draw() const
 		enemys[i]->Draw();
 	}
 	testParticle.Draw();
+	if(player.isLockOn){
+		reticle.Draw();
+	}
 
 }
 

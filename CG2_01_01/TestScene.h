@@ -13,6 +13,8 @@
 #include "Stage.h"
 #include "TestParticle.h"
 
+#include "Reticle.h"
+
 class TestScene
 	:public AbstractScene
 {
@@ -39,6 +41,7 @@ private:
 
 	Player player;
 	Stage stage;
+	Reticle reticle;
 
 	//sprite
 	Sprite *test;

@@ -190,11 +190,13 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\ParticleManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="RushEnemy.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="TestEnemy.cpp" />
     <ClCompile Include="TestParticle.cpp" />
     <ClCompile Include="TestScene.cpp" />
+    <ClCompile Include="UI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicPS.hlsl">
@@ -309,11 +311,13 @@
     <ClInclude Include="LoadStage.h" />
     <ClInclude Include="Particle\ParticleManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Reticle.h" />
     <ClInclude Include="RushEnemy.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="TestEnemy.h" />
     <ClInclude Include="TestParticle.h" />
     <ClInclude Include="TestScene.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
   </ItemGroup>

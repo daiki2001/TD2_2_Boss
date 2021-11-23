@@ -68,6 +68,8 @@
     </ClCompile>
     <ClCompile Include="EnemyBomb.cpp" />
     <ClCompile Include="..\DirectX\Sprite\Sprite.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Reticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
@@ -123,6 +125,8 @@
     </ClInclude>
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="..\DirectX\Sprite\Sprite.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Reticle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />

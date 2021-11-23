@@ -246,9 +246,10 @@ void Object3d::BlendMode(BLENDMODE blendM)
 {
 }
 
-Object3d *Object3d::Create()
+Object3d *Object3d::Create(bool isBillboard)
 {
 	Object3d *object3d = new Object3d();
+	object3d->isBillboard = isBillboard;
 	if (object3d == nullptr) {
 		return nullptr;
 	}
@@ -307,8 +308,6 @@ void Object3d::Update()
 	//ワールド行列の合成
 	matWorld = XMMatrixIdentity();
 
-	//ビルボード
-
 	matWorld *= matScale;
 	matWorld *= matRot;
 	matWorld *= matTrans;
@@ -323,6 +322,7 @@ void Object3d::Update()
 	ConstBufferDataB0 *constMap0 = nullptr;
 	if (SUCCEEDED(constBuffB0->Map(0, nullptr, (void **)&constMap0))) {
 		constMap0->mat = matWorld * objectCommon.matView * objectCommon.matProjection;
+		
 		constBuffB0->Unmap(0, nullptr);
 	}
 

@@ -10,6 +10,7 @@ Stage::Stage()
 	object->Update();
 	object->SetScale({ 5.0f,5.0f,5.0f });
 	object->SetPos({ 0.0f, -150.0f, 0.0f });
+
 	Initialize();
 }
 
