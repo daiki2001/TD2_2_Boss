@@ -170,7 +170,7 @@
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
     <ClCompile Include="..\DirectX\Model\Model.cpp" />
     <ClCompile Include="..\DirectX\Object3d\Object3d.cpp" />
-    <ClCompile Include="..\DirectX\Sprite\Object2d.cpp" />
+    <ClCompile Include="..\DirectX\Sprite\Sprite.cpp" />
     <ClCompile Include="..\DirectX\WinApp\WinApp.cpp" />
     <ClCompile Include="..\Easing\Easing.cpp" />
     <ClCompile Include="..\Scene\GameScene.cpp" />
@@ -288,7 +288,7 @@
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
     <ClInclude Include="..\DirectX\Model\Model.h" />
     <ClInclude Include="..\DirectX\Object3d\Object3d.h" />
-    <ClInclude Include="..\DirectX\Sprite\Object2d.h" />
+    <ClInclude Include="..\DirectX\Sprite\Sprite.h" />
     <ClInclude Include="..\DirectX\WinApp\WinApp.h" />
     <ClInclude Include="..\Easing\Easing.h" />
     <ClInclude Include="..\Scene\GameScene.h" />

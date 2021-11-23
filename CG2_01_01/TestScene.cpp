@@ -14,7 +14,7 @@ TestScene::TestScene(IoChangedListener *impl)
 	player.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", enemys, &player);
-	particle.Initialize();
+	testParticle.Initialize();
 }
 
 void TestScene::Initialize()
@@ -86,6 +86,7 @@ void TestScene::Draw() const
 		enemys[i]->Draw();
 	}
 	testParticle.Draw();
+
 }
 
 void TestScene::HitCollision()
@@ -164,6 +165,13 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 	//定数ベクトル
 	Vector3 ConstVec = Direction * RefRate * Dot / TotalN;
 
+
+	if (a.move == Vector3{ 0,0,0 } &&
+		b.move == Vector3{ 0,0,0 }) {
+		float Rand = rand() % 361 * XM_PI / 180.0f;
+		b.pos = a.pos + (Direction * (a.r + b.r));
+		return;
+	}
 	//衝突後の移動量
 	a.move = ConstVec * -b.N + a.move;
 	b.move = ConstVec * a.N + b.move;
@@ -172,11 +180,6 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 	a.pos = (a.move * hitTime) + *collisionA;
 	b.pos = (b.move * hitTime) + *collisionB;
 
-	if (a.move == Vector3{ 0,0,0 } &&
-		b.move == Vector3{ 0,0,0 }) {
-		float Rand = rand() % 361 * XM_PI / 180.0f;
-		b.pos += Vector3((a.r + b.r) * cosf(Rand), 0, (a.r + b.r) * sinf(Rand));
-	}
 }
 
 void TestScene::UpdateCamera()
@@ -206,7 +209,7 @@ void TestScene::Shake(float damage)
 
 	static float shakeCounter = 1.0f;
 	shakeCounter-= 0.05f;
-	float shakeRange = damage * 10;
+	float shakeRange = abs(damage * 10);
 	shakePos = {
 		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,
 		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,

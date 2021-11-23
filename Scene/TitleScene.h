@@ -1,5 +1,5 @@
 #pragma once
-#include "Object2d.h"
+#include "Sprite.h"
 #include "Object3d.h"
 #include "AbstractScene.h"
 
@@ -16,7 +16,6 @@ public:
 	void Update() override;
 	void Draw() const override;
 private:
-	Object2d::Sprite title;
 	Object3d *obj1;
 	Object3d *obj2;
 	Player player;

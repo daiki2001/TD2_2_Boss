@@ -2,6 +2,7 @@
 #include "AbstractScene.h"
 
 #include <vector>
+#include "Sprite.h"
 
 #include "GameObjCommon.h"
 #include "Player.h"
@@ -38,6 +39,10 @@ private:
 
 	Player player;
 	Stage stage;
+
+	//sprite
+	Sprite *test;
+
 	vector<GameObjCommon *> enemys;
 	TestParticle testParticle;
 

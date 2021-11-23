@@ -4,7 +4,7 @@
 #include "WinApp.h"			//ウィンドウの表示等
 #include "DirectXCommon.h"	//DirectX初期化等
 #include "Object3d.h"		//オブジェクト
-#include "Object2d.h"
+#include "Sprite.h"
 #include "ImageManager.h"
 #include "AudioManager.h"
 #include "ModelManager.h"			//モデル
@@ -23,8 +23,12 @@ bool SystemMain::Initialize() const
 	Model::StaticInitialize(DirectXCommon::dev.Get());	//モデル姿勢的初期化
 
 	
-	Object2d::SpriteCommonCreate(WinApp::window_width, WinApp::window_height, DirectXCommon::dev.Get());	//スプライト共通データ生成
+	
+		Sprite::StaticInitialize(						//スプライト共通データ生成
+			DirectXCommon::dev.Get(), 
+			WinApp::window_width, WinApp::window_height);
 	ImageManager::GetIns()->LoadImagALL(DirectXCommon::dev.Get());				//画像読み込み
+	
 	AudioManager::Initialize();
 	ModelManager::GetIns()->Initialize();			//モデル読み込み
 
