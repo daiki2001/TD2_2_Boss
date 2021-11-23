@@ -44,6 +44,8 @@ public: // メンバ変数
 
 	DirectX::XMFLOAT4 startColor; //開始時の色
 	DirectX::XMFLOAT4 endColor;   //終了時の色
+
+	float rangeScale;
 protected:
 	ParticleManager* manager;
 
