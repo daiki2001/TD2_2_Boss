@@ -19,7 +19,7 @@ LRESULT WinApp::WindowProc(HWND hwnd, UINT msg, WPARAM wparam, LPARAM lparam)
 
 void WinApp::WindowCreate()
 {
-		//ウィンドウクラスの設定
+	//ウィンドウクラスの設定
 	wndClass.cbSize = sizeof(WNDCLASSEX);
 	wndClass.lpfnWndProc = (WNDPROC)WindowProc;	//ウィンドウプロ―ジャを設定
 	wndClass.lpszClassName = windowClassName;	//ウィンドウクラス名

@@ -186,6 +186,7 @@
     <ClCompile Include="DeathParticle.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="Input.cpp" />
     <ClCompile Include="LoadStage.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Particle\ParticleManager.cpp" />
@@ -308,6 +309,7 @@
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="Input.h" />
     <ClInclude Include="LoadStage.h" />
     <ClInclude Include="Particle\ParticleManager.h" />
     <ClInclude Include="Player.h" />
