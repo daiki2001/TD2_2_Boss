@@ -292,7 +292,7 @@ void Boss::NextWave()
 			Vector3 backVec = startPos - pos;
 			backVec.Normalize();
 			hp += 1.0f;
-			playerData->move.x -= 10;
+			playerData->move.x -= 4.0f;
 			move += backVec * (float)Ease(In, Linear, 0.005f, 0.0f, Vector3(startPos - pos).Length());
 		}
 		else {

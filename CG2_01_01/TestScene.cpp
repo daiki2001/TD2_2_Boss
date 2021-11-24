@@ -278,7 +278,7 @@ void TestScene::UpdateCamera()
 {
 	Vector3 CamPos = {
 		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().x,player.pos.x),
-		800,
+		600,
 		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().z,player.pos.z),
 	};
 	Vector3 CamTarget = CamPos;

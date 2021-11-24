@@ -12,6 +12,7 @@ public:
 		move( 0,0,0 ),
 		rotate(0, 0, 0),
 		hp(hp),
+		maxHp(hp),
 		r(r),
 		scale(Vector3{ hp,hp,hp }),
 		isAlive(true),
@@ -62,7 +63,7 @@ protected:
 	Vector3 rotate;			//エネミーの向きベクトル
 	float angle = 0.0f;		//エネミーのy軸角度
 	Object3d *object;
-	const float maxHp = 20.0f;	//体力最大
+	float maxHp;	//体力最大
 
 };
 
