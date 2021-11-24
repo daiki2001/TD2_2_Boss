@@ -5,87 +5,68 @@
     <FxCompile Include="BasicVS.hlsl" />
     <FxCompile Include="OBJPixelShader.hlsl" />
     <FxCompile Include="OBJVertexShader.hlsl" />
+    <FxCompile Include="Particle\ParticleGS.hlsl" />
+    <FxCompile Include="Particle\ParticlePS.hlsl" />
+    <FxCompile Include="Particle\ParticleVS.hlsl" />
     <FxCompile Include="SpriteVS.hlsl" />
     <FxCompile Include="SpritePS.hlsl" />
-    <FxCompile Include="Particle\ParticleVS.hlsl">
-      <Filter>Particle\ParticleManager</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle\ParticleGS.hlsl">
-      <Filter>Particle\ParticleManager</Filter>
-    </FxCompile>
-    <FxCompile Include="Particle\ParticlePS.hlsl">
-      <Filter>Particle\ParticleManager</Filter>
-    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp" />
     <ClCompile Include="..\DirectX\DirectXCommon\DirectXCommon.cpp" />
+    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp" />
+    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp" />
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
     <ClCompile Include="..\DirectX\Model\Model.cpp" />
     <ClCompile Include="..\DirectX\Object3d\Object3d.cpp" />
+    <ClCompile Include="..\DirectX\Sprite\Sprite.cpp" />
     <ClCompile Include="..\DirectX\WinApp\WinApp.cpp" />
     <ClCompile Include="..\Easing\Easing.cpp" />
     <ClCompile Include="..\Scene\GameScene.cpp" />
     <ClCompile Include="..\Scene\TitleScene.cpp" />
     <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
+    <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
-    <ClCompile Include="BaseEnemy.cpp" />
+    <ClCompile Include="BaseParticle.cpp" />
     <ClCompile Include="Collision.cpp" />
+    <ClCompile Include="EnemyBomb.cpp" />
+    <ClCompile Include="DeathParticle.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
+    <ClCompile Include="Input.cpp" />
+    <ClCompile Include="LoadStage.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Particle\ParticleManager.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="LoadStage.cpp">
-      <Filter>LoadStage</Filter>
-    </ClCompile>
-    <ClCompile Include="Particle\ParticleManager.cpp">
-      <Filter>Particle\ParticleManager</Filter>
-    </ClCompile>
-    <ClCompile Include="DeathParticle.cpp">
-      <Filter>Particle\DeathParticle</Filter>
-    </ClCompile>
-    <ClCompile Include="TestParticle.cpp">
-      <Filter>Particle\TestParticle</Filter>
-    </ClCompile>
-    <ClCompile Include="BaseParticle.cpp">
-      <Filter>Particle\BaseParticle</Filter>
-    </ClCompile>
-    <ClCompile Include="TestScene.cpp">
-      <Filter>TestScene</Filter>
-    </ClCompile>
-    <ClCompile Include="TestEnemy.cpp">
-      <Filter>Enemy\TestEnemy</Filter>
-    </ClCompile>
-    <ClCompile Include="RushEnemy.cpp">
-      <Filter>Enemy\RushEnemy</Filter>
+    <ClCompile Include="TestParticle.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="BaseEnemy.cpp">
+      <Filter>Enemy\BaseEnemy</Filter>
     </ClCompile>
     <ClCompile Include="Boss.cpp">
       <Filter>Enemy\Boss</Filter>
     </ClCompile>
-    <ClCompile Include="EnemyBomb.cpp" />
-    <ClCompile Include="..\DirectX\Sprite\Sprite.cpp" />
-    <ClCompile Include="UI.cpp" />
-    <ClCompile Include="Reticle.cpp" />
-    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
-      <Filter>Input\Controller</Filter>
+    <ClCompile Include="RushEnemy.cpp">
+      <Filter>Enemy\RushEnemy</Filter>
     </ClCompile>
-    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp">
-      <Filter>Input\Keyboard</Filter>
+    <ClCompile Include="TestEnemy.cpp">
+      <Filter>Enemy\TestEmemy</Filter>
     </ClCompile>
-    <ClCompile Include="Input.cpp">
-      <Filter>Input</Filter>
-    </ClCompile>
-    <ClCompile Include="..\System\Looper\Looper.cpp">
-      <Filter>Looper</Filter>
+    <ClCompile Include="TestScene.cpp">
+      <Filter>TestScene</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
     <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h" />
+    <ClInclude Include="..\DirectX\Input\ControllerInput.h" />
+    <ClInclude Include="..\DirectX\Input\KeyboardInput.h" />
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
     <ClInclude Include="..\DirectX\Model\Model.h" />
     <ClInclude Include="..\DirectX\Object3d\Object3d.h" />
+    <ClInclude Include="..\DirectX\Sprite\Sprite.h" />
     <ClInclude Include="..\DirectX\WinApp\WinApp.h" />
     <ClInclude Include="..\Easing\Easing.h" />
     <ClInclude Include="..\Scene\GameScene.h" />
@@ -93,112 +74,64 @@
     <ClInclude Include="..\System\AbstractScene\AbstractScene.h" />
     <ClInclude Include="..\System\IoChangedListener\IoChangedListener.h" />
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
+    <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
+    <ClInclude Include="BaseParticle.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="BaseEnemy.h" />
+    <ClInclude Include="DeathParticle.h" />
+    <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
+    <ClInclude Include="Input.h" />
+    <ClInclude Include="LoadStage.h" />
+    <ClInclude Include="Particle\ParticleManager.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Reticle.h" />
     <ClInclude Include="Stage.h" />
+    <ClInclude Include="TestParticle.h" />
+    <ClInclude Include="UI.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
-    <ClInclude Include="LoadStage.h">
-      <Filter>LoadStage</Filter>
-    </ClInclude>
-    <ClInclude Include="Particle\ParticleManager.h">
-      <Filter>Particle\ParticleManager</Filter>
-    </ClInclude>
-    <ClInclude Include="DeathParticle.h">
-      <Filter>Particle\DeathParticle</Filter>
-    </ClInclude>
-    <ClInclude Include="TestParticle.h">
-      <Filter>Particle\TestParticle</Filter>
-    </ClInclude>
-    <ClInclude Include="BaseParticle.h">
-      <Filter>Particle\BaseParticle</Filter>
-    </ClInclude>
-    <ClInclude Include="TestScene.h">
-      <Filter>TestScene</Filter>
-    </ClInclude>
-    <ClInclude Include="TestEnemy.h">
-      <Filter>Enemy\TestEnemy</Filter>
-    </ClInclude>
-    <ClInclude Include="RushEnemy.h">
-      <Filter>Enemy\RushEnemy</Filter>
+    <ClInclude Include="BaseEnemy.h">
+      <Filter>Enemy\BaseEnemy</Filter>
     </ClInclude>
     <ClInclude Include="Boss.h">
       <Filter>Enemy\Boss</Filter>
     </ClInclude>
-    <ClInclude Include="EnemyBomb.h" />
-    <ClInclude Include="..\DirectX\Input\ControllerInput.h">
-      <Filter>Input\Controller</Filter>
+    <ClInclude Include="RushEnemy.h">
+      <Filter>Enemy\RushEnemy</Filter>
     </ClInclude>
-    <ClInclude Include="..\DirectX\Input\KeyboardInput.h">
-      <Filter>Input\Keyboard</Filter>
+    <ClInclude Include="TestEnemy.h">
+      <Filter>Enemy\TestEmemy</Filter>
     </ClInclude>
-    <ClInclude Include="Input.h">
-      <Filter>Input</Filter>
+    <ClInclude Include="TestScene.h">
+      <Filter>TestScene</Filter>
     </ClInclude>
-    <ClInclude Include="..\System\Looper\Looper.h">
-      <Filter>Looper</Filter>
-    </ClInclude>
-    <ClInclude Include="..\DirectX\Sprite\Sprite.h" />
-    <ClInclude Include="UI.h" />
-    <ClInclude Include="Reticle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
     <None Include="OBJShaderHeader.hlsli" />
+    <None Include="Particle\ParticleHeader.hlsli" />
     <None Include="Sprite.hlsli" />
-    <None Include="Particle\ParticleHeader.hlsli">
-      <Filter>Particle\ParticleManager</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="LoadStage">
-      <UniqueIdentifier>{4084648d-3bd0-4f62-9e09-b1eb3dd85a21}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle">
-      <UniqueIdentifier>{8ddf17cb-3489-41a8-9378-90d26118f8c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\ParticleManager">
-      <UniqueIdentifier>{487dcff2-72a6-43bb-b917-b1ba15e2d275}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\DeathParticle">
-      <UniqueIdentifier>{d9cbb98b-b220-47fa-91f3-93fbf484e6c4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\TestParticle">
-      <UniqueIdentifier>{6e57c9d0-4d12-4f0f-884e-3596f873270f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="TestScene">
-      <UniqueIdentifier>{06a3e162-ebdc-4861-be1e-623520031615}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Particle\BaseParticle">
-      <UniqueIdentifier>{0cb35f7c-591f-4e03-a31d-aad8ce1b5adc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Enemy">
-      <UniqueIdentifier>{ef8fab2f-bd56-4b34-8361-336112305de9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Enemy\TestEnemy">
-      <UniqueIdentifier>{c3f1fab2-d96f-4dcc-b953-1f7bb76fdf00}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Enemy\RushEnemy">
-      <UniqueIdentifier>{59233e3a-44b9-4da8-aa70-7545e43d85f6}</UniqueIdentifier>
+      <UniqueIdentifier>{f92b973b-db2b-4ad4-9a53-d7fa1c716de0}</UniqueIdentifier>
     </Filter>
     <Filter Include="Enemy\Boss">
-      <UniqueIdentifier>{9f150d02-5a88-4c61-89b6-b1c3e7e79046}</UniqueIdentifier>
+      <UniqueIdentifier>{9fa192ed-f43f-4564-99f0-1891b33a9a79}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input">
-      <UniqueIdentifier>{558036ce-4b01-4204-b5ba-1a5a5bd40624}</UniqueIdentifier>
+    <Filter Include="Enemy\BaseEnemy">
+      <UniqueIdentifier>{e039aba6-3aaa-443a-bae5-66a6a125e6e1}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input\Controller">
-      <UniqueIdentifier>{728e8fc6-0de8-45ad-b608-728a8060c26a}</UniqueIdentifier>
+    <Filter Include="Enemy\TestEmemy">
+      <UniqueIdentifier>{e392116e-d7a1-4bdb-a8c4-9d762070c173}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Input\Keyboard">
-      <UniqueIdentifier>{94684e74-a6f0-4feb-a014-a0fdb63b619e}</UniqueIdentifier>
+    <Filter Include="Enemy\RushEnemy">
+      <UniqueIdentifier>{0a958799-3470-4052-9bb0-7206c9c9388a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Looper">
-      <UniqueIdentifier>{53217c6e-d6c0-4c03-b792-9688315a189c}</UniqueIdentifier>
+    <Filter Include="TestScene">
+      <UniqueIdentifier>{e6975c2a-d251-4e17-b741-8c24c2e7bcbd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
