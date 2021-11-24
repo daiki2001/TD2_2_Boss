@@ -40,6 +40,10 @@ public:		//\‘¢‘Ì
 	//Ä¶”Ô†
 	enum SoundName {
 		GameBgm,
+
+		Hit,
+		HitWall,
+		Bomb,
 		MAX
 	};
 

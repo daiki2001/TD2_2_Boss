@@ -27,7 +27,6 @@ void Stage::Initialize()
 {
 	floor->Initialize();
 	wall->Initialize();
-
 }
 
 void Stage::Update()

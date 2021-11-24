@@ -42,13 +42,20 @@ AudioManager::SoundData AudioManager::SoundLoadWave(const char *filename)
 	if (strncmp(riff.type, "WAVE", 4) != 0) {
 		assert(0);
 	}
+
 	FormatChunck format = {};
-	file.read((char *)&format, sizeof(ChunkHeader));
-	if (strncmp(format.chunk.id, "fmt ", 4) != 0) {
-		assert(0);
+	while (true) {
+		file.read((char *)&format, sizeof(ChunkHeader));
+		if (strncmp(format.chunk.id, "fmt ", 4) == 0) {
+			break;
+		}
+		else {
+			file.seekg(format.chunk.size, std::ios_base::cur);
+		}
 	}
 	assert(format.chunk.size <= sizeof(format.fmt));
 	file.read((char *)&format.fmt, format.chunk.size);
+	
 	ChunkHeader data;
 	file.read((char *)&data, sizeof(data));
 	if (strncmp(data.id, "JUNK ", 4) == 0) {
@@ -84,6 +91,9 @@ void AudioManager::SoundUnLoad(SoundData *soundData)
 void AudioManager::LoadSoundAll()
 {
 	sound[GameBgm] = SoundLoadWave("Resources/BGM/bgm1.wav");
+	sound[Hit] = SoundLoadWave("Resources/SE/Õ“Ë‰¹3.wav");
+	sound[HitWall] = SoundLoadWave("Resources/SE/Õ“Ë‰¹1.wav");
+	sound[Bomb] = SoundLoadWave("Resources/SE/”š”­2.wav");
 }
 
 void AudioManager::SoundPlayWave(SoundName soundName, bool loop)

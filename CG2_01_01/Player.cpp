@@ -132,7 +132,7 @@ void Player::Attack()
 	//体当たり中処理
 	if (state == ATTACK) {
 		//attackAngle = rotate;
-		//攻撃速度が1以下になった時攻撃を終了
+		//攻撃速度が0以下になった時攻撃を終了
 		if (atackSpeed < 0.0f) {
 			atackSpeed = 0.0f;
 			state = STAY;	//攻撃終了
@@ -173,7 +173,7 @@ void Player::Damage(float damage)
 void Player::LockOn(const vector<GameObjCommon *> gameObj)
 {
 	float minlength = 2000.0f;
-	Vector3 target = { 0 ,0, 0 };
+	GameObjCommon *target = nullptr;
 	for (int i = 0; i < gameObj.size(); i++) {
 		if (!Collision::IsPredictCollisionBall(pos, move, r * 10, gameObj[i]->pos, gameObj[i]->move, gameObj[i]->r * 10)) {
 			continue;
@@ -181,16 +181,16 @@ void Player::LockOn(const vector<GameObjCommon *> gameObj)
 		float ABlength = Vector3(gameObj[i]->pos - pos).Length();
 		if (minlength > ABlength) {
 			minlength = ABlength;
-			target = gameObj[i]->pos;
+			target = gameObj[i];
 			LockOnScale = gameObj[i]->scale;
 		}
 	}
 
 	//更新されていればロックオン
-	if (minlength < 2000.0f) {
-		LockOnPos = target;
+	if (minlength < 2000.0f&& LockOnTarget!= nullptr) {
+		LockOnTarget = target;
 		isLockOn = true;
-		ChangeAngle(target - pos, 0.2f, Vector3(0, 0, 1));
+		ChangeAngle(target->pos - pos, 0.2f, Vector3(0, 0, 1));
 	}
 	
 }

@@ -1,6 +1,7 @@
 #include "EnemyBomb.h"
 #include "Easing.h"
 #include "Collision.h"
+#include "AudioManager.h"
 
  Player *EnemyBomb::playerData;
 
@@ -83,7 +84,11 @@ void EnemyBomb::StandBomb()
 void EnemyBomb::BombAttack()
 {
 	if (!isBomb) return;
+	if (BombAttackCounter <= 0.0f) {
+		AudioManager::SoundPlayWave(AudioManager::Bomb, false);
+	}
 	BombAttackCounter += 0.2f;
+	
 	for (int i = 0; i < enemys.size(); i++) {
 		if(Collision::IsBallToBallCollision(pos, 100, enemys[i]->pos, enemys[i]->r)) {
 			Vector3 bombAngle = enemys[i]->pos - pos;

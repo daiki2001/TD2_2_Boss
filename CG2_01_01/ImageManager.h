@@ -17,7 +17,14 @@ public:
 
 
 	enum Tex2D {
-		Test
+		Test,
+		Num,
+		Logo,
+		Timer,
+
+		miniMap,
+		miniBoss,
+		miniPlayer,
 	};
 };
 

@@ -20,6 +20,8 @@ public:
 	void LockOn(const vector<GameObjCommon *> gameObj);
 	//接触後硬直処理
 	void Hit();
+
+	float GetAngle() { return angle; }
 public:
 	enum State {
 		STAY,
@@ -28,7 +30,7 @@ public:
 	};
 	State state;
 
-	Vector3 LockOnPos;
+	GameObjCommon *LockOnTarget;
 	Vector3 LockOnScale;
 	bool isLockOn;	//ロックオンフラグ
 	bool isHit;

@@ -20,7 +20,9 @@ public:
 		TestEnemy,
 		
 		BossCore,
-		BossFrame,
+		bossFrame1,
+		bossFrame2,
+		bossFrame3,
 		
 		BossBomb,
 		BossAttackM,

@@ -13,7 +13,7 @@
 #include "Stage.h"
 #include "TestParticle.h"
 #include "DeathParticle.h"
-
+#include "UI.h"
 #include "Reticle.h"
 
 class TestScene
@@ -45,6 +45,10 @@ private:
 	Player player;
 	Stage stage;
 	Reticle reticle;
+
+	Sprite *logo;
+
+	UI ui;
 
 	//sprite
 	Sprite *test;

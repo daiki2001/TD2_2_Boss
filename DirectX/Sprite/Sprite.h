@@ -45,7 +45,7 @@ public:		//静的メンバ関数
 	//描画後処理
 	static void PostDraw();
 	//スプライト生成
-	static Sprite *Create(UINT texNumber, int window_width, int window_height, XMFLOAT2 anchorpoint = { 0.5f,0.5f },bool isFlipX = false, bool isFlipY = false);
+	static Sprite *Create(UINT texNumber,XMFLOAT2 anchorpoint = { 0.5f,0.5f },bool isFlipX = false, bool isFlipY = false);
 
 public:		//メンバ関数
 	Sprite(UINT texNumber, XMFLOAT2 position, XMFLOAT2 size, XMFLOAT4 color, XMFLOAT2 anchorpoint, bool isFlipX, bool isFlipY);
@@ -57,6 +57,7 @@ public:		//メンバ関数
 	void SetPosition(XMFLOAT2 position);
 	//縦横のサイズ
 	void SetSize(XMFLOAT2 size);
+	void SetScale(float scale);
 	//アンカーポイント変更
 	void SetAnchorPoint(XMFLOAT2 anchorpoint);
 	//左右反転

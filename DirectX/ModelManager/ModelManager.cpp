@@ -18,7 +18,9 @@ void ModelManager::Initialize()
 	LoadModel(RushEnemy, "Enemy");
 	
 	LoadModel(BossCore, "bossCore");
-	LoadModel(BossFrame, "bossFrame");
+	LoadModel(bossFrame1, "bossFrame1");
+	LoadModel(bossFrame2, "bossFrame2");
+	LoadModel(bossFrame3, "bossFrame3");
 	LoadModel(BossBomb, "bomb");
 	
 	

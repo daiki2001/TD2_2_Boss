@@ -10,7 +10,7 @@ Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<
 	Boss::startPos = startPos;
 	frame = nullptr;
 	frame = Object3d::Create();
-	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::BossFrame));
+	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame1));
 	frame->SetParent(object);
 	frame->Initialize();
 	frame->Update();
@@ -30,6 +30,7 @@ void Boss::Initialize()
 	standEaseTimer = 0;
 	standMotionTimer = 0;
 	TackleCounter = 0;
+	Wave = 1;
 
 	laserParticle.Initialize(&playerVec);
 }
@@ -61,7 +62,7 @@ void Boss::Update()
 	//‘Ò‹@ó‘Ô‚È‚çUŒ‚‚ðŒˆ’è‚·‚é
 	if (state == Stay && stayTimer == 0) {
 		if (nextAttackType == Stay) {
-			//AttackSelect();
+			AttackSelect();
 		}
 		else {
 			state = ATTACK;
@@ -89,7 +90,7 @@ void Boss::Update()
 	if (isAlive) {
 		scale = { hp,hp,hp };
 	}
-	laserParticle.Update(true, pos);
+	//laserParticle.Update(true, pos);
 }
 
 void Boss::Reflection()
@@ -302,6 +303,20 @@ void Boss::NextWave()
 		else {
 			isNextWave = false;
 			Wave++;
+
+			switch (Wave)
+			{
+			case 1:
+				frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame1));
+				break;
+
+			case 2:
+				frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame2));
+				break;
+			case 3:
+				frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame3));
+				break;
+			}
 		}
 	}
 }

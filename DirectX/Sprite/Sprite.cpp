@@ -1,4 +1,5 @@
 #include "Sprite.h"
+#include "WinApp.h"
 
 using namespace Microsoft::WRL;
 
@@ -295,7 +296,7 @@ void Sprite::PostDraw()
 }
 
 
-Sprite *Sprite::Create(UINT texNumber, int window_width, int window_height, XMFLOAT2 anchorpoint, bool isFlipX,bool isFlipY)
+Sprite *Sprite::Create(UINT texNumber,XMFLOAT2 anchorpoint, bool isFlipX,bool isFlipY)
 {
 	HRESULT result = S_FALSE;
 
@@ -410,6 +411,14 @@ void Sprite::SetSize(XMFLOAT2 size)
 {
 	this->size = size;
 
+	// 頂点バッファへのデータ転送
+	TransferVertices();
+}
+
+void Sprite::SetScale(float scale)
+{
+	size.x *= scale;
+	size.y *= scale;
 	// 頂点バッファへのデータ転送
 	TransferVertices();
 }

@@ -7,6 +7,7 @@
 #include "Easing.h"
 #include "EnemyBomb.h"
 
+#include "ImageManager.h"
 #include "AudioManager.h"
 
 TestScene::TestScene(IoChangedListener *impl)
@@ -17,6 +18,10 @@ TestScene::TestScene(IoChangedListener *impl)
 	reticle.Initialize();
 	testParticle.Initialize();
 	deathParticle.Initialize();
+	ui.Initialize(&player);
+
+	logo = Sprite::Create(ImageManager::Logo);
+
 
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", GameObjCommon::enemys, &player);
@@ -54,8 +59,9 @@ void TestScene::Update()
 	static int gameCounter = 0;	//経過フレームのカウンター
 	gameCounter++;
 
-
+	ui.Update();
 	stage.Update();
+
 	//敵をすべて更新
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 		GameObjCommon::enemys[i]->Update();
@@ -89,10 +95,11 @@ void TestScene::Update()
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 		GameObjCommon::enemys[i]->Reflection();
 	}
-	
-	reticle.pos = player.LockOnPos;
-	reticle.scale = player.LockOnScale;
-	reticle.Update();
+	if (player.isLockOn) {
+		reticle.pos = player.LockOnTarget->pos;
+		reticle.scale = player.LockOnScale;
+		reticle.Update();
+	}
 	UpdateCamera();
 }
 
@@ -109,7 +116,7 @@ void TestScene::Draw() const
 	if(player.isLockOn){
 		reticle.Draw();
 	}
-	
+	ui.Draw();
 }
 
 void TestScene::HitCollision()
@@ -141,6 +148,7 @@ void TestScene::HitCollision()
 
 			//float PtoE = Vector3(player.pos - GameObjCommon::enemys[i]->pos).Length();
 			//float tR = player.r + GameObjCommon::enemys[i]->r;
+			AudioManager::SoundPlayWave(AudioManager::Hit, false);
 			Bound(hitTime, player, *GameObjCommon::enemys[i],&collisionPosA,&collisionPosB,collisionPos);
 			player.Hit();
 		}
@@ -169,6 +177,7 @@ void TestScene::HitCollision()
 				GameObjCommon::enemys[i]->Damage(GameObjCommon::enemys[l]->damage);
 				GameObjCommon::enemys[l]->Damage(GameObjCommon::enemys[i]->damage);
 				//衝突後処理
+				AudioManager::SoundPlayWave(AudioManager::Hit, false);
 				Bound(hitTime, *GameObjCommon::enemys[l], *GameObjCommon::enemys[i], &collisionPosA, &collisionPosB, collisionPos);
 			}
 		}
@@ -181,66 +190,92 @@ void TestScene::HitWall()
 	static const float downWall = -790.0f;
 	static const float leftWall = -3990.0f;
 	static const float rightWall = 3990.0f;
-
+	Vector3 hitWallPlayer = player.pos;
+	bool playerHit = false;
 	Vector3 afterMove = player.move;
 	//上
 	if (player.pos.z + player.move.z + player.r >= upWall) {
 		afterMove.z = -player.move.z - (player.pos.z -(upWall - player.r));
 		player.pos.z = upWall - player.r;
 		player.move = afterMove;
-		deathParticle.Update(true, Vector3(player.pos.x, player.pos.y, upWall));
+		hitWallPlayer.z = upWall;
+		playerHit = true;
 	}
 	//下
 	if (player.pos.z + player.move.z - player.r <= downWall) {
 		afterMove.z = -player.move.z - (player.pos.z - (downWall + player.r));
 		player.pos.z = downWall + player.r;
 		player.move = afterMove;
-		deathParticle.Update(true, Vector3(player.pos.x, player.pos.y, downWall));
+		hitWallPlayer.z = downWall;
+		playerHit = true;
+
 	}
 	//右
 	if (player.pos.x + player.move.x + player.r >= rightWall) {
 		afterMove.x = -player.move.x - (player.pos.x - (rightWall - player.r));
 		player.pos.x = rightWall - player.r;
 		player.move = afterMove;
-		deathParticle.Update(true, Vector3(rightWall, player.pos.y, player.pos.z));
+		hitWallPlayer.x = rightWall;
+		playerHit = true;
 	}
 	//左
 	if (player.pos.x + player.move.x - player.r <= leftWall) {
 		afterMove.x = -player.move.x - (player.pos.x - (leftWall + player.r));
 		player.pos.x = leftWall + player.r;
 		player.move = afterMove;
-		deathParticle.Update(true, Vector3(leftWall, player.pos.y, player.pos.z));
+		hitWallPlayer.x = leftWall;
+		playerHit = true;
+	}
+
+	if (playerHit && player.move.Length() >= 8.0f) {
+		deathParticle.Update(true, hitWallPlayer);
+		AudioManager::SoundPlayWave(AudioManager::HitWall, false);
 	}
 
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		bool enemyHit = false;
+		Vector3 hitWallEnemy = GameObjCommon::enemys[i]->pos;
 		Vector3 afterMoveEnemy = GameObjCommon::enemys[i]->move;
 
 		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z + GameObjCommon::enemys[i]->r >= upWall) {
 			afterMoveEnemy.z = GameObjCommon::enemys[i]->move.z - (upWall - GameObjCommon::enemys[i]->pos.z);
 			GameObjCommon::enemys[i]->pos.z = upWall - GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMoveEnemy;
-			deathParticle.Update(true, Vector3(GameObjCommon::enemys[i]->pos.x, GameObjCommon::enemys[i]->pos.y, upWall));
+			hitWallEnemy.z = upWall;
+			enemyHit = true;
 		}
 
 		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z - GameObjCommon::enemys[i]->r <= downWall) {
 			afterMove.z = -GameObjCommon::enemys[i]->move.z - (GameObjCommon::enemys[i]->pos.z - (downWall + GameObjCommon::enemys[i]->r));
 			GameObjCommon::enemys[i]->pos.z = downWall + GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
-			deathParticle.Update(true, Vector3(GameObjCommon::enemys[i]->pos.x, GameObjCommon::enemys[i]->pos.y, downWall));
+			hitWallEnemy.z = downWall;
+			enemyHit = true;
 		}
 		//右
 		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x + GameObjCommon::enemys[i]->r >= rightWall) {
 			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (rightWall - GameObjCommon::enemys[i]->r));
 			GameObjCommon::enemys[i]->pos.x = rightWall - GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
-			deathParticle.Update(true, Vector3(rightWall, GameObjCommon::enemys[i]->pos.y, GameObjCommon::enemys[i]->pos.z));
+			hitWallEnemy.x = rightWall;
+			enemyHit = true;
 		}
 		//左
 		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x - GameObjCommon::enemys[i]->r <= leftWall) {
 			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (leftWall + GameObjCommon::enemys[i]->r));
 			GameObjCommon::enemys[i]->pos.x = leftWall + GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
-			deathParticle.Update(true, Vector3(leftWall, GameObjCommon::enemys[i]->pos.y, GameObjCommon::enemys[i]->pos.z));
+			hitWallEnemy.x = leftWall;
+			enemyHit = true;
+		}
+		else {
+			enemyHit = false;
+		}
+
+
+		if (enemyHit && GameObjCommon::enemys[i]->move.Length() >= 8.0f) {
+			deathParticle.Update(true, hitWallEnemy);
+			AudioManager::SoundPlayWave(AudioManager::HitWall, false);
 		}
 	}
 }
@@ -274,6 +309,11 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 	//衝突後位置
 	a.pos = (a.move * hitTime) + *collisionA;
 	b.pos = (b.move * hitTime) + *collisionB;
+
+	Vector3 AtoB = b.pos- a.pos;
+	if (AtoB.Length() < a.r + b.r) {
+		b.pos = a.pos + Direction * (a.r + b.r);
+	}
 
 }
 
