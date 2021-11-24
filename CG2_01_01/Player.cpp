@@ -197,8 +197,10 @@ void Player::LockOn(const vector<GameObjCommon *> gameObj)
 
 void Player::Hit()
 {
+	if(!isHit){
+		atackSpeed = 0.0f;
+	}
 	isHit = true;
-	atackSpeed = 0.0f;
 	returnHitCount = 0;
 }
 
@@ -215,8 +217,8 @@ void Player::Heal()
 	}
 	if (isHit) {
 		returnHitCount++;
-		if (returnHitCount > 10) {
-			isHit = false;
+		if (returnHitCount > 30) {
+		isHit = false;
 		}
 	}
 	//‘Ò‹@’†‚Í‰ñ•œ

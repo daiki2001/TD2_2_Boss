@@ -83,7 +83,7 @@ void AudioManager::SoundUnLoad(SoundData *soundData)
 
 void AudioManager::LoadSoundAll()
 {
-	sound[GameBgm] = SoundLoadWave("Resources/main.wav");
+	sound[GameBgm] = SoundLoadWave("Resources/BGM/bgm1.wav");
 }
 
 void AudioManager::SoundPlayWave(SoundName soundName, bool loop)

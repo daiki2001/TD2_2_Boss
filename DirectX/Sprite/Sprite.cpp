@@ -336,6 +336,7 @@ Sprite::Sprite(UINT texNumber, XMFLOAT2 position, XMFLOAT2 size, XMFLOAT4 color,
 	this->isFlipX = isFlipX;
 	this->isFlipY = isFlipY;
 	this->texSize = size;
+	this->isInvisible = false;
 }
 
 bool Sprite::Initialize()

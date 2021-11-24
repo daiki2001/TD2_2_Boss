@@ -36,7 +36,7 @@ private:
 	//壁との衝突処理
 	void HitWall();
 	//衝突後処理
-	void Bound(float hitTime, GameObjCommon &a, GameObjCommon &b,Vector3 *collisionA, Vector3 *collisionB);
+	void Bound(float hitTime, GameObjCommon &a, GameObjCommon &b,Vector3 *collisionA, Vector3 *collisionB,const Vector3 &collisionPos);
 	//カメラアップデート
 	void UpdateCamera();
 	//カメラ揺れ
@@ -55,4 +55,5 @@ private:
 	float shakeRange;		//ダメージに応じて揺らすための変数
 	bool isShake;			//シェイクFlag
 	Vector3 shakePos;		//揺れ幅
+
 };

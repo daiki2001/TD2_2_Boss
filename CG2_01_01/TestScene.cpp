@@ -7,7 +7,7 @@
 #include "Easing.h"
 #include "EnemyBomb.h"
 
-
+#include "AudioManager.h"
 
 TestScene::TestScene(IoChangedListener *impl)
 	: AbstractScene(impl)
@@ -17,12 +17,16 @@ TestScene::TestScene(IoChangedListener *impl)
 	reticle.Initialize();
 	testParticle.Initialize();
 	deathParticle.Initialize();
+
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", GameObjCommon::enemys, &player);
 }
 
 void TestScene::Initialize()
 {
+	//BGMを止めてから再生
+	AudioManager::SoundPlayWave(AudioManager::GameBgm, true);
+
 	Object3d::SetCamPos(Vector3(500.0f, 800.0f, 0.0f));
 	Object3d::SetCamTarget(Vector3(100.0f, 0.0f, 0.0f));
 	stage.Initialize();
@@ -105,7 +109,7 @@ void TestScene::Draw() const
 	if(player.isLockOn){
 		reticle.Draw();
 	}
-
+	
 }
 
 void TestScene::HitCollision()
@@ -134,10 +138,12 @@ void TestScene::HitCollision()
 				shakeRange = player.damage;
 			}
 			deathParticle.Update(true, collisionPos);
-			Bound(hitTime, player, *GameObjCommon::enemys[i],&collisionPosA,&collisionPosB);
+
+			//float PtoE = Vector3(player.pos - GameObjCommon::enemys[i]->pos).Length();
+			//float tR = player.r + GameObjCommon::enemys[i]->r;
+			Bound(hitTime, player, *GameObjCommon::enemys[i],&collisionPosA,&collisionPosB,collisionPos);
 			player.Hit();
 		}
-
 	}
 
 	//エネミー同士
@@ -163,7 +169,7 @@ void TestScene::HitCollision()
 				GameObjCommon::enemys[i]->Damage(GameObjCommon::enemys[l]->damage);
 				GameObjCommon::enemys[l]->Damage(GameObjCommon::enemys[i]->damage);
 				//衝突後処理
-				Bound(hitTime, *GameObjCommon::enemys[l], *GameObjCommon::enemys[i], &collisionPosA, &collisionPosB);
+				Bound(hitTime, *GameObjCommon::enemys[l], *GameObjCommon::enemys[i], &collisionPosA, &collisionPosB, collisionPos);
 			}
 		}
 	}
@@ -227,14 +233,18 @@ void TestScene::HitWall()
 	}
 }
 
-void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3 *collisionA, Vector3 *collisionB)
+void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3 *collisionA, Vector3 *collisionB, const Vector3 &collisionPos)
 {
-	
+	/*if (Vector3(*collisionA - *collisionB).Length() < a.r + b.r) {
+		a.pos = collisionPos + -Direction * a.r;
+		b.pos = collisionPos + Direction * b.r;
+		return;
+	}*/
 	//位置決定
 	//合計質量
 	float TotalN = a.N + b.N;
 	//反発率
-	float RefRate = (1 + b.e*player.e);
+	float RefRate = (1 + a.e*b.e);
 	//衝突軸
 	Vector3 Direction = *collisionB - *collisionA;
 	//ノーマライズ
@@ -244,14 +254,7 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 	float Dot = moveVec.VDot(Direction);
 	//定数ベクトル
 	Vector3 ConstVec = Direction * RefRate * Dot / TotalN;
-
-
-	if (a.move == Vector3{ 0,0,0 } &&
-		b.move == Vector3{ 0,0,0 }) {
-		float Rand = rand() % 361 * XM_PI / 180.0f;
-		b.pos = a.pos + (Direction * (a.r + b.r));
-		return;
-	}
+	
 	//衝突後の移動量
 	a.move = ConstVec * -b.N + a.move;
 	b.move = ConstVec * a.N + b.move;

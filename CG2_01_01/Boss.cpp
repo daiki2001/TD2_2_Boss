@@ -58,7 +58,7 @@ void Boss::Update()
 	//待機状態なら攻撃を決定する
 	if (state == Stay && stayTimer == 0) {
 		if (nextAttackType == Stay) {
-			AttackSelect();
+			//AttackSelect();
 		}
 		else {
 			state = ATTACK;
@@ -75,8 +75,8 @@ void Boss::Update()
 	}
 
 	//移動適応
-	move.y = 0.0f;
 	pos += move;
+	pos.y = 0;
 	N = hp * 3;
 	r = hp * 1.5f;
 	//ダメージを質量と移動速度から計算
