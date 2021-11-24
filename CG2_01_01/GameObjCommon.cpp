@@ -1,25 +1,28 @@
 #include "GameObjCommon.h"
 #include "DirectXCommon.h"
 
+vector<GameObjCommon *> GameObjCommon::enemys;
+
 void GameObjCommon::Initialize()
 {
 }
 
 void GameObjCommon::Update()
 {
+	Reflection();
 }
 
 void GameObjCommon::Reflection()
 {
 	object->SetScale(scale);
 	object->SetPos(pos);
+	object->SetRotation(rotate);
 
 	object->Update();
 }
 
 void GameObjCommon::Draw() const
 {
-
 	Object3d::PreDraw(DirectXCommon::cmdList.Get());
 	object->Draw();
 	Object3d::PostDraw();

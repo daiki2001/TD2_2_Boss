@@ -5,14 +5,18 @@
 #include <DirectXMath.h>
 #include "LoadStage.h"
 #include "Easing.h"
+#include "EnemyBomb.h"
+
+
 
 TestScene::TestScene(IoChangedListener *impl)
 	: AbstractScene(impl)
 {
 	stage.Initialize();
 	player.Initialize();
+	reticle.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
-	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", enemys, &player);
+	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", GameObjCommon::enemys, &player);
 	testParticle.Initialize();
 }
 
@@ -22,9 +26,11 @@ void TestScene::Initialize()
 	Object3d::SetCamTarget(Vector3(100.0f, 0.0f, 0.0f));
 	stage.Initialize();
 	player.Initialize();
+	reticle.Initialize();
+	EnemyBomb::StaticInitialize(&player);
 	//敵をすべて初期化
-	for (int i = 0; i < enemys.size(); i++) {
-		enemys[i]->Initialize();
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		GameObjCommon::enemys[i]->Initialize();
 	}
 	testParticle.Initialize();
 	shakePos = { 0,0,0 };
@@ -44,21 +50,21 @@ void TestScene::Update()
 
 	stage.Update();
 	//敵をすべて更新
-	for (int i = 0; i < enemys.size(); i++) {
-		enemys[i]->Update();
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		GameObjCommon::enemys[i]->Update();
 	}
 	BaseParticle::StaticUpdate();
 	//敵の削除
-	for (int i = enemys.size() - 1; i >= 0; i--) {
-		if (enemys[i]->isDelete) {
-			delete enemys[i];//newはdeleteしてから消す
-			enemys.erase(enemys.begin() + i);
+	for (int i = GameObjCommon::enemys.size() - 1; i >= 0; i--) {
+		if (GameObjCommon::enemys[i]->isDelete) {
+			delete GameObjCommon::enemys[i];//newはdeleteしてから消す
+			GameObjCommon::enemys.erase(GameObjCommon::enemys.begin() + i);
 		}
 	}
 
 	//ロックオン
 	if (Input::LockOn()) {
-		player.LockOn(enemys);
+		player.LockOn(GameObjCommon::enemys);
 	}
 	else {
 		player.isLockOn = false;
@@ -72,10 +78,13 @@ void TestScene::Update()
 
 	//移動を適用
 	player.Reflection();
-	for (int i = 0; i < enemys.size(); i++) {
-		enemys[i]->Reflection();
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		GameObjCommon::enemys[i]->Reflection();
 	}
 	
+	reticle.pos = player.LockOnPos;
+	reticle.scale = player.LockOnScale;
+	reticle.Update();
 	UpdateCamera();
 }
 
@@ -84,48 +93,52 @@ void TestScene::Draw() const
 	stage.Draw();
 	player.Draw();
 	//敵をすべて描画
-	for (int i = 0; i < enemys.size(); i++) {
-		enemys[i]->Draw();
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		GameObjCommon::enemys[i]->Draw();
 	}
 	testParticle.Draw();
+	if(player.isLockOn){
+		reticle.Draw();
+	}
+
 }
 
 void TestScene::HitCollision()
 {
 	//プレイヤーとエネミー
-	for (int i = 0; i < enemys.size(); i++) {
-		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r * 2, enemys[i]->pos, enemys[i]->move, enemys[i]->r * 2)) {
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r * 2, GameObjCommon::enemys[i]->pos, GameObjCommon::enemys[i]->move, GameObjCommon::enemys[i]->r * 2)) {
 			continue;
 		}
 		float hitTime = 0.0f;
 		Vector3 collisionPos;
 		Vector3 collisionPosA;
 		Vector3 collisionPosB;
-		if (Collision::sphereSwept(player.pos, player.move, player.r, enemys[i]->pos, enemys[i]->move, enemys[i]->r,
+		if (Collision::sphereSwept(player.pos, player.move, player.r, GameObjCommon::enemys[i]->pos, GameObjCommon::enemys[i]->move, GameObjCommon::enemys[i]->r,
 			hitTime,collisionPos,&collisionPosA,&collisionPosB)) {
 			isShake = true;
 			//どちらがダメージを負うか
-			if (player.move.Length() < enemys[i]->move.Length()) {
-				player.Damage(enemys[i]->damage);
-				shakeRange = enemys[i]->damage;
+			if (player.move.Length() < GameObjCommon::enemys[i]->move.Length()) {
+				player.Damage(GameObjCommon::enemys[i]->damage);
+				shakeRange = GameObjCommon::enemys[i]->damage;
 			}
 			else {
-				enemys[i]->Damage(player.damage);
+				GameObjCommon::enemys[i]->Damage(player.damage);
 				shakeRange = player.damage;
 			}
-			Bound(hitTime, player, *enemys[i],&collisionPosA,&collisionPosB);
+			Bound(hitTime, player, *GameObjCommon::enemys[i],&collisionPosA,&collisionPosB);
 			player.Hit();
 		}
 
 	}
 
 	//エネミー同士
-	for (int l = 0; l < enemys.size(); l++) {
-		for (int i = 0; i < enemys.size(); i++) {
+	for (int l = 0; l < GameObjCommon::enemys.size(); l++) {
+		for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 			if (l <= i) {
 				continue;
 			}
-			if (!Collision::IsPredictCollisionBall(enemys[l]->pos, enemys[l]->move, enemys[l]->r * 2, enemys[i]->pos, enemys[i]->move, enemys[i]->r * 2)) {
+			if (!Collision::IsPredictCollisionBall(GameObjCommon::enemys[l]->pos, GameObjCommon::enemys[l]->move, GameObjCommon::enemys[l]->r * 2, GameObjCommon::enemys[i]->pos, GameObjCommon::enemys[i]->move, GameObjCommon::enemys[i]->r * 2)) {
 				//Vector3 check = enemys[i]->pos -player.pos;
 				//float chackL = check.Length();
 				continue;
@@ -135,14 +148,14 @@ void TestScene::HitCollision()
 			Vector3 collisionPos;
 			Vector3 collisionPosA;
 			Vector3 collisionPosB;
-			if (Collision::sphereSwept(enemys[l]->pos, enemys[l]->move, enemys[l]->r, enemys[i]->pos, enemys[i]->move, enemys[i]->r,
+			if (Collision::sphereSwept(GameObjCommon::enemys[l]->pos, GameObjCommon::enemys[l]->move, GameObjCommon::enemys[l]->r, GameObjCommon::enemys[i]->pos, GameObjCommon::enemys[i]->move, GameObjCommon::enemys[i]->r,
 				hitTime, collisionPos, &collisionPosA, &collisionPosB)) {
 				isShake = true;
-				shakeRange = (enemys[l]->damage + enemys[i]->damage) / 2;
-				enemys[i]->Damage(enemys[l]->damage);
-				enemys[l]->Damage(enemys[i]->damage);
+				shakeRange = (GameObjCommon::enemys[l]->damage + GameObjCommon::enemys[i]->damage) / 2;
+				GameObjCommon::enemys[i]->Damage(GameObjCommon::enemys[l]->damage);
+				GameObjCommon::enemys[l]->Damage(GameObjCommon::enemys[i]->damage);
 				//衝突後処理
-				Bound(hitTime, *enemys[l], *enemys[i], &collisionPosA, &collisionPosB);
+				Bound(hitTime, *GameObjCommon::enemys[l], *GameObjCommon::enemys[i], &collisionPosA, &collisionPosB);
 			}
 		}
 	}
@@ -166,6 +179,13 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 	//定数ベクトル
 	Vector3 ConstVec = Direction * RefRate * Dot / TotalN;
 
+
+	if (a.move == Vector3{ 0,0,0 } &&
+		b.move == Vector3{ 0,0,0 }) {
+		float Rand = rand() % 361 * XM_PI / 180.0f;
+		b.pos = a.pos + (Direction * (a.r + b.r));
+		return;
+	}
 	//衝突後の移動量
 	a.move = ConstVec * -b.N + a.move;
 	b.move = ConstVec * a.N + b.move;
@@ -174,11 +194,6 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 	a.pos = (a.move * hitTime) + *collisionA;
 	b.pos = (b.move * hitTime) + *collisionB;
 
-	if (a.move == Vector3{ 0,0,0 } &&
-		b.move == Vector3{ 0,0,0 }) {
-		float Rand = rand() % 361 * XM_PI / 180.0f;
-		b.pos += Vector3((a.r + b.r) * cosf(Rand), 0, (a.r + b.r) * sinf(Rand));
-	}
 }
 
 void TestScene::UpdateCamera()
@@ -208,7 +223,7 @@ void TestScene::Shake(float damage)
 
 	static float shakeCounter = 1.0f;
 	shakeCounter-= 0.05f;
-	float shakeRange = damage * 10;
+	float shakeRange = abs(damage * 10);
 	shakePos = {
 		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,
 		(rand() % (int)(shakeRange + 1) - (shakeRange + 1)/2) * shakeCounter,

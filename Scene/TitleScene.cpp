@@ -11,10 +11,7 @@
 TitleScene::TitleScene(IoChangedListener *impl)
 	: AbstractScene(impl)
 {
-	title = Object2d::SpriteCreate(DirectXCommon::dev.Get(), WinApp::window_width, WinApp::window_height, ImageManager::GetIns()->BackGround);
-	title.position.x = WinApp::window_width /2;
-	title.position.y = WinApp::window_height/2;
-
+	
 	obj1 = Object3d::Create();
 	obj1->SetModel(ModelManager::GetIns()->GetModel(ModelManager::PlayerFrame));
 	obj1->SetScale({ 2.0f,2.0f,2.0f });
@@ -75,7 +72,6 @@ void TitleScene::Update()
 		obj2->SetRotation(rot + Vector3(0.0f, 1.0f, 0.0f));
 	}
 
-	Object2d::SpriteUpdate(title);
 	obj1->Update();
 	obj2->Update();
 
@@ -84,9 +80,6 @@ void TitleScene::Update()
 
 void TitleScene::Draw() const
 {
-	Object2d::SpriteCommonBeginDraw(DirectXCommon::cmdList.Get());	//スプライト共通グラフィックコマンドのセット
-	Object2d::SpriteDraw(title, DirectXCommon::cmdList.Get(), DirectXCommon::dev.Get());
-
 
 	Object3d::PreDraw(DirectXCommon::cmdList.Get());
 	obj1->Draw();

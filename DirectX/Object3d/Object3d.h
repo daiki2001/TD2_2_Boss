@@ -47,8 +47,9 @@ public:	 //サブクラス
 
 	//定数バッファ用データ構造体B0
 	struct ConstBufferDataB0 {
-		//XMFLOAT4 color; //色(RGBA)
 		XMMATRIX mat;	//3D変換行列
+		XMMATRIX matBillboard;	// ビルボード行列
+
 	};
 	//定数バッファ用データ構造体B1
 	struct ConstBufferDataB1 {
@@ -74,7 +75,7 @@ public:	//静的メンバ関数
 	//描画後処理
 	static void PostDraw();
 	//オブジェクト初期化処理
-	static Object3d *Create();
+	static Object3d *Create(bool isBillboard = false);
 
 	//ビュー行列更新
 	static void UpdateViewMatrix();
@@ -91,11 +92,13 @@ private:	//静的メンバ関数
 	static void InitializeCamera(int window_width, int window_height);
 	//3Dオブジェクト用パイプライン
 	static bool InitializeGraphicsPipeline();
-	//モデル生成
-	//static void CreateModel();
 
 public:	//静的メンバ変数
 	static ObjectCommon objectCommon;				//よく使う物
+	//ビルボード行列
+	static XMMATRIX matBillboard;
+	//Y軸周りビルボード行列
+	static XMMATRIX matBillboardY;
 
 public:		//メンバ関数
 	//初期化
@@ -111,6 +114,7 @@ public:		//メンバ関数
 	void SetScale(Vector3 nextScale) { scale = nextScale; }
 	void SetRotation(Vector3 nextRotation) { rotation = nextRotation; }
 	void SetParent(Object3d* nextParent) { parent = nextParent; }
+	void SetBillboard(bool isBillboard) { Object3d::isBillboard = isBillboard; }
 	Vector3 GetPos() { return position; }
 	Vector3 GetScale() { return scale; }
 	Vector3 GetRotation() { return rotation; }
@@ -121,6 +125,7 @@ private:	//メンバ変数
 	Vector3 scale = { 1,1,1 };		//スケール	
 	Vector3 rotation = { 1,0,0 };	//回転
 	Vector3 position = { 0,0,0 };	//座標
+	bool isBillboard;
 
 	Model *objectModel = nullptr;					//モデルポインター
 	ComPtr<ID3D12Resource> constBuffB0;		//定数バッファ

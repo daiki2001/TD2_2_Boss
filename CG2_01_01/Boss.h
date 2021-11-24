@@ -41,9 +41,9 @@ private:
 	ATTACKTYPE attackType;		//今の攻撃
 	ATTACKTYPE nextAttackType;	//次の攻撃
 	ATTACKTYPE oldAtackType;	//直前の攻撃
-
+	int BombCounter;			//ボム後にタックルするためのカウンタ
 	int TackleCounter;			//三連タックル用カウンタ
-
+	Vector3 startPos;
 
 	vector<GameObjCommon *> *enemys;
 };

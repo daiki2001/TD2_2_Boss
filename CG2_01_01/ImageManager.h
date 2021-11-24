@@ -1,6 +1,5 @@
 #pragma once
-#include "Object2d.h"
-#include "Object3d.h"
+#include "Sprite.h"
 
 class ImageManager final
 {
@@ -18,8 +17,7 @@ public:
 
 
 	enum Tex2D {
-		BackGround
-
+		Test
 	};
 };
 

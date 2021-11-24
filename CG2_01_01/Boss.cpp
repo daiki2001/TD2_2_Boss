@@ -7,7 +7,7 @@
 Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<GameObjCommon *> &enemys) :
 	BaseEnemy(player, startPos, hp, N, e, ModelManager::ModelName::BossCore){
 	this->enemys = &enemys;
-
+	Boss::startPos = startPos;
 	frame = nullptr;
 	frame = Object3d::Create();
 	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::BossFrame));
@@ -111,10 +111,10 @@ void Boss::AttackSelect()
 	if (ChackRange(100, 0)) {
 		//attackType = Tackle;			//次の攻撃パターンを決定
 	}
-	else if (ChackRange(700, 450)) {
+	else if (ChackRange(400, 150)) {
 		attackType = Tackle;			//次の攻撃パターンを決定
 	}
-	else if (ChackRange(1000, 700)) {
+	else if (ChackRange(700, 0)) {
 		attackType = Bomb;			//次の攻撃パターンを決定
 	}
 	else {
@@ -124,6 +124,7 @@ void Boss::AttackSelect()
 	}
 }
 
+//プレイヤーとの距離を測る
 bool Boss::ChackRange(float max, float min)
 {
 	Vector3 range = playerData->pos - pos;
@@ -162,6 +163,12 @@ bool Boss::StandbyMotion()
 	case Boss::Stay:
 		standEaseTimer = 0;
 		standMotionTimer = 0;
+		Vector3 backVec = startPos - pos;
+		Vector3 ToPlayer = playerData->pos - pos;
+		if (ToPlayer.Length() > 200 && backVec.Length() > 400) {
+			backVec.Normalize();
+			move += backVec * (float)Ease(In, Linear, 0.005f, 0.0f, Vector3(startPos - pos).Length());
+		}
 		return true;
 		break;
 	case Boss::Tackle3:
@@ -187,7 +194,7 @@ bool Boss::StandbyMotion()
 		}
 		break;
 	case Boss::Bomb:
-		if (standMotionTimer > 120) {
+		if (standMotionTimer > 50) {
 			standMotionTimer = 0;
 			standEaseTimer = 0;
 			return true;
@@ -220,6 +227,7 @@ void Boss::Attack()
 			stayTimer = 120;			//攻撃終了後のタイマーセット
 			move += playerVec * 40;
 			oldAtackType = Tackle;
+			nextAttackType = Stay;
 			if (hp < 20) {
 				nextAttackType = Tackle3;
 				stayTimer = 100;
@@ -240,9 +248,13 @@ void Boss::Attack()
 
 			//爆弾
 		case Boss::Bomb:
+			BombCounter++;
 			enemys->push_back(new EnemyBomb(Vector3{ pos.x,pos.y+100,pos.z }, playerVec, 10, 4,4));
 			state = STAY;
-
+			if (BombCounter >= 3) {
+				nextAttackType = Tackle;
+				BombCounter = 0;
+			}
 			break;
 		case Boss::Long:
 			state = STAY;

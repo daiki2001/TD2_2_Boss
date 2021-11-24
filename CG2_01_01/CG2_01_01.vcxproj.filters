@@ -23,7 +23,6 @@
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
     <ClCompile Include="..\DirectX\Model\Model.cpp" />
     <ClCompile Include="..\DirectX\Object3d\Object3d.cpp" />
-    <ClCompile Include="..\DirectX\Sprite\Object2d.cpp" />
     <ClCompile Include="..\DirectX\WinApp\WinApp.cpp" />
     <ClCompile Include="..\Easing\Easing.cpp" />
     <ClCompile Include="..\Scene\GameScene.cpp" />
@@ -65,6 +64,9 @@
       <Filter>Enemy\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBomb.cpp" />
+    <ClCompile Include="..\DirectX\Sprite\Sprite.cpp" />
+    <ClCompile Include="UI.cpp" />
+    <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
       <Filter>Input\Controller</Filter>
     </ClCompile>
@@ -84,7 +86,6 @@
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
     <ClInclude Include="..\DirectX\Model\Model.h" />
     <ClInclude Include="..\DirectX\Object3d\Object3d.h" />
-    <ClInclude Include="..\DirectX\Sprite\Object2d.h" />
     <ClInclude Include="..\DirectX\WinApp\WinApp.h" />
     <ClInclude Include="..\Easing\Easing.h" />
     <ClInclude Include="..\Scene\GameScene.h" />
@@ -141,6 +142,9 @@
     <ClInclude Include="..\System\Looper\Looper.h">
       <Filter>Looper</Filter>
     </ClInclude>
+    <ClInclude Include="..\DirectX\Sprite\Sprite.h" />
+    <ClInclude Include="UI.h" />
+    <ClInclude Include="Reticle.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />

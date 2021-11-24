@@ -10,6 +10,7 @@
 Player::Player():
 	GameObjCommon(Vector3{0,0,0},20.0f,100.0f,0.1f,25, ModelManager::PlayerCore)
 {
+
 	//フレーム
 	frame = nullptr;
 	frame = Object3d::Create();
@@ -79,6 +80,7 @@ void Player::Update()
 
 	//ダメージを質量と移動速度から計算
 	damage = N * move.Length() * 0.005f;
+
 }
 
 void Player::Reflection()
@@ -180,13 +182,17 @@ void Player::LockOn(const vector<GameObjCommon *> gameObj)
 		if (minlength > ABlength) {
 			minlength = ABlength;
 			target = gameObj[i]->pos;
+			LockOnScale = gameObj[i]->scale;
 		}
 	}
+
 	//更新されていればロックオン
 	if (minlength < 2000.0f) {
+		LockOnPos = target;
 		isLockOn = true;
 		ChangeAngle(target - pos, 0.2f, Vector3(0, 0, 1));
 	}
+	
 }
 
 void Player::Hit()

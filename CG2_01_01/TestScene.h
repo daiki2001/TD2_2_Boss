@@ -2,6 +2,7 @@
 #include "AbstractScene.h"
 
 #include <vector>
+#include "Sprite.h"
 
 #include "GameObjCommon.h"
 #include "Player.h"
@@ -11,6 +12,8 @@
 #include "RushEnemy.h"
 #include "Stage.h"
 #include "TestParticle.h"
+
+#include "Reticle.h"
 
 class TestScene
 	:public AbstractScene
@@ -38,7 +41,11 @@ private:
 
 	Player player;
 	Stage stage;
-	vector<GameObjCommon *> enemys;
+	Reticle reticle;
+
+	//sprite
+	Sprite *test;
+
 	TestParticle testParticle;
 
 	float shakeRange;		//ƒ_ƒ[ƒW‚É‰‚¶‚Ä—h‚ç‚·‚½‚ß‚Ì•Ï”

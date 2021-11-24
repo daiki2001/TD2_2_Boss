@@ -2,7 +2,7 @@
 
 #include "Object3d.h"
 #include "Vector3.h"
-
+#include "Reticle.h"
 #include "GameObjCommon.h"
 
 class Player : public GameObjCommon
@@ -28,6 +28,8 @@ public:
 	};
 	State state;
 
+	Vector3 LockOnPos;
+	Vector3 LockOnScale;
 	bool isLockOn;	//ロックオンフラグ
 	bool isHit;
 private:

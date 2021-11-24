@@ -14,6 +14,7 @@ public:
 	enum ModelName {
 		PlayerFrame,
 		PlayerCore,
+		Reticle,
 
 		RushEnemy,
 		TestEnemy,

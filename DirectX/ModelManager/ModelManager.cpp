@@ -12,6 +12,7 @@ void ModelManager::Initialize()
 {
 	LoadModel(PlayerFrame, "playerFrame");
 	LoadModel(PlayerCore, "playerCore");
+	LoadModel(Reticle, "Reticle");
 
 	LoadModel(TestEnemy, "Enemy");
 	LoadModel(RushEnemy, "Enemy");
