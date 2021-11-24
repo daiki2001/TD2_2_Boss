@@ -31,6 +31,7 @@ public: // サブクラス
 		XMFLOAT3 pos; // xyz座標
 		XMFLOAT4 color; // 色 (RGBA)
 		float scale; //スケール
+		XMFLOAT3 angle; //回転角度
 	};
 
 	// 定数バッファ用データ構造体
@@ -48,6 +49,10 @@ public: // サブクラス
 		XMFLOAT3 accel = {}; //加速度
 		int frame = 0; //現在フレーム
 		int num_frame = 0; //終了フレーム
+
+		XMFLOAT3 angle = {}; //画像の回転
+		XMFLOAT3 s_angle = {}; //画像の回転の初期値
+		XMFLOAT3 e_angle = {}; //画像の回転の最終値
 
 		float scale = 1.0f;   //スケール
 		float s_scale = 1.0f; //スケールの初期値
@@ -213,11 +218,14 @@ public: // メンバ関数
 	/// <param name="pos">初期座標</param>
 	/// <param name="velocity">速度</param>
 	/// <param name="accel">加速度</param>
+	/// <param name="start_angle">開始時の角度</param>
+	/// <param name="end_angle">終了時の角度</param>
 	/// <param name="start_scale">開始時スケール</param>
 	/// <param name="end_scale">終了時スケール</param>
 	/// <param name="start_color">開始時の色</param>
 	/// <param name="end_color">終了時の色</param>
-	void Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 accel, float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color);
+	void Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 accel, XMFLOAT3 start_angle, XMFLOAT3 end_angle,
+		float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color);
 
 public: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
