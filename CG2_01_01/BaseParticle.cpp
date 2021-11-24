@@ -1,6 +1,7 @@
 #include "BaseParticle.h"
 #include "../DirectX/DirectXCommon/DirectXCommon.h"
 
+std::forward_list<ParticleManager*> BaseParticle::UpdateCount;
 std::vector<std::string> BaseParticle::texFilepath;
 
 BaseParticle::BaseParticle() :
@@ -14,6 +15,7 @@ BaseParticle::BaseParticle() :
 	endScale = 0.0f;
 	startColor = DirectX::XMFLOAT4();
 	endColor = DirectX::XMFLOAT4();
+	rangeScale = 0.0f;
 }
 
 BaseParticle::~BaseParticle()
@@ -78,5 +80,14 @@ void BaseParticle::Finalize()
 	{
 		delete manager;
 		manager = nullptr;
+	}
+}
+
+void BaseParticle::StaticUpdate()
+{
+	for (auto i = UpdateCount.begin(); i != UpdateCount.end(); i++)
+	{
+		auto j = *i;
+		j->Update();
 	}
 }

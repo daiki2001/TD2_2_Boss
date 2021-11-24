@@ -1,8 +1,7 @@
 #include "TestScene.h"
 #include "Object3d.h"
 #include "Collision.h"
-#include "KeyboardInput.h"
-#include "ControllerInput.h"
+#include "Input.h"
 #include <DirectXMath.h>
 #include "LoadStage.h"
 #include "Easing.h"
@@ -19,6 +18,8 @@ TestScene::TestScene(IoChangedListener *impl)
 
 void TestScene::Initialize()
 {
+	Object3d::SetCamPos(Vector3(500.0f, 800.0f, 0.0f));
+	Object3d::SetCamTarget(Vector3(100.0f, 0.0f, 0.0f));
 	stage.Initialize();
 	player.Initialize();
 	//敵をすべて初期化
@@ -39,13 +40,14 @@ void TestScene::Update()
 {
 	static int gameCounter = 0;	//経過フレームのカウンター
 	gameCounter++;
-	
+
 
 	stage.Update();
 	//敵をすべて更新
 	for (int i = 0; i < enemys.size(); i++) {
 		enemys[i]->Update();
 	}
+	BaseParticle::StaticUpdate();
 	//敵の削除
 	for (int i = enemys.size() - 1; i >= 0; i--) {
 		if (enemys[i]->isDelete) {
@@ -55,14 +57,14 @@ void TestScene::Update()
 	}
 
 	//ロックオン
-	if (ControllerInput::GetInstance()->GetPadButtonPress(XBOX_INPUT_RB)) {
+	if (Input::LockOn()) {
 		player.LockOn(enemys);
 	}
 	else {
 		player.isLockOn = false;
 	}
 	player.Update();
-	testParticle.Update(KeyboardInput::GetKeyPress(DIK_SPACE));
+	testParticle.Update(Input::Test());
 	
 	//当たり判定
 	HitCollision();
@@ -182,7 +184,7 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 void TestScene::UpdateCamera()
 {
 	Vector3 CamPos = {
-		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().x,player.pos.x),
+		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().x,player.pos.x) + 100,
 		800,
 		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().z,player.pos.z),
 	};

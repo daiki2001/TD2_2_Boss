@@ -19,11 +19,12 @@ void TestParticle::Initialize()
 	endColor = { 0.0f, 1.0f, 1.0f, 1.0f };
 
 	CreateManager("./Resources/effect1.png");
+	UpdateCount.push_front(manager);
 }
 
 void TestParticle::Update(const bool& isCreate, const Vector3& offset)
 {
-	manager->Update();
+	//manager->Update();
 
 	if (isCreate)
 	{
