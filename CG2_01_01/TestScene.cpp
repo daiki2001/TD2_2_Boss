@@ -177,59 +177,71 @@ void TestScene::HitCollision()
 
 void TestScene::HitWall()
 {
+	static const float upWall = 790.0f;
+	static const float downWall = -790.0f;
+	static const float leftWall = -3990.0f;
+	static const float rightWall = 3990.0f;
+
 	Vector3 afterMove = player.move;
 	//上
-	if (player.pos.z + player.move.z + player.r >= 790) {
-		afterMove.z = -player.move.z - (player.pos.z -(790 - player.r));
-		player.pos.z = 790 - player.r;
+	if (player.pos.z + player.move.z + player.r >= upWall) {
+		afterMove.z = -player.move.z - (player.pos.z -(upWall - player.r));
+		player.pos.z = upWall - player.r;
 		player.move = afterMove;
+		deathParticle.Update(true, Vector3(player.pos.x, player.pos.y, upWall));
 	}
 	//下
-	if (player.pos.z + player.move.z - player.r <= -790) {
-		afterMove.z = -player.move.z - (player.pos.z - (-790 + player.r));
-		player.pos.z = -790 + player.r;
+	if (player.pos.z + player.move.z - player.r <= downWall) {
+		afterMove.z = -player.move.z - (player.pos.z - (downWall + player.r));
+		player.pos.z = downWall + player.r;
 		player.move = afterMove;
+		deathParticle.Update(true, Vector3(player.pos.x, player.pos.y, downWall));
 	}
 	//右
-	if (player.pos.x + player.move.x + player.r >= 3990) {
-		afterMove.x = -player.move.x - (player.pos.x - (3990 - player.r));
-		player.pos.x = 3990 - player.r;
+	if (player.pos.x + player.move.x + player.r >= rightWall) {
+		afterMove.x = -player.move.x - (player.pos.x - (rightWall - player.r));
+		player.pos.x = rightWall - player.r;
 		player.move = afterMove;
+		deathParticle.Update(true, Vector3(rightWall, player.pos.y, player.pos.z));
 	}
 	//左
-	if (player.pos.x + player.move.x - player.r <= -3990) {
-		afterMove.x = -player.move.x - (player.pos.x - (-3990 + player.r));
-		player.pos.x = -3990 + player.r;
+	if (player.pos.x + player.move.x - player.r <= leftWall) {
+		afterMove.x = -player.move.x - (player.pos.x - (leftWall + player.r));
+		player.pos.x = leftWall + player.r;
 		player.move = afterMove;
+		deathParticle.Update(true, Vector3(leftWall, player.pos.y, player.pos.z));
 	}
 
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 		Vector3 afterMoveEnemy = GameObjCommon::enemys[i]->move;
 
-		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z + GameObjCommon::enemys[i]->r >= 790) {
-			afterMoveEnemy.z = GameObjCommon::enemys[i]->move.z - (790 - GameObjCommon::enemys[i]->pos.z);
-			GameObjCommon::enemys[i]->pos.z = 790 - GameObjCommon::enemys[i]->r;
+		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z + GameObjCommon::enemys[i]->r >= upWall) {
+			afterMoveEnemy.z = GameObjCommon::enemys[i]->move.z - (upWall - GameObjCommon::enemys[i]->pos.z);
+			GameObjCommon::enemys[i]->pos.z = upWall - GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMoveEnemy;
+			deathParticle.Update(true, Vector3(GameObjCommon::enemys[i]->pos.x, GameObjCommon::enemys[i]->pos.y, upWall));
 		}
 
-		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z - GameObjCommon::enemys[i]->r <= -790) {
-			afterMove.z = -GameObjCommon::enemys[i]->move.z - (GameObjCommon::enemys[i]->pos.z - (-790 + GameObjCommon::enemys[i]->r));
-			GameObjCommon::enemys[i]->pos.z = -790 + GameObjCommon::enemys[i]->r;
+		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z - GameObjCommon::enemys[i]->r <= downWall) {
+			afterMove.z = -GameObjCommon::enemys[i]->move.z - (GameObjCommon::enemys[i]->pos.z - (downWall + GameObjCommon::enemys[i]->r));
+			GameObjCommon::enemys[i]->pos.z = downWall + GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
+			deathParticle.Update(true, Vector3(GameObjCommon::enemys[i]->pos.x, GameObjCommon::enemys[i]->pos.y, downWall));
 		}
 		//右
-		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x + GameObjCommon::enemys[i]->r >= 3990) {
-			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (3990 - GameObjCommon::enemys[i]->r));
-			GameObjCommon::enemys[i]->pos.x = 3990 - GameObjCommon::enemys[i]->r;
+		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x + GameObjCommon::enemys[i]->r >= rightWall) {
+			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (rightWall - GameObjCommon::enemys[i]->r));
+			GameObjCommon::enemys[i]->pos.x = rightWall - GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
+			deathParticle.Update(true, Vector3(rightWall, GameObjCommon::enemys[i]->pos.y, GameObjCommon::enemys[i]->pos.z));
 		}
 		//左
-		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x - GameObjCommon::enemys[i]->r <= -3990) {
-			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (-3990 + GameObjCommon::enemys[i]->r));
-			GameObjCommon::enemys[i]->pos.x = -3990 + GameObjCommon::enemys[i]->r;
+		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x - GameObjCommon::enemys[i]->r <= leftWall) {
+			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (leftWall + GameObjCommon::enemys[i]->r));
+			GameObjCommon::enemys[i]->pos.x = leftWall + GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
+			deathParticle.Update(true, Vector3(leftWall, GameObjCommon::enemys[i]->pos.y, GameObjCommon::enemys[i]->pos.z));
 		}
-
 	}
 }
 

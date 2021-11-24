@@ -15,6 +15,8 @@ void DeathParticle::Initialize()
 	lifeTime = 30;
 	pos = Vector3();
 	accel = Vector3();
+	startAngle = Vector3();
+	endAngle = startAngle;
 	startScale = 25.0f;
 	endScale = 0.0f;
 	startColor = { 1.0f, 0.0f, 0.0f, 1.0f };
@@ -48,7 +50,7 @@ void DeathParticle::Update(const bool& isCreate, const Vector3& offset)
 
 			pos += offset;
 
-			manager->Add(lifeTime, pos, speed, accel,
+			manager->Add(lifeTime, pos, speed, accel, startAngle, endAngle,
 				startScale, endScale, startColor, endColor);
 		}
 	}

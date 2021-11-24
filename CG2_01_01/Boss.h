@@ -1,5 +1,6 @@
 #pragma once
 #include "BaseEnemy.h"
+#include "LaserParticle.h"
 class Boss :
 	public BaseEnemy
 {
@@ -52,5 +53,7 @@ private:
 	vector<GameObjCommon *> *enemys;
 
 	bool isNextWave;
+
+	LaserParticle laserParticle;
 };
 
