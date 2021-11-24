@@ -103,6 +103,8 @@ void TestScene::Draw() const
 
 void TestScene::HitCollision()
 {
+	HitWall();
+
 	//プレイヤーとエネミー
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 		if (!Collision::IsPredictCollisionBall(player.pos, player.move, player.r * 2, GameObjCommon::enemys[i]->pos, GameObjCommon::enemys[i]->move, GameObjCommon::enemys[i]->r * 2)) {
@@ -155,6 +157,31 @@ void TestScene::HitCollision()
 				//衝突後処理
 				Bound(hitTime, *GameObjCommon::enemys[l], *GameObjCommon::enemys[i], &collisionPosA, &collisionPosB);
 			}
+		}
+	}
+}
+
+void TestScene::HitWall()
+{
+	Vector3 afterMove = player.move;
+	if (player.pos.z + player.move.z + player.r >= 790) {
+		afterMove.z = player.move.z - (790 - player.pos.z);
+		player.pos.z = 790 - player.r;
+		player.move = afterMove;
+	}
+	if (player.pos.z + player.move.z - player.r <= -790) {
+		afterMove.z = player.move.z - (790 - player.pos.z);
+		player.pos.z = -790 + player.r;
+		player.move = afterMove;
+	}
+
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		Vector3 afterMoveEnemy = GameObjCommon::enemys[i]->move;
+
+		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z + GameObjCommon::enemys[i]->r >= 790) {
+			afterMoveEnemy.z = GameObjCommon::enemys[i]->move.z - (790 - GameObjCommon::enemys[i]->pos.z);
+			GameObjCommon::enemys[i]->pos.z = 790 - GameObjCommon::enemys[i]->r;
+			GameObjCommon::enemys[i]->move = afterMoveEnemy;
 		}
 	}
 }

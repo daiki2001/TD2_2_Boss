@@ -26,7 +26,9 @@ public:
 		BossAttackM,
 		BossAttackL,
 		Triangle,
+
 		Stage,
+		StageWall,
 		Tree,
 		TestDunut,
 	};

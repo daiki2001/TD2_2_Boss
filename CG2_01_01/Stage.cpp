@@ -4,31 +4,44 @@
 
 Stage::Stage()
 {
-	object = nullptr;
-	object = Object3d::Create();
-	object->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Stage));
-	object->Update();
-	object->SetScale({ 5.0f,5.0f,5.0f });
-	object->SetRotation({ 0.0f,90.0f,0.0f });
-	object->SetPos({ 0.0f, -150.0f, 0.0f });
+	floor = nullptr;
+	floor = Object3d::Create();
+	floor->SetModel(ModelManager::GetIns()->GetModel(ModelManager::Stage));
+	floor->SetScale({8.0f,8.0f,8.0f });
+	floor->SetRotation({ 0.0f,90.0f,0.0f });
+	floor->SetPos({ 0.0f, -150.0f, 0.0f });
+	floor->Update();
+
+
+	wall = nullptr;
+	wall = Object3d::Create();
+	wall->SetModel(ModelManager::GetIns()->GetModel(ModelManager::StageWall));
+	wall->SetParent(floor);
+	wall->SetScale({ 10.0f ,10.0f ,10.0f });
+	wall->Update();
 
 	Initialize();
 }
 
 void Stage::Initialize()
 {
-	object->Initialize();
+	floor->Initialize();
+	wall->Initialize();
+
 }
 
 void Stage::Update()
 {
-	object->Update();
+	floor->Update();
+	wall->Update();
+
 }
 
 void Stage::Draw() const
 {
 	Object3d::PreDraw(DirectXCommon::cmdList.Get());
-	object->Draw();
+	floor->Draw();
+	wall->Draw();
 	Object3d::PostDraw();
 	
 }

@@ -63,7 +63,7 @@ void Player::Update()
 		ChangeAngle(stickRotate, 0.1f, Vector3(0, 1, 0));	//Šp“x•ÏX
 	}
 	//ÚGŒãd’¼‚ª‚È‚¯‚ê‚ÎˆÚ“®‚ÆUŒ‚‰Â”\
-	if(!isHit){
+	if(!isHit && state != ATTACK){
 		if(isLockOn){
 			XYMove();
 		}
@@ -137,7 +137,7 @@ void Player::Attack()
 	//‘Ì“–‚½‚è’†ˆ—
 	if (state == ATTACK) {
 		//attackAngle = rotate;
-		//UŒ‚‘¬“x‚ª0ˆÈ‰º‚É‚È‚Á‚½UŒ‚‚ğI—¹
+		//UŒ‚‘¬“x‚ª1ˆÈ‰º‚É‚È‚Á‚½UŒ‚‚ğI—¹
 		if (atackSpeed < 0.0f) {
 			atackSpeed = 0.0f;
 			state = STAY;	//UŒ‚I—¹
@@ -169,7 +169,7 @@ void Player::Damage(float damage)
 		state == ATTACK) {
 		return;
 	}
-	hp -= damage;
+	hp -= damage * 0.5;
 	scale = { hp,hp,hp };
 	state = DAMAGE;
 	returnDamageCount = 0;

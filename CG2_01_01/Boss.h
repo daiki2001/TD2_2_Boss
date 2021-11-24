@@ -9,6 +9,7 @@ public:
 	void Update()override;
 	void Reflection()override;
 	void Draw() const override;
+	void Damage(float damage) override;
 
 private:
 	Vector3 playerVec;	//プレイヤーへの向きベクトル

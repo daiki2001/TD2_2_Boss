@@ -75,6 +75,7 @@ void Boss::Update()
 	}
 
 	//移動適応
+	move.y = 0.0f;
 	pos += move;
 	N = hp * 3;
 	r = hp * 1.5f;
@@ -105,13 +106,15 @@ void Boss::Draw() const
 	Object3d::PostDraw();
 }
 
+void Boss::Damage(float damage)
+{
+	hp -= damage * 0.5f;
+}
+
 void Boss::AttackSelect()
 {		//距離に応じて攻撃方法を選択
 	state = ATTACK;
-	if (ChackRange(100, 0)) {
-		//attackType = Tackle;			//次の攻撃パターンを決定
-	}
-	else if (ChackRange(400, 150)) {
+	if (ChackRange(400, 0)) {
 		attackType = Tackle;			//次の攻撃パターンを決定
 	}
 	else if (ChackRange(700, 0)) {
@@ -194,7 +197,7 @@ bool Boss::StandbyMotion()
 		}
 		break;
 	case Boss::Bomb:
-		if (standMotionTimer > 50) {
+		if (standMotionTimer > 30) {
 			standMotionTimer = 0;
 			standEaseTimer = 0;
 			return true;

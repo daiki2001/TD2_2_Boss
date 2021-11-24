@@ -123,7 +123,7 @@ public:		//メンバ関数
 private:	//メンバ変数
 	XMFLOAT4 color = { 1,1,1,1 };	//色
 	Vector3 scale = { 1,1,1 };		//スケール	
-	Vector3 rotation = { 1,0,0 };	//回転
+	Vector3 rotation = { 0,0,0 };	//回転
 	Vector3 position = { 0,0,0 };	//座標
 	bool isBillboard;
 

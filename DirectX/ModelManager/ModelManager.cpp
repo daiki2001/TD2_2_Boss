@@ -23,6 +23,7 @@ void ModelManager::Initialize()
 	
 	
 	LoadModel(Stage, "Stage");
+	LoadModel(StageWall, "stageWall");
 	//LoadModel(TestDunut, "donut");
 }
 

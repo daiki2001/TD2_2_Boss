@@ -10,6 +10,7 @@ public:
 	void Draw() const;
 private:
 
-	Object3d *object;
+	Object3d *floor;
+	Object3d *wall;
 };
 

@@ -12,7 +12,7 @@ void EnemyBomb::StaticInitialize(Player *player)
 
 void EnemyBomb::Initialize()
 {
-	move = shotAngle * 40.0f;
+	move = shotAngle * 30.0f;
 	move.y = 3.0f;
 	BombStart = false;
 	isBomb = false;
@@ -85,18 +85,18 @@ void EnemyBomb::BombAttack()
 	if (!isBomb) return;
 	BombAttackCounter += 0.2f;
 	for (int i = 0; i < enemys.size(); i++) {
-		if(Collision::IsBallToBallCollision(pos, 70, enemys[i]->pos, enemys[i]->r)) {
+		if(Collision::IsBallToBallCollision(pos, 100, enemys[i]->pos, enemys[i]->r)) {
 			Vector3 bombAngle = enemys[i]->pos - pos;
 			bombAngle.Normalize();
-			enemys[i]->move += bombAngle * 20;
-			enemys[i]->Damage(4.0f);
+			enemys[i]->move += bombAngle * 15;
+			enemys[i]->Damage(10.0f);
 		}
 	}
-	if (Collision::IsBallToBallCollision(pos, 70, playerData->pos, playerData->r)) {
+	if (Collision::IsBallToBallCollision(pos, 100, playerData->pos, playerData->r)) {
 		Vector3 bombAngle = playerData->pos - pos;
 		bombAngle.Normalize();
 		playerData->move += bombAngle * 20;
-		playerData->Damage(4.0f);
+		playerData->Damage(10.0f);
 	}
 	if (BombAttackCounter >= 1.0f) {
 		isBomb = false;

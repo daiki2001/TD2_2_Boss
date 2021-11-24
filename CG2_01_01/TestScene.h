@@ -32,6 +32,8 @@ private:
 	//ロックオン
 	//衝突処理
 	void HitCollision();
+	//壁との衝突処理
+	void HitWall();
 	//衝突後処理
 	void Bound(float hitTime, GameObjCommon &a, GameObjCommon &b,Vector3 *collisionA, Vector3 *collisionB);
 	//カメラアップデート
