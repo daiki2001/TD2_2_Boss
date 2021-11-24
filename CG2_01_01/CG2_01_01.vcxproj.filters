@@ -20,8 +20,6 @@
   <ItemGroup>
     <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp" />
     <ClCompile Include="..\DirectX\DirectXCommon\DirectXCommon.cpp" />
-    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp" />
-    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp" />
     <ClCompile Include="..\DirectX\ModelManager\ModelManager.cpp" />
     <ClCompile Include="..\DirectX\Model\Model.cpp" />
     <ClCompile Include="..\DirectX\Object3d\Object3d.cpp" />
@@ -31,7 +29,6 @@
     <ClCompile Include="..\Scene\GameScene.cpp" />
     <ClCompile Include="..\Scene\TitleScene.cpp" />
     <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
-    <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
     <ClCompile Include="BaseEnemy.cpp" />
     <ClCompile Include="Collision.cpp" />
@@ -68,12 +65,22 @@
       <Filter>Enemy\Boss</Filter>
     </ClCompile>
     <ClCompile Include="EnemyBomb.cpp" />
+    <ClCompile Include="..\DirectX\Input\ControllerInput.cpp">
+      <Filter>Input\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="..\DirectX\Input\KeyboardInput.cpp">
+      <Filter>Input\Keyboard</Filter>
+    </ClCompile>
+    <ClCompile Include="Input.cpp">
+      <Filter>Input</Filter>
+    </ClCompile>
+    <ClCompile Include="..\System\Looper\Looper.cpp">
+      <Filter>Looper</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
     <ClInclude Include="..\DirectX\DirectXCommon\DirectXCommon.h" />
-    <ClInclude Include="..\DirectX\Input\ControllerInput.h" />
-    <ClInclude Include="..\DirectX\Input\KeyboardInput.h" />
     <ClInclude Include="..\DirectX\ModelManager\ModelManager.h" />
     <ClInclude Include="..\DirectX\Model\Model.h" />
     <ClInclude Include="..\DirectX\Object3d\Object3d.h" />
@@ -85,7 +92,6 @@
     <ClInclude Include="..\System\AbstractScene\AbstractScene.h" />
     <ClInclude Include="..\System\IoChangedListener\IoChangedListener.h" />
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
-    <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
     <ClInclude Include="Collision.h" />
     <ClInclude Include="BaseEnemy.h" />
@@ -123,6 +129,18 @@
       <Filter>Enemy\Boss</Filter>
     </ClInclude>
     <ClInclude Include="EnemyBomb.h" />
+    <ClInclude Include="..\DirectX\Input\ControllerInput.h">
+      <Filter>Input\Controller</Filter>
+    </ClInclude>
+    <ClInclude Include="..\DirectX\Input\KeyboardInput.h">
+      <Filter>Input\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Input.h">
+      <Filter>Input</Filter>
+    </ClInclude>
+    <ClInclude Include="..\System\Looper\Looper.h">
+      <Filter>Looper</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
@@ -165,6 +183,18 @@
     </Filter>
     <Filter Include="Enemy\Boss">
       <UniqueIdentifier>{9f150d02-5a88-4c61-89b6-b1c3e7e79046}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input">
+      <UniqueIdentifier>{558036ce-4b01-4204-b5ba-1a5a5bd40624}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Controller">
+      <UniqueIdentifier>{728e8fc6-0de8-45ad-b608-728a8060c26a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Input\Keyboard">
+      <UniqueIdentifier>{94684e74-a6f0-4feb-a014-a0fdb63b619e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Looper">
+      <UniqueIdentifier>{53217c6e-d6c0-4c03-b792-9688315a189c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

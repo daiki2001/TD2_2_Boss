@@ -1,6 +1,5 @@
 #include "Player.h"
-#include "KeyboardInput.h"
-#include "ControllerInput.h"
+#include "../CG2_01_01/Input.h"
 #include "ModelManager.h"
 #include "DirectXCommon.h"
 #include "Easing.h"
@@ -32,7 +31,8 @@ void Player::Initialize()
 	pos = { 0.0f, 0.0f, 0.0f };
 	scale = { hp,hp,hp };
 	move = { 0.0f, 0.0f, 0.0f };
-	rotate = { 0.0f,0.0f,1.0f };
+	rotate = { 1.0f,0.0f,0.0f };
+	angle = 90.0f;
 	moveSpeead = 0.0f;
 	atackSpeed = 0.0f;
 	isLockOn = false;
@@ -43,11 +43,7 @@ void Player::Initialize()
 void Player::Update()
 {
 	//入力を最新に
-	stickRotate = {						//現在の入力向きベクトル
-		(float)ControllerInput::IsPadStick(INPUT_AXIS_X,0.2f),
-		-(float)ControllerInput::IsPadStick(INPUT_AXIS_Y,0.2f),
-		0.0f
-	};
+	stickRotate = Input::Move();
 	//移動量初期化
 	if(move.Length() > 0.1f){
 		move = move * 0.95f;
@@ -115,14 +111,13 @@ void Player::Attack()
 	static float startScale = scale.x;		//スタート時のサイズ
 
 	//体当たり貯め
-	if (ControllerInput::GetPadButtonPress(XBOX_INPUT_A)) {
+	if (Input::AttackPrepare()) {
 		if (hp <= maxHp * 1.5) {
 			hp += 0.1f;
 		}
 	}
 	//体当たり開始
-	if (ControllerInput::IsPadButtonReturn(XBOX_INPUT_A) ||
-		hp >= maxHp * 1.5) {
+	if (Input::Attack() || hp >= maxHp * 1.5) {
 		startScale = hp;						//体当たり開始時のhpを取得
 		//attackAngle = rotate;
 		atackSpeed = 2.0f;			//体当たりの初速決定
