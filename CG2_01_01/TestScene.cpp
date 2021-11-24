@@ -167,12 +167,12 @@ void TestScene::HitWall()
 {
 	Vector3 afterMove = player.move;
 	if (player.pos.z + player.move.z + player.r >= 790) {
-		afterMove.z = player.move.z - (790 - player.pos.z);
+		afterMove.z = -player.move.z - (player.pos.z -(790 - player.r));
 		player.pos.z = 790 - player.r;
 		player.move = afterMove;
 	}
 	if (player.pos.z + player.move.z - player.r <= -790) {
-		afterMove.z = player.move.z - (790 - player.pos.z);
+		afterMove.z = -player.move.z - (player.pos.z - (-790 + player.r));
 		player.pos.z = -790 + player.r;
 		player.move = afterMove;
 	}
@@ -184,6 +184,12 @@ void TestScene::HitWall()
 			afterMoveEnemy.z = GameObjCommon::enemys[i]->move.z - (790 - GameObjCommon::enemys[i]->pos.z);
 			GameObjCommon::enemys[i]->pos.z = 790 - GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMoveEnemy;
+		}
+
+		if (GameObjCommon::enemys[i]->pos.z + GameObjCommon::enemys[i]->move.z - GameObjCommon::enemys[i]->r <= -790) {
+			afterMove.z = -GameObjCommon::enemys[i]->move.z - (GameObjCommon::enemys[i]->pos.z - (-790 + GameObjCommon::enemys[i]->r));
+			GameObjCommon::enemys[i]->pos.z = -790 + GameObjCommon::enemys[i]->r;
+			GameObjCommon::enemys[i]->move = afterMove;
 		}
 	}
 }
@@ -226,7 +232,7 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 void TestScene::UpdateCamera()
 {
 	Vector3 CamPos = {
-		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().x,player.pos.x) + 100,
+		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().x,player.pos.x),
 		800,
 		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().z,player.pos.z),
 	};
