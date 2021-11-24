@@ -1,6 +1,7 @@
 #pragma once
 #include "BaseEnemy.h"
 #include "LaserParticle.h"
+#include "VacuumParticle.h"
 class Boss :
 	public BaseEnemy
 {
@@ -55,5 +56,6 @@ private:
 	bool isNextWave;
 
 	LaserParticle laserParticle;
+	VacuumParticle vacuumParticle;
 };
 
