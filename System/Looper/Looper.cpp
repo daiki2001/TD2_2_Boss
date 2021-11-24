@@ -1,10 +1,8 @@
 #include "Looper.h"
 #include "DirectXCommon.h"
-#include "KeyboardInput.h"	//キーボード
-#include "ControllerInput.h"//コントローラー
+#include "../CG2_01_01/Input.h" //入力
 #include "AudioManager.h"	//音声管理
 #include "ModelManager.h"
-#include "ControllerInput.h"
 
 //シーン
 #include "TitleScene.h"
@@ -14,30 +12,28 @@ Looper::Looper() {
 	sceneStack.push(make_shared<TestScene>(this));
 	sceneStack.top()->Initialize();
 	
-	KeyboardInput::Initialize();		//入力初期化
-	ControllerInput::Init();
+	Input::Init();		//入力初期化
 
 }
 
 bool Looper::Loop()
 {
-	KeyboardInput::Update();			//キーボードアップデート
-	ControllerInput::Update();			//コントローラアップデート
+	Input::Update();			//入力アップデート
 
 	sceneStack.top()->Update();			//スタック更新
 
 	sceneStack.top()->Draw();			//スタック描画
 	DirectXCommon::PlayCommandList();	//描画コマンド実行
 
-	if (KeyboardInput::GetKeyPressT(DIK_ESCAPE) ||
-		ControllerInput::IsPadButton(XBOX_INPUT_SELECT)) {
-		return false;
-	}
-
-	if (ControllerInput::IsPadButton(XBOX_INPUT_RIGHT))
+	if (Input::Exit())
 	{
 		return false;
 	}
+
+	//if (ControllerInput::IsPadButton(XBOX_INPUT_RIGHT))
+	//{
+	//	return false;
+	//}
 
 	return true;
 }

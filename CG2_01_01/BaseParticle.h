@@ -4,6 +4,7 @@
 #include <DirectXMath.h>
 #include <vector>
 #include <string>
+#include <forward_list>
 
 class BaseParticle
 {
@@ -22,7 +23,12 @@ public: // 仮想関数
 	// 終了処理
 	virtual void Finalize();
 
-private: // 静的メンバ変数
+public: // 静的メンバ関数
+	static void StaticUpdate();
+
+protected: // 静的メンバ変数
+	static std::forward_list<ParticleManager*> UpdateCount; //1フレームの更新処理の回数
+private:
 	static std::vector<std::string> texFilepath; //テクスチャの名前群
 
 public:
