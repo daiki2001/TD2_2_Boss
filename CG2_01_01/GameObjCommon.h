@@ -7,7 +7,7 @@
 class GameObjCommon
 {
 public:
-	GameObjCommon(Vector3 startPos, float hp, float N, float e, float r, ModelManager::ModelName modelName) :
+	GameObjCommon(Vector3 startPos, float hp, float N, float e, float r, ModelManager::ModelName modelName,string tag = "") :
 		pos(startPos),
 		move( 0,0,0 ),
 		rotate(0, 0, 0),
@@ -19,7 +19,8 @@ public:
 		isDelete(false),
 		N(N),
 		e(e),
-		damage(1.0f) 
+		damage(1.0f),
+		Tag(tag)
 	{
 		object = nullptr;
 		object = Object3d::Create();
@@ -58,6 +59,8 @@ public:
 	bool isDelete;	//生存フラグ
 	float hp;		//体力（サイズ）
 	float damage;	//接触時に与えるダメージ
+
+	string Tag;
 protected:
 
 	Vector3 rotate;			//エネミーの向きベクトル

@@ -8,10 +8,20 @@ void RushEnemy::Initialize()
 
 void RushEnemy::Update()
 {
+
 	//Ž€–Sˆ—
 	if (!isAlive) {
 		Dead();
 	}
+
+	//ˆÚ“®—Ê‰Šú‰»
+	if (move.Length() > 0.1f) {
+		move = move * 0.95f;
+	}
+	else {
+		move = { 0,0,0 };
+	}
+
 
 	switch (state)
 	{
@@ -20,10 +30,8 @@ void RushEnemy::Update()
 		RushStart();
 		break;
 	case BaseEnemy::ATTACK:
-		move = move * (9.0f / 10.0f);
 		if (move.Length() < 1.0f)
 		{
-			move = { 0.0f, 0.0f, 0.0f };
 			state = STAY;
 		}
 		break;
@@ -33,7 +41,6 @@ void RushEnemy::Update()
 		break;
 	}
 
-	pos += move;
 
 	if (isAlive) {
 		scale = { hp,hp,hp };
@@ -55,7 +62,7 @@ void RushEnemy::RushStart()
 		state = ATTACK;
 		rotate = distance;
 		rotate.Normalize();
-		move = rotate * 10.0f;
+		move = rotate * 20.0f;
 
 		angle = rotate.VDot(Vector3(0.0f, 0.0f, 1.0f));
 		if (rotate.x < 0)

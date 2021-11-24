@@ -73,7 +73,6 @@ void Player::Update()
 
 	//ˆÚ“®“K‰ž
 	move.y = 0.0f;	//y‚ð–³Œø‰»
-	pos += move;
 	//HP‚ðŽ¿—Ê‚É“K‰ž
 	N = hp * 5;
 	r = hp * 1.5f;
@@ -86,6 +85,8 @@ void Player::Update()
 void Player::Reflection()
 {
 	//ˆÚ“®“K‰ž
+	pos += move;
+
 	object->SetPos(pos);
 	object->SetScale(scale);
 	object->SetRotation({ 0.0f,angle,0.0f });

@@ -1,6 +1,7 @@
 #include "UI.h"
 #include "ImageManager.h"
 #include "DirectXCommon.h"
+#include "GameObjCommon.h"
 
 UI::UI()
 {
@@ -30,14 +31,18 @@ UI::UI()
 	}
 	testCounter = 0;
 
-
+	for (int i = 0; i < sizeof(enemysPos)/sizeof(enemysPos[0]); i++) {
+		enemysPos[i] = Sprite::Create(ImageManager::miniEnemy);
+		enemysPos[i]->SetScale(0.02f);
+	}
 
 	miniMap = Sprite::Create(ImageManager::miniMap, { 0,0 });
 	miniMap->SetScale(0.1f);
 	miniMap->SetPosition({-10,-10});
 	playerPos = Sprite::Create(ImageManager::miniPlayer);
 	playerPos->SetScale(0.05f);
-	bossPoss = Sprite::Create(ImageManager::miniBoss);
+	BossPos = Sprite::Create(ImageManager::miniBoss);
+	BossPos->SetScale(0.035f);
 }
 void UI::Initialize(Player *player)
 {
@@ -47,11 +52,28 @@ void UI::Update()
 {
 	testCounter++;
 	Time = (int)(testCounter / 60);
-	
+
+	Timer.clear();
+	// ”Žš‚ðŒ…‚²‚Æ‚É•ª‰ð‚µ‚Ä‹tŒü‚«‚É•Û‘¶
+	for (int tmp = Time; tmp > 0;) {
+		Timer.push_back(tmp % 10);
+		tmp /= 10;
+	}
+	while (Timer.size() < 3) {
+		Timer.push_back(0);
+	}
 
 	// •À‚×‚È‚¨‚·
 	std::reverse(Timer.begin(), Timer.end());
 
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		if (GameObjCommon::enemys[i]->Tag == "Boss") {
+			BossPos->SetPosition({ (GameObjCommon::enemys[i]->pos.x + 3990.0f) * 0.0195f + 13,-(GameObjCommon::enemys[i]->pos.z - 790.0f) * 0.035f + 13 });
+		}
+		else{
+			enemysPos[i]->SetPosition({ (GameObjCommon::enemys[i]->pos.x + 3990.0f) * 0.0195f + 13,-(GameObjCommon::enemys[i]->pos.z - 790.0f) * 0.035f + 13 });
+		}
+	}
 	playerPos->SetRotation(playerData->GetAngle() + 90);
 	playerPos->SetPosition({ (playerData->pos.x + 3990.0f)*0.0195f + 13,-(playerData->pos.z - 790.0f)*0.035f + 13 });
 }
@@ -60,9 +82,20 @@ void UI::Draw() const
 	Sprite::PreDraw(DirectXCommon::cmdList.Get());
 	timer->Draw();
 	for (int i = 0; i < 3; i++) {
-		Num[i][i]->Draw();
+		Num[Timer[i]][i]->Draw();
 	}
+
 	miniMap->Draw();
+	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
+		if (GameObjCommon::enemys[i]->Tag == "Boss") {
+			BossPos->Draw();
+		}
+		else{
+			enemysPos[i]->Draw();
+		}
+	}
+
+
 	playerPos->Draw();
 	Sprite::PostDraw();
 }

@@ -11,6 +11,8 @@ void BaseEnemy::Update()
 
 void BaseEnemy::Reflection()
 {
+	pos += move;
+
 	object->SetPos(pos);
 	object->SetScale(scale);
 	object->SetRotation({ 0.0f,angle,0.0f });

@@ -18,13 +18,13 @@ TestScene::TestScene(IoChangedListener *impl)
 	reticle.Initialize();
 	testParticle.Initialize();
 	deathParticle.Initialize();
-	ui.Initialize(&player);
 
 	logo = Sprite::Create(ImageManager::Logo);
 
 
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/stageCSV/stage1Enemy.csv", GameObjCommon::enemys, &player);
+	ui.Initialize(&player);
 }
 
 void TestScene::Initialize()
@@ -71,6 +71,7 @@ void TestScene::Update()
 	//敵の削除
 	for (int i = GameObjCommon::enemys.size() - 1; i >= 0; i--) {
 		if (GameObjCommon::enemys[i]->isDelete) {
+
 			delete GameObjCommon::enemys[i];//newはdeleteしてから消す
 			GameObjCommon::enemys.erase(GameObjCommon::enemys.begin() + i);
 		}

@@ -5,9 +5,8 @@
 
 
 Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<GameObjCommon *> &enemys) :
-	BaseEnemy(player, startPos, hp, N, e, ModelManager::ModelName::BossCore){
+	BaseEnemy(player, startPos, hp, N, e, ModelManager::ModelName::BossCore,"Boss"){
 	this->enemys = &enemys;
-	Boss::startPos = startPos;
 	frame = nullptr;
 	frame = Object3d::Create();
 	frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame1));
@@ -25,6 +24,8 @@ Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<
 
 void Boss::Initialize()
 {
+	Boss::startPos = pos;
+
 	move = { 0,0,0 };
 	nextAttackType = Stay;
 	stayTimer = 120;
@@ -45,7 +46,7 @@ void Boss::Update()
 
 
 	//死亡処理
-	if (!isAlive) {
+	if (!isAlive){
 		Dead();
 	}
 
@@ -81,8 +82,6 @@ void Boss::Update()
 	}
 
 	//移動適応
-	pos += move;
-	pos.y = 0;
 	N = hp * 3;
 	r = hp * 1.5f;
 	//ダメージを質量と移動速度から計算
@@ -98,6 +97,9 @@ void Boss::Update()
 
 void Boss::Reflection()
 {
+	pos += move;
+	pos.y = 0;
+
 	object->SetScale(scale);
 	object->SetPos(pos);
 	object->Update();
@@ -313,7 +315,6 @@ void Boss::NextWave()
 			case 1:
 				frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame1));
 				break;
-
 			case 2:
 				frame->SetModel(ModelManager::GetIns()->GetModel(ModelManager::bossFrame2));
 				break;

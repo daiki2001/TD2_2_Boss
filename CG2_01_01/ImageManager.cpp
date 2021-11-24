@@ -23,5 +23,6 @@ void ImageManager::LoadImagALL(ID3D12Device *dev) {
 	
 	Sprite::LoadTexture(miniMap, L"Resources/Images/stageMap.png", dev);
 	Sprite::LoadTexture(miniBoss, L"Resources/Images/bossIcon1.png", dev);
+	Sprite::LoadTexture(miniEnemy, L"Resources/Images/bossIcon2.png", dev);
 	Sprite::LoadTexture(miniPlayer, L"Resources/Images/playerIcon1.png", dev);
 }

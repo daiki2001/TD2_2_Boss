@@ -24,6 +24,7 @@ public:
 
 		miniMap,
 		miniBoss,
+		miniEnemy,
 		miniPlayer,
 	};
 };

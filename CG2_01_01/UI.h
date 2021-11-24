@@ -10,20 +10,27 @@ public:
 	void Initialize(Player *player);
 	void Update();
 	void Draw() const;
+
+
 private:
 	void MiniMap();
 
 	Player *playerData;
-	GameObjCommon *boss;
 
 	Sprite *miniMap;
 	Sprite *playerPos;
-	Sprite *bossPoss;
+	Sprite *enemysPos[50];
+	Sprite *BossPos;
 	Sprite *timer;
 
 	Sprite *Num[10][3];
 	int testCounter;
 	int Time;
 	vector<int> Timer;
+	
+	enum Secene {
+		Title,
+
+	};
 };
 
