@@ -68,7 +68,7 @@ void Boss::Update()
 	if (state == ATTACK) {
 		Attack();
 	}
-
+	NextWave();
 	//
 	if (state == STAY) {
 		SpinFrame();
@@ -109,6 +109,10 @@ void Boss::Draw() const
 void Boss::Damage(float damage)
 {
 	hp -= damage * 0.5f;
+	if (hp <= 10.0f) {
+		hp = 10.0f;
+		isNextWave = true;
+	}
 }
 
 void Boss::AttackSelect()
@@ -273,5 +277,27 @@ void Boss::Attack()
 			attackType = nextAttackType;
 		}
 		state = STAY;
+	}
+}
+
+void Boss::NextWave()
+{
+	if (!isNextWave) return;
+
+	if (Wave >= 3) {
+		isAlive = false;
+	}
+	else {
+		if (hp <= maxHp) {
+			Vector3 backVec = startPos - pos;
+			backVec.Normalize();
+			hp += 1.0f;
+			playerData->move.x -= 10;
+			move += backVec * (float)Ease(In, Linear, 0.005f, 0.0f, Vector3(startPos - pos).Length());
+		}
+		else {
+			isNextWave = false;
+			Wave++;
+		}
 	}
 }

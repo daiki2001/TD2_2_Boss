@@ -24,6 +24,7 @@ private:
 	int standMotionTimer;	//攻撃前モーションタイマー
 	bool StandbyMotion();			//攻撃前待機モーション
 	void Attack();			//攻撃時待機モーション
+	void NextWave();
 
 	//攻撃した後の待機時間、攻撃終了ごとに設定する。
 
@@ -46,6 +47,10 @@ private:
 	int TackleCounter;			//三連タックル用カウンタ
 	Vector3 startPos;
 
+	int Wave;					//ウェーブ数
+
 	vector<GameObjCommon *> *enemys;
+
+	bool isNextWave;
 };
 

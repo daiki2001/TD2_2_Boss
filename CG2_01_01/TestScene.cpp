@@ -166,14 +166,28 @@ void TestScene::HitCollision()
 void TestScene::HitWall()
 {
 	Vector3 afterMove = player.move;
+	//上
 	if (player.pos.z + player.move.z + player.r >= 790) {
 		afterMove.z = -player.move.z - (player.pos.z -(790 - player.r));
 		player.pos.z = 790 - player.r;
 		player.move = afterMove;
 	}
+	//下
 	if (player.pos.z + player.move.z - player.r <= -790) {
 		afterMove.z = -player.move.z - (player.pos.z - (-790 + player.r));
 		player.pos.z = -790 + player.r;
+		player.move = afterMove;
+	}
+	//右
+	if (player.pos.x + player.move.x + player.r >= 3990) {
+		afterMove.x = -player.move.x - (player.pos.x - (3990 - player.r));
+		player.pos.x = 3990 - player.r;
+		player.move = afterMove;
+	}
+	//左
+	if (player.pos.x + player.move.x - player.r <= -3990) {
+		afterMove.x = -player.move.x - (player.pos.x - (-3990 + player.r));
+		player.pos.x = -3990 + player.r;
 		player.move = afterMove;
 	}
 
@@ -191,6 +205,19 @@ void TestScene::HitWall()
 			GameObjCommon::enemys[i]->pos.z = -790 + GameObjCommon::enemys[i]->r;
 			GameObjCommon::enemys[i]->move = afterMove;
 		}
+		//右
+		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x + GameObjCommon::enemys[i]->r >= 3990) {
+			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (3990 - GameObjCommon::enemys[i]->r));
+			GameObjCommon::enemys[i]->pos.x = 3990 - GameObjCommon::enemys[i]->r;
+			GameObjCommon::enemys[i]->move = afterMove;
+		}
+		//左
+		if (GameObjCommon::enemys[i]->pos.x + GameObjCommon::enemys[i]->move.x - GameObjCommon::enemys[i]->r <= -3990) {
+			afterMove.x = -GameObjCommon::enemys[i]->move.x - (GameObjCommon::enemys[i]->pos.x - (-3990 + GameObjCommon::enemys[i]->r));
+			GameObjCommon::enemys[i]->pos.x = -3990 + GameObjCommon::enemys[i]->r;
+			GameObjCommon::enemys[i]->move = afterMove;
+		}
+
 	}
 }
 
@@ -232,9 +259,9 @@ void TestScene::Bound(float hitTime, GameObjCommon &a, GameObjCommon &b, Vector3
 void TestScene::UpdateCamera()
 {
 	Vector3 CamPos = {
-		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().x,player.pos.x),
+		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().x,player.pos.x),
 		800,
-		(float)Ease(In,Linear,0.2f,Object3d::GetCamPos().z,player.pos.z),
+		(float)Ease(In,Linear,0.1f,Object3d::GetCamPos().z,player.pos.z),
 	};
 	Vector3 CamTarget = CamPos;
 	CamTarget.y = 0.0f;

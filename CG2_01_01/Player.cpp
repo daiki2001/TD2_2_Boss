@@ -8,7 +8,7 @@
 
 
 Player::Player():
-	GameObjCommon(Vector3{0,0,0},20.0f,100.0f,0.1f,25, ModelManager::PlayerCore)
+	GameObjCommon(Vector3{-3360,0,0},20.0f,100.0f,0.1f,25, ModelManager::PlayerCore)
 {
 
 	//ÉtÉåÅ[ÉÄ
@@ -29,7 +29,7 @@ void Player::Initialize()
 	hp = maxHp;
 	r = hp;
 	N = 10.0f;
-	pos = { 0.0f, 0.0f, 0.0f };
+	pos = { -3360,0,0 };
 	scale = { hp,hp,hp };
 	move = { 0.0f, 0.0f, 0.0f };
 	rotate = { 1.0f,0.0f,0.0f };
