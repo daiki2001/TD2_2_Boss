@@ -13,6 +13,8 @@ TestParticle::~TestParticle()
 void TestParticle::Initialize()
 {
 	lifeTime = 60;
+	startAngle = Vector3();
+	endAngle = startAngle;
 	startScale = 0.0f;
 	endScale = 25.0f;
 	startColor = { 1.0f, 0.0f, 0.0f, 1.0f };
@@ -43,7 +45,7 @@ void TestParticle::Update(const bool& isCreate, const Vector3& offset)
 
 		accel.z = -(float)rand() / RAND_MAX * rnd_acc;
 
-		manager->Add(lifeTime, pos, speed, accel,
+		manager->Add(lifeTime, pos, speed, accel, startAngle, endAngle,
 			startScale, endScale, startColor, endColor);
 	}
 }

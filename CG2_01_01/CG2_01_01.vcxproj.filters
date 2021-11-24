@@ -27,10 +27,8 @@
     <ClCompile Include="..\System\AbstractScene\AbstractScene.cpp" />
     <ClCompile Include="..\System\Looper\Looper.cpp" />
     <ClCompile Include="..\System\SystemMain\SystemMain.cpp" />
-    <ClCompile Include="BaseParticle.cpp" />
     <ClCompile Include="Collision.cpp" />
     <ClCompile Include="EnemyBomb.cpp" />
-    <ClCompile Include="DeathParticle.cpp" />
     <ClCompile Include="GameObjCommon.cpp" />
     <ClCompile Include="ImageManager.cpp" />
     <ClCompile Include="Input.cpp" />
@@ -40,7 +38,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Stage.cpp" />
-    <ClCompile Include="TestParticle.cpp" />
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="BaseEnemy.cpp">
       <Filter>Enemy\BaseEnemy</Filter>
@@ -56,6 +53,18 @@
     </ClCompile>
     <ClCompile Include="TestScene.cpp">
       <Filter>TestScene</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserParticle.cpp">
+      <Filter>Particle\LaserParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="TestParticle.cpp">
+      <Filter>Particle\TestParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="BaseParticle.cpp">
+      <Filter>Particle\BaseParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="DeathParticle.cpp">
+      <Filter>Particle\DeathParticle</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -76,9 +85,7 @@
     <ClInclude Include="..\System\IoChangedListener\Scene.h" />
     <ClInclude Include="..\System\Looper\Looper.h" />
     <ClInclude Include="..\System\SystemMain\SystemMain.h" />
-    <ClInclude Include="BaseParticle.h" />
     <ClInclude Include="Collision.h" />
-    <ClInclude Include="DeathParticle.h" />
     <ClInclude Include="EnemyBomb.h" />
     <ClInclude Include="GameObjCommon.h" />
     <ClInclude Include="ImageManager.h" />
@@ -88,7 +95,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Reticle.h" />
     <ClInclude Include="Stage.h" />
-    <ClInclude Include="TestParticle.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
@@ -106,6 +112,18 @@
     </ClInclude>
     <ClInclude Include="TestScene.h">
       <Filter>TestScene</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserParticle.h">
+      <Filter>Particle\LaserParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="TestParticle.h">
+      <Filter>Particle\TestParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="BaseParticle.h">
+      <Filter>Particle\BaseParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="DeathParticle.h">
+      <Filter>Particle\DeathParticle</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -132,6 +150,21 @@
     </Filter>
     <Filter Include="TestScene">
       <UniqueIdentifier>{e6975c2a-d251-4e17-b741-8c24c2e7bcbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle">
+      <UniqueIdentifier>{e5302edf-6c56-4b67-8909-94efe1c0768d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\LaserParticle">
+      <UniqueIdentifier>{e498c5ad-a17c-4648-9a62-aac9ccbcd14c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\TestParticle">
+      <UniqueIdentifier>{f2187e4b-7936-4c4c-8520-ae2cb5bd2abb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\BaseParticle">
+      <UniqueIdentifier>{0a80e052-6f9f-4fde-8171-9ded84a44182}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\DeathParticle">
+      <UniqueIdentifier>{3647c126-11b8-484b-8640-dfeebac9e0a2}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

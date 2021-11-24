@@ -18,6 +18,8 @@ Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<
 	standEaseTimer = 0;
 	standMotionTimer = 0;
 	Initialize();
+
+	laserParticle.Initialize(&playerVec);
 }
 
 void Boss::Initialize()
@@ -29,6 +31,7 @@ void Boss::Initialize()
 	standMotionTimer = 0;
 	TackleCounter = 0;
 
+	laserParticle.Initialize(&playerVec);
 }
 
 void Boss::Update()
@@ -86,7 +89,7 @@ void Boss::Update()
 	if (isAlive) {
 		scale = { hp,hp,hp };
 	}
-
+	laserParticle.Update(true, pos);
 }
 
 void Boss::Reflection()
@@ -104,6 +107,7 @@ void Boss::Draw() const
 	object->Draw();
 	frame->Draw();
 	Object3d::PostDraw();
+	laserParticle.Draw();
 }
 
 void Boss::Damage(float damage)

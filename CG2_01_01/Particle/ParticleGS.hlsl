@@ -28,13 +28,40 @@ void main(
 )
 {
 	GSOutput element;
+	float3 s = float3(sin(input[0].angle.x), sin(input[0].angle.y), sin(input[0].angle.z));
+	float3 c = float3(cos(input[0].angle.x), cos(input[0].angle.y), cos(input[0].angle.z));
+
+	matrix rotAxis[3] = {
+		{
+			1.0f, 0.0f, 0.0f, 0.0f,
+			0.0f,  c.x,  s.x, 0.0f,
+			0.0f, -s.x,  c.x, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		},
+		{
+			 c.y, 0.0f, -s.y, 0.0f,
+			0.0f, 1.0f, 0.0f, 0.0f,
+			 s.y, 0.0f,  c.y, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		},
+		{
+			 c.z,  s.z, 0.0f, 0.0f,
+			-s.z,  c.z, 0.0f, 0.0f,
+			0.0f, 0.0f, 1.0f, 0.0f,
+			0.0f, 0.0f, 0.0f, 1.0f
+		},
+	};
+
+	matrix rot = rotAxis[2];
+	rot = mul(rotAxis[0], rot);
+	rot = mul(rotAxis[1], rot);
+
 	// 4点分まわす
 	for (uint i = 0; i < vnum; i++)
 	{
 		float4 offset;
-		//offset = mul(matBillboard, offset_array[i]);
-		/*資料03-03*/
 		offset = offset_array[i] * input[0].scale;
+		offset = mul(rot, offset);
 		offset = mul(matBillboard, offset);
 
 		// ワールド座標ベースでずらす

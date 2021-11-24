@@ -45,6 +45,9 @@ public: // メンバ変数
 	Vector3 speed; //速度
 	Vector3 accel; //加速度
 
+	Vector3 startAngle; //開始時の角度
+	Vector3 endAngle;   //終了時の角度
+
 	float startScale; //開始時スケール
 	float endScale;   //終了時スケール
 

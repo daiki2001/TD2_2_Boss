@@ -276,6 +276,11 @@ bool ParticleManager::InitializeGraphicsPipeline()
 			D3D12_APPEND_ALIGNED_ELEMENT,
 			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
 		},
+		{ // スケール
+			"ROTATE", 0, DXGI_FORMAT_R32G32B32_FLOAT, 0,
+			D3D12_APPEND_ALIGNED_ELEMENT,
+			D3D12_INPUT_CLASSIFICATION_PER_VERTEX_DATA, 0
+		},
 	};
 
 	// グラフィックスパイプラインの流れを設定
@@ -619,6 +624,8 @@ void ParticleManager::Update()
 			vertMap->scale = it->scale;
 			// 色
 			vertMap->color = it->color;
+			// 回転角度
+			vertMap->angle = it->angle;
 			// 次の頂点へ
 			vertMap++;
 		}
@@ -660,7 +667,8 @@ void ParticleManager::Draw(ID3D12GraphicsCommandList* cmdList)
 	cmdList->DrawInstanced((UINT)std::distance(particles.begin(), particles.end()), 1, 0, 0);
 }
 
-void ParticleManager::Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 accel, float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color)
+void ParticleManager::Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 accel, XMFLOAT3 start_angle, XMFLOAT3 end_angle,
+	float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color)
 {
 	if (std::distance(particles.begin(), particles.end()) >= vertexCount)
 	{
@@ -676,6 +684,9 @@ void ParticleManager::Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 ac
 	p.velocity = velocity;
 	p.accel = accel;
 	p.num_frame = life;
+	p.angle = XMFLOAT3(XMConvertToRadians(start_angle.x), XMConvertToRadians(start_angle.y), XMConvertToRadians(start_angle.z));
+	p.s_angle = XMFLOAT3(XMConvertToRadians(start_angle.x), XMConvertToRadians(start_angle.y), XMConvertToRadians(start_angle.z));
+	p.e_angle = XMFLOAT3(XMConvertToRadians(end_angle.x), XMConvertToRadians(end_angle.y), XMConvertToRadians(end_angle.z));
 	p.scale = start_scale;
 	p.s_scale = start_scale;
 	p.e_scale = end_scale;
