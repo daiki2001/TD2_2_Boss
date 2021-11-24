@@ -15,9 +15,10 @@ TestScene::TestScene(IoChangedListener *impl)
 	stage.Initialize();
 	player.Initialize();
 	reticle.Initialize();
+	testParticle.Initialize();
+	deathParticle.Initialize();
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
 	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", GameObjCommon::enemys, &player);
-	testParticle.Initialize();
 }
 
 void TestScene::Initialize()
@@ -27,12 +28,13 @@ void TestScene::Initialize()
 	stage.Initialize();
 	player.Initialize();
 	reticle.Initialize();
+	testParticle.Initialize();
+	deathParticle.Initialize();
 	EnemyBomb::StaticInitialize(&player);
 	//敵をすべて初期化
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 		GameObjCommon::enemys[i]->Initialize();
 	}
-	testParticle.Initialize();
 	shakePos = { 0,0,0 };
 	isShake = false;
 }
@@ -40,6 +42,7 @@ void TestScene::Initialize()
 void TestScene::Finalize()
 {
 	testParticle.Finalize();
+	deathParticle.Finalize();
 }
 
 void TestScene::Update()
@@ -52,6 +55,7 @@ void TestScene::Update()
 	//敵をすべて更新
 	for (int i = 0; i < GameObjCommon::enemys.size(); i++) {
 		GameObjCommon::enemys[i]->Update();
+		deathParticle.Update(GameObjCommon::enemys[i]->isAlive == false, GameObjCommon::enemys[i]->pos);
 	}
 	BaseParticle::StaticUpdate();
 	//敵の削除
@@ -97,6 +101,7 @@ void TestScene::Draw() const
 		GameObjCommon::enemys[i]->Draw();
 	}
 	testParticle.Draw();
+	deathParticle.Draw();
 	if(player.isLockOn){
 		reticle.Draw();
 	}
@@ -128,6 +133,7 @@ void TestScene::HitCollision()
 				GameObjCommon::enemys[i]->Damage(player.damage);
 				shakeRange = player.damage;
 			}
+			deathParticle.Update(true, collisionPos);
 			Bound(hitTime, player, *GameObjCommon::enemys[i],&collisionPosA,&collisionPosB);
 			player.Hit();
 		}

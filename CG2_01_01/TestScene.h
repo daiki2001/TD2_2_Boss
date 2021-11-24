@@ -12,6 +12,7 @@
 #include "RushEnemy.h"
 #include "Stage.h"
 #include "TestParticle.h"
+#include "DeathParticle.h"
 
 #include "Reticle.h"
 
@@ -49,6 +50,7 @@ private:
 	Sprite *test;
 
 	TestParticle testParticle;
+	DeathParticle deathParticle;
 
 	float shakeRange;		//ダメージに応じて揺らすための変数
 	bool isShake;			//シェイクFlag

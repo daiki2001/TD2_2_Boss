@@ -4,8 +4,6 @@
 #include "ModelManager.h"
 #include "GameObjCommon.h"
 #include "Player.h"
-#include "BaseParticle.h"
-#include "DeathParticle.h"
 
 class BaseEnemy : public GameObjCommon
 {
@@ -45,8 +43,6 @@ public:
 
 	//死亡時の演出用カウンター
 	float deadCounter;
-
-	DeathParticle particle;
 
 };
 
