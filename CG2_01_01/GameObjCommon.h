@@ -44,6 +44,8 @@ public:
 	virtual void Damage(float damage);
 	virtual void Dead();
 
+	static vector<GameObjCommon *> enemys;
+
 public:
 	Vector3 pos;	//À•W
 	Vector3 move;	//ˆÚ“®—Ê

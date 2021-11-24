@@ -46,7 +46,6 @@ private:
 	//sprite
 	Sprite *test;
 
-	vector<GameObjCommon *> enemys;
 	TestParticle testParticle;
 
 	float shakeRange;		//ƒ_ƒ[ƒW‚É‰‚¶‚Ä—h‚ç‚·‚½‚ß‚Ì•Ï”

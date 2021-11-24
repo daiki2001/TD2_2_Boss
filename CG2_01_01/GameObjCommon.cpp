@@ -1,6 +1,8 @@
 #include "GameObjCommon.h"
 #include "DirectXCommon.h"
 
+vector<GameObjCommon *> GameObjCommon::enemys;
+
 void GameObjCommon::Initialize()
 {
 }
