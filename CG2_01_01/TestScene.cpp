@@ -24,7 +24,7 @@ TestScene::TestScene(IoChangedListener *impl)
 
 
 	//enemys.push_back(new TestEnemy({ 0,0,500 }, 7 ,				10.0f,0.5f,	20.0f));
-	LoadStage::LoadStageEnemy("./Resources/testStageEnemy.csv", GameObjCommon::enemys, &player);
+	LoadStage::LoadStageEnemy("./Resources/stageCSV/stage1Enemy.csv", GameObjCommon::enemys, &player);
 }
 
 void TestScene::Initialize()
@@ -32,8 +32,8 @@ void TestScene::Initialize()
 	//BGMを止めてから再生
 	AudioManager::SoundPlayWave(AudioManager::GameBgm, true);
 
-	Object3d::SetCamPos(Vector3(500.0f, 800.0f, 0.0f));
-	Object3d::SetCamTarget(Vector3(100.0f, 0.0f, 0.0f));
+	Object3d::SetCamPos(Vector3(-3360.0f, 600.0f, 0.0f));
+	Object3d::SetCamTarget(Vector3(-3360.0f, 0.0f, 50.0f));
 	stage.Initialize();
 	player.Initialize();
 	reticle.Initialize();
@@ -332,8 +332,8 @@ void TestScene::UpdateCamera()
 
 	Object3d::SetCamPos(CamPos+shakePos);
 	Object3d::SetCamTarget(CamTarget +shakePos);
-	ParticleManager::SetEye(CamPos +shakePos);
-	ParticleManager::SetTarget(CamTarget +shakePos);
+	//ParticleManager::SetEye(CamPos +shakePos);
+	//ParticleManager::SetTarget(CamTarget +shakePos);
 
 	Object3d::UpdateViewMatrix();
 }

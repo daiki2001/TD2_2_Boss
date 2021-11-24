@@ -600,14 +600,31 @@ void ParticleManager::Update()
 		it->frame++;
 		// 進行率
 		float f = (float)it->num_frame / it->frame;
-		// 速度に加速度を加算
-		it->velocity = it->velocity + it->accel;
-		// 速度による移動
-		it->pos = it->pos + it->velocity;
+
+		if (it->isBezier)
+		{
+			static Vector3 t1, t2;
+			t1 = (it->control_point - it->start_pos) / f;
+			t1 += it->start_pos;
+			t2 = (it->end_pos - it->control_point) / f;
+			t2 += it->control_point;
+			it->pos = (t2 - t1) / f;
+			it->pos += t1;
+		}
+		else
+		{
+			// 速度に加速度を加算
+			it->velocity = it->velocity + it->accel;
+			// 速度による移動
+			it->pos = it->pos + it->velocity;
+		}
+		// 角度の線形補間
+		it->angle = (it->e_angle - it->s_angle) / f;
+		it->angle += it->s_angle;
 		// スケールの線形補間
 		it->scale = (it->e_scale - it->s_scale) / f;
 		it->scale += it->s_scale;
-		// スケールの線形補間
+		// 色の線形補間
 		it->color = (it->e_color - it->s_color) / f;
 		it->color = it->color + it->s_color;
 	}
@@ -693,15 +710,42 @@ void ParticleManager::Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 ac
 	p.color = start_color;
 	p.s_color = start_color;
 	p.e_color = end_color;
+	p.isBezier = false;
+	p.start_pos = p.pos;
+	p.control_point = p.pos;
+	p.end_pos = p.pos;
 }
 
-const DirectX::XMFLOAT3 operator+(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs)
+void ParticleManager::AddBezier(int life, XMFLOAT3 start_pos, XMFLOAT3 control_point, XMFLOAT3 end_pos, XMFLOAT3 start_angle, XMFLOAT3 end_angle,
+	float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color)
 {
-	DirectX::XMFLOAT3 result{};
-	result.x += lhs.x + rhs.x;
-	result.y += lhs.y + rhs.y;
-	result.z += lhs.z + rhs.z;
-	return result;
+	if (std::distance(particles.begin(), particles.end()) >= vertexCount)
+	{
+		return;
+	}
+
+	// リストに要素を追加
+	particles.emplace_front();
+	// 追加した要素の参照
+	Particle& p = particles.front();
+	// 値のセット
+	p.pos = start_pos;
+	p.velocity = XMFLOAT3();
+	p.accel = XMFLOAT3();
+	p.num_frame = life;
+	p.angle = XMFLOAT3(XMConvertToRadians(start_angle.x), XMConvertToRadians(start_angle.y), XMConvertToRadians(start_angle.z));
+	p.s_angle = XMFLOAT3(XMConvertToRadians(start_angle.x), XMConvertToRadians(start_angle.y), XMConvertToRadians(start_angle.z));
+	p.e_angle = XMFLOAT3(XMConvertToRadians(end_angle.x), XMConvertToRadians(end_angle.y), XMConvertToRadians(end_angle.z));
+	p.scale = start_scale;
+	p.s_scale = start_scale;
+	p.e_scale = end_scale;
+	p.color = start_color;
+	p.s_color = start_color;
+	p.e_color = end_color;
+	p.isBezier = true;
+	p.start_pos = start_pos;
+	p.control_point = control_point;
+	p.end_pos = end_pos;
 }
 
 const DirectX::XMFLOAT4 operator+(const DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs)

@@ -20,6 +20,7 @@ Boss::Boss(Player *player, Vector3 startPos, float hp, float N, float e, vector<
 	Initialize();
 
 	laserParticle.Initialize(&playerVec);
+	vacuumParticle.Initialize(&playerVec);
 }
 
 void Boss::Initialize()
@@ -33,6 +34,7 @@ void Boss::Initialize()
 	Wave = 1;
 
 	laserParticle.Initialize(&playerVec);
+	vacuumParticle.Initialize(&playerVec);
 }
 
 void Boss::Update()
@@ -90,7 +92,8 @@ void Boss::Update()
 	if (isAlive) {
 		scale = { hp,hp,hp };
 	}
-	//laserParticle.Update(true, pos);
+	laserParticle.Update(true, pos);
+	vacuumParticle.Update(false, pos, 400.0f);
 }
 
 void Boss::Reflection()
@@ -109,6 +112,7 @@ void Boss::Draw() const
 	frame->Draw();
 	Object3d::PostDraw();
 	laserParticle.Draw();
+	vacuumParticle.Draw();
 }
 
 void Boss::Damage(float damage)

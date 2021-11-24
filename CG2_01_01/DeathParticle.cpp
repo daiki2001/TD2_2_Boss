@@ -28,8 +28,6 @@ void DeathParticle::Initialize()
 
 void DeathParticle::Update(const bool& isCreate, const Vector3& offset)
 {
-	//manager->Update();
-
 	if (isCreate)
 	{
 		static const float rnd_pos = 100.0f;
