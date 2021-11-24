@@ -199,6 +199,7 @@
     <ClCompile Include="TestParticle.cpp" />
     <ClCompile Include="TestScene.cpp" />
     <ClCompile Include="UI.cpp" />
+    <ClCompile Include="VacuumParticle.cpp" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="BasicPS.hlsl">
@@ -322,6 +323,7 @@
     <ClInclude Include="TestParticle.h" />
     <ClInclude Include="TestScene.h" />
     <ClInclude Include="UI.h" />
+    <ClInclude Include="VacuumParticle.h" />
     <ClInclude Include="Vector3.h" />
     <ClInclude Include="yMath.h" />
   </ItemGroup>

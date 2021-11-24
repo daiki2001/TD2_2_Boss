@@ -5,11 +5,17 @@
     <FxCompile Include="BasicVS.hlsl" />
     <FxCompile Include="OBJPixelShader.hlsl" />
     <FxCompile Include="OBJVertexShader.hlsl" />
-    <FxCompile Include="Particle\ParticleGS.hlsl" />
-    <FxCompile Include="Particle\ParticlePS.hlsl" />
-    <FxCompile Include="Particle\ParticleVS.hlsl" />
     <FxCompile Include="SpriteVS.hlsl" />
     <FxCompile Include="SpritePS.hlsl" />
+    <FxCompile Include="Particle\ParticleVS.hlsl">
+      <Filter>Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle\ParticleGS.hlsl">
+      <Filter>Particle</Filter>
+    </FxCompile>
+    <FxCompile Include="Particle\ParticlePS.hlsl">
+      <Filter>Particle</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\DirectX\AudioManager\AudioManager.cpp" />
@@ -34,7 +40,6 @@
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="LoadStage.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="Particle\ParticleManager.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Reticle.cpp" />
     <ClCompile Include="Stage.cpp" />
@@ -66,6 +71,12 @@
     <ClCompile Include="DeathParticle.cpp">
       <Filter>Particle\DeathParticle</Filter>
     </ClCompile>
+    <ClCompile Include="VacuumParticle.cpp">
+      <Filter>Particle\VacuumParticle</Filter>
+    </ClCompile>
+    <ClCompile Include="Particle\ParticleManager.cpp">
+      <Filter>Particle</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\DirectX\AudioManager\AudioManager.h" />
@@ -91,7 +102,6 @@
     <ClInclude Include="ImageManager.h" />
     <ClInclude Include="Input.h" />
     <ClInclude Include="LoadStage.h" />
-    <ClInclude Include="Particle\ParticleManager.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Reticle.h" />
     <ClInclude Include="Stage.h" />
@@ -125,12 +135,20 @@
     <ClInclude Include="DeathParticle.h">
       <Filter>Particle\DeathParticle</Filter>
     </ClInclude>
+    <ClInclude Include="VacuumParticle.h">
+      <Filter>Particle\VacuumParticle</Filter>
+    </ClInclude>
+    <ClInclude Include="Particle\ParticleManager.h">
+      <Filter>Particle</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Basic.hlsli" />
     <None Include="OBJShaderHeader.hlsli" />
-    <None Include="Particle\ParticleHeader.hlsli" />
     <None Include="Sprite.hlsli" />
+    <None Include="Particle\ParticleHeader.hlsli">
+      <Filter>Particle</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Enemy">
@@ -165,6 +183,9 @@
     </Filter>
     <Filter Include="Particle\DeathParticle">
       <UniqueIdentifier>{3647c126-11b8-484b-8640-dfeebac9e0a2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Particle\VacuumParticle">
+      <UniqueIdentifier>{898f26c5-4f20-4de4-b25e-9d7e44d4116b}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

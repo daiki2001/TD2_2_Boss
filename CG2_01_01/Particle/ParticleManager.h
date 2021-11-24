@@ -4,6 +4,7 @@
 #include <d3d12.h>
 #include <DirectXMath.h>
 #include <d3dx12.h>
+#include "../CG2_01_01/Vector3.h"
 #include <forward_list>
 #include <string>
 #include <vector>
@@ -44,15 +45,15 @@ public: // サブクラス
 	//パーティクル一粒の情報
 	struct Particle
 	{
-		XMFLOAT3 pos = {}; //座標
-		XMFLOAT3 velocity = {}; //速度
-		XMFLOAT3 accel = {}; //加速度
+		Vector3 pos = {}; //座標
+		Vector3 velocity = {}; //速度
+		Vector3 accel = {}; //加速度
 		int frame = 0; //現在フレーム
 		int num_frame = 0; //終了フレーム
 
-		XMFLOAT3 angle = {}; //画像の回転
-		XMFLOAT3 s_angle = {}; //画像の回転の初期値
-		XMFLOAT3 e_angle = {}; //画像の回転の最終値
+		Vector3 angle = {}; //画像の回転
+		Vector3 s_angle = {}; //画像の回転の初期値
+		Vector3 e_angle = {}; //画像の回転の最終値
 
 		float scale = 1.0f;   //スケール
 		float s_scale = 1.0f; //スケールの初期値
@@ -61,6 +62,11 @@ public: // サブクラス
 		XMFLOAT4 color = {};   //色
 		XMFLOAT4 s_color = {}; //色の初期値
 		XMFLOAT4 e_color = {}; //色の最終値
+
+		bool isBezier = false;
+		Vector3 start_pos = {}; //開始時の座標
+		Vector3 end_pos = {}; //終了時の座標
+		Vector3 control_point = {}; //制御点
 	};
 
 public:
@@ -227,15 +233,28 @@ public: // メンバ関数
 	void Add(int life, XMFLOAT3 pos, XMFLOAT3 velocity, XMFLOAT3 accel, XMFLOAT3 start_angle, XMFLOAT3 end_angle,
 		float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color);
 
+	/// <summary>
+	/// パーティクルの追加
+	/// </summary>
+	/// <param name="life">生存時間</param>
+	/// <param name="start_pos">初期座標</param>
+	/// <param name="control_point">制御点</param>
+	/// <param name="end_pos">最終座標</param>
+	/// <param name="start_angle">開始時の角度</param>
+	/// <param name="end_angle">終了時の角度</param>
+	/// <param name="start_scale">開始時スケール</param>
+	/// <param name="end_scale">終了時スケール</param>
+	/// <param name="start_color">開始時の色</param>
+	/// <param name="end_color">終了時の色</param>
+	void AddBezier(int life, XMFLOAT3 start_pos, XMFLOAT3 control_point, XMFLOAT3 end_pos, XMFLOAT3 start_angle, XMFLOAT3 end_angle,
+		float start_scale, float end_scale, XMFLOAT4 start_color, XMFLOAT4 end_color);
+
 public: // メンバ変数
 	ComPtr<ID3D12Resource> constBuff; // 定数バッファ
 	std::forward_list<Particle> particles; // パーティクル配列
 	size_t vertexIndex; //頂点関連のインデックス
 	size_t textureIndex; //テクスチャ関連のインデックス
 };
-
-// XMFLOAT3同士の加算処理
-const DirectX::XMFLOAT3 operator+(const DirectX::XMFLOAT3& lhs, const DirectX::XMFLOAT3& rhs);
 
 // XMFLOAT4同士の加算処理
 const DirectX::XMFLOAT4 operator+(const DirectX::XMFLOAT4& lhs, const DirectX::XMFLOAT4& rhs);
